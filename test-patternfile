@@ -1,0 +1,75 @@
+
+# root: options* statements*;
+# options: "options" ':' (<string> ',')* <string> ';'
+# statement: regex ':' weight ';';
+
+# regex: regex-bnry;
+# regex-bnry: regex-post ('|' regex-bnry)*;
+# regex-juxt: regex-post regex-post;
+# regex-post: regex-high | regex-post ('*' | '+' | '?');
+# regex-high: '(' regex ')' | <string> | <char> | '[' regex-setb ']' | '.';
+# regex-setb: '^'? regex-setc (',' regex-setc)*;
+# regex-setc: <char> | <char> '-' <char>;
+
+# weight: ('+' | '-') <number> '%'? | "reject" | "ignore";
+# '-' (default) means that the cost of the insertion or deletion of this token
+	# is the negative of the given number
+# '+' means that the cost of right-ness of this token is the *positive* of
+	# the given number (extra credit)
+
+# for example: CSV files of only numberic values,
+# where the numbers matter much more than formatting,
+# but where table dimensions must match:
+
+# whether or not to attempt to read the two files
+# as unicode or just bytes:
+options: "unicode"; # (default)
+# options: "binary";
+
+# top-left has 100.0f
+
+# incorrect tokens yield negative points
+# percentage points = token percentage / correct file's number of tokens of that kind
+
+# M[i][j] = min(max(
+#	M[i  ][j-1] + cost of insert,
+#	M[i-1][j  ] + cost of delete,
+#	M[i-1][j-1] + cost of wrongness), 100.0f)
+
+# start at the bottom of valley, favor higher elevations
+
+# tokens need to remember their line and column position in each file
+# so the output can point out the mistakes in a decent way
+
+# numeric values matter a lot:
+['0' - '9']+ ('.' ['0' - '9']*)?: -80%;
+
+# delimters matter a lot:
+",": -10; # every wrong comma makes the grade go down a letter
+
+# spaces don't really matter, but it redeems credit to have them:
+(" "*): +5%; # the score won't go higher than 100 though...
+
+# other option is to say that whitespace doesn't matter at all:
+# (" "*): ignore;
+
+'\n' | '\r': reject; # process each row independently
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
