@@ -1,7 +1,12 @@
 
+#include <inttypes.h>
+#include <wchar.h>
+
 enum token;
+
 union tokendata;
-struct arena;
+
+struct memory_arena;
 struct nfa_node;
 
 int read_regex_root(
@@ -11,7 +16,6 @@ int read_regex_root(
 	wchar_t* cc,
 	enum token* ct,
 	union tokendata* ctd,
-	struct arena* regex_arena,
+	struct memory_arena* regex_arena,
 	struct nfa_node** out_start,
-	struct nfa_node** out_accept,
-	struct nfa_node** out_reject);
+	struct nfa_node** out_accept);

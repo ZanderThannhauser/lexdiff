@@ -162,6 +162,7 @@
 	#define dprint(val) \
 		assert(debug_depth >= 0),\
 		printf((_Generic(val, \
+			bool:           "%*s" #val " == " "(bool) %hhi\n", \
 			signed char:    "%*s" #val " == " "(signed char) %hhi\n", \
 			unsigned char:  "%*s" #val " == " "(unsigned char) %hhu\n", \
 			signed short:   "%*s" #val " == " "(signed short) %hi\n", \
@@ -176,7 +177,7 @@
 			default:        "%*s" #val " == " "(void*) %p\n")), \
 			debug_depth, "", val);
 	
-	#define dprintf(format, ...) \
+	#define verprintf(format, ...) \
 		assert(debug_depth >= 0),\
 		printf("%*s" format, debug_depth, "", ## __VA_ARGS__)
 	
@@ -192,6 +193,8 @@
 	#define dpvb(x) ;
 	#define dpvc(x) ;
 	#define dpvo(x) ;
+	#define dpvsn(_, __) ;
+	#define verprintf(format, ... ) ;
 	
 	#define ENTER
 	#define EXIT

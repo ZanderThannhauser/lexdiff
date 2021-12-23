@@ -2,10 +2,10 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-struct arena_header
+struct memory_arena_header
 {
 	bool is_alloc;
 	size_t size;
-	struct arena_header *prev, *next;
+	struct memory_arena_header *prev, *next;
 };
 

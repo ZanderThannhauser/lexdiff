@@ -1,4 +1,6 @@
 
+#include <stdbool.h>
+
 struct file_options;
 
 int new_file_options(

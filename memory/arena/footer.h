@@ -1,10 +1,10 @@
 
 /*#include <stdbool.h>*/
 
-struct arena_header;
+struct memory_arena_header;
 
-struct arena_footer
+struct memory_arena_footer
 {
-	struct arena_header* header;
+	struct memory_arena_header* header;
 };
 

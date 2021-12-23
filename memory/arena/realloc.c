@@ -1,4 +1,6 @@
 
+#include <string.h>
+
 #include <debug.h>
 
 #include "prettyprint.h"
@@ -9,10 +11,11 @@
 #include "realloc.h"
 
 int arena_realloc(
-	struct arena* this,
+	struct memory_arena* this,
 	void** ptr, size_t size)
 {
 	int error = 0;
+	size_t user_size;
 	ENTER;
 	
 	dpv(*ptr);
@@ -22,24 +25,53 @@ int arena_realloc(
 		error = arena_malloc(this, ptr, size);
 	else if (!size)
 		arena_dealloc(this, *ptr);
-	else
+	else if (size > (user_size = arena_get_size(*ptr)))
 	{
 		void *old = *ptr, *new = NULL;
+		
+		dpv(old);
 		
 		error = arena_malloc(this, &new, size);
 		
 		if (!error)
 		{
-			memcpy(new, old, arena_get_size(old));
+			dpv(new);
+			
+			memcpy(new, old, user_size);
 			
 			arena_dealloc(this, old);
 			
+			*ptr = new;
+			
+			#ifdef DEBUGGING
 			arena_prettyprint(this);
-			TODO;
+			#endif
 		}
 	}
 	
 	EXIT;
 	return error;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

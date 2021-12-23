@@ -13,13 +13,13 @@ size_t arena_get_size(void* ptr)
 	
 	assert(ptr);
 	
-	struct arena_header* header = ptr - sizeof(*header);
+	struct memory_arena_header* header = ptr - sizeof(*header);
 	
 	size_t block_size = header->size;
 	
 	dpv(block_size);
 	
-	size_t user_size = block_size - sizeof(*header) - sizeof(struct arena_footer);
+	size_t user_size = block_size - sizeof(*header) - sizeof(struct memory_arena_footer);
 	
 	dpv(user_size);
 	

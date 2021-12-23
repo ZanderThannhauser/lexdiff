@@ -14,7 +14,6 @@ int read_regex_juxtaposition(
 	wchar_t* cc,
 	enum token* ct,
 	union tokendata* ctd,
-	struct arena* ra,
+	struct memory_arena* ra,
 	struct nfa_node** out_start,
-	struct nfa_node** out_accept,
-	struct nfa_node** out_reject);
+	struct nfa_node** out_accept);

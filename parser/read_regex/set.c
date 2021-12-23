@@ -1,12 +1,14 @@
 
+#include <stdbool.h>
+
 #include <debug.h>
 
-#include <lex/nfa/node/new.h>
-#include <lex/nfa/node/add_default_branch.h>
-#include <lex/nfa/node/add_normal_branch.h>
+#include <lex/nfa_node/new.h>
+#include <lex/nfa_node/set_default_branch.h>
+#include <lex/nfa_node/add_normal_branch.h>
 
 #include "../token.h"
-#include "../tokendata.h"
+#include "../token_data.h"
 
 #include "../read_token.h"
 
@@ -19,34 +21,23 @@ int read_regex_set(
 	wchar_t* cc,
 	enum token* ct,
 	union tokendata* ctd,
-	struct arena* ra,
+	struct memory_arena* ra,
 	struct nfa_node** out_start,
-	struct nfa_node** out_accept,
-	struct nfa_node** out_reject)
+	struct nfa_node** out_accept)
 {
 	int error = 0;
-	bool uninverted = false;
-	struct nfa_node* start = NULL;
-	struct nfa_node* accept = NULL;
-	struct nfa_node* reject = NULL;
+	bool inverted = false;
+	struct nfa_node* start, *accept;
 	ENTER;
 	
 	assert(*ct == t_open_square);
 	
 	error = read_token(fd, cb, rb, cc, ct, ctd);
 	
-	if (!error && *ct == t_carrot)
-	{
-		uninverted = true;
-		error = read_token(fd, cb, rb, cc, ct, ctd);
-	}
-	
 	if (!error)
 		error = 0
 			?: new_nfa_node(&start, ra)
-			?: new_nfa_node(&accept, ra)
-			?: new_nfa_node(&reject, ra)
-			?: nfa_node_add_default_branch(start, ra, uninverted ? reject : accept);
+			?: new_nfa_node(&accept, ra);
 	
 	while (!error && *ct != t_close_square)
 	{
@@ -91,7 +82,7 @@ int read_regex_set(
 		{
 			dpvc(i);
 			
-			error = nfa_node_add_normal_branch(start, ra, i, uninverted ? accept : reject);
+			error = nfa_node_add_normal_branch(start, ra, i, accept);
 		}
 		
 		if (!error && *ct == t_comma)
@@ -100,13 +91,10 @@ int read_regex_set(
 	
 	error = read_token(fd, cb, rb, cc, ct, ctd);
 	
-	TODO;
-	
 	if (!error)
 	{
 		*out_start = start;
 		*out_accept = accept;
-		*out_reject = reject;
 	}
 	
 	EXIT;

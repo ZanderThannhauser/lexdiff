@@ -1,6 +1,8 @@
 
-struct arena;
+#include <stdlib.h>
+
+struct memory_arena;
 
 int arena_malloc(
-	struct arena* this,
+	struct memory_arena* this,
 	void** ptr, size_t size);

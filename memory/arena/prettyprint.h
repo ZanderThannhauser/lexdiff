@@ -1,5 +1,10 @@
 
-struct arena;
+
+#ifdef DEBUGGING
+
+struct memory_arena;
 
 void arena_prettyprint(
-	struct arena* this);
+	struct memory_arena* this);
+
+#endif

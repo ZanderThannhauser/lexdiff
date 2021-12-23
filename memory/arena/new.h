@@ -1,4 +1,4 @@
 
-struct arena;
+struct memory_arena;
 
-int new_arena(struct arena** new);
+int new_memory_arena(struct memory_arena** new);

@@ -3,8 +3,10 @@
 #include <wchar.h>
 
 enum token;
+
 union tokendata;
-struct arena;
+
+struct memory_arena;
 struct nfa_node;
 
 int read_regex_or(
@@ -14,7 +16,6 @@ int read_regex_or(
 	wchar_t* cc,
 	enum token* ct,
 	union tokendata* ctd,
-	struct arena* ra,
+	struct memory_arena* ra,
 	struct nfa_node** out_start,
-	struct nfa_node** out_accept,
-	struct nfa_node** out_reject);
+	struct nfa_node** out_accept);

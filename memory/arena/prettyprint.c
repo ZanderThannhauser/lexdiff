@@ -9,35 +9,94 @@
 #include "prettyprint.h"
 
 void arena_prettyprint(
-	struct arena* this)
+	struct memory_arena* this)
 {
-	void *i, *n;
-	struct arena_header* header;
-	struct arena_footer* footer;
+	size_t i, n;
+	void *start, *end;
+	typeof(*this->mmaps.data)* mentry;
+	struct memory_arena_header* header;
+	struct memory_arena_footer* footer;
 	ENTER;
 	
-	dpv(this->free_head);
-	dpv(this->free_tail);
+	#if 1
+	dpv(this->free_list.head);
+	dpv(this->free_list.tail);
 	
-	for (i = this->start, n = i + this->cap; i < n; i += header->size)
+	dpv(this->mmaps.n);
+	
+	struct memory_arena_header* free_head = NULL;
+	struct memory_arena_header* free_tail = NULL;
+	
+	for (i = 0, n = this->mmaps.n; i < n; i++)
 	{
-		header = i;
-		dprintf(
-			"@%p: is_alloc = %s, size = %4lu\n",
-			header,
-			header->is_alloc ? " true" : "false",
-			header->size);
+		mentry = &this->mmaps.data[i];
+		start = mentry->start, end = mentry->start + mentry->size;
 		
-		footer = i + header->size - sizeof(*footer);
-/*		dprintf(*/
-/*			"@%p: header = %p\n",*/
-/*			footer,*/
-/*			footer->header);*/
-/*		*/
-		assert(footer->header == header);
+		for (; start < end; start += header->size)
+		{
+			header = start;
+			
+			verprintf(
+				"@%p (%p): is_alloc = %5s, size = %4lu\n",
+				header,
+				(void*) header + sizeof(*header),
+				header->is_alloc ? "true" : "false",
+				header->size);
+			
+			if (!header->is_alloc)
+			{
+				verprintf(
+					"\t" "prev = %p, next = %p\n",
+					header->prev,
+					header->next);
+				
+				if (!header->prev)
+				{
+					assert(!free_head);
+					
+					free_head = header;
+				}
+				
+				if (!header->next)
+				{
+					assert(!free_tail);
+					
+					free_tail = header;
+				}
+			}
+			
+			footer = start + header->size - sizeof(*footer);
+			
+			assert(footer->header == header);
+		}
 	}
+	
+	assert(this->free_list.head == free_head);
+	assert(this->free_list.tail == free_tail);
+	#endif
 	
 	EXIT;
 }
 
+
+
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

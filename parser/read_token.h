@@ -1,4 +1,7 @@
 
+#include <wchar.h>
+#include <inttypes.h>
+
 enum token;
 union tokendata;
 

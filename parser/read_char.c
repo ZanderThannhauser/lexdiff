@@ -15,7 +15,7 @@ int read_char(
 	int error = 0;
 	int i, how_many;
 	uint8_t buffer[6];
-/*	ENTER;*/
+	ENTER;
 	
 	error = utf8_how_many(&how_many, *current_byte);
 	
@@ -25,14 +25,12 @@ int read_char(
 		error = read_byte(fd, current_byte);
 	}
 	
-/*	dpv(how_many);*/
-	
 	if (!error)
 		error = utf8_decode(buffer, outgoing_char);
 	
-/*	dpvc(*outgoing_char);*/
+	dpvc(*outgoing_char);
 	
-/*	EXIT;*/
+	EXIT;
 	return error;
 }
 

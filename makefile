@@ -7,6 +7,7 @@ CPPFLAGS += -D _GNU_SOURCE
 CPPFLAGS += -I .
 
 CFLAGS += -Wall -Werror
+CFLAGS += -Wfatal-errors
 
 ifeq ($(buildtype), release)
 CPPFLAGS += -D RELEASE
@@ -14,6 +15,15 @@ CPPFLAGS += -D FORTIFY_SOURCE=2
 
 CFLAGS += -O2
 CFLAGS += -flto
+
+LDFLAGS += -static
+else ifeq ($(buildtype), testing)
+
+CFLAGS += -g
+CFLAGS += -Wno-unused-variable
+CFLAGS += -Wno-unused-function
+CFLAGS += -Wno-unused-but-set-variable
+
 else
 CPPFLAGS += -D DEBUGGING
 
@@ -23,12 +33,12 @@ CFLAGS += -Wno-unused-function
 CFLAGS += -Wno-unused-but-set-variable
 endif
 
-default: gen/$(buildtype)/ldiff
+buildprefix = $(buildtype)
 
-install: ~/bin/ldiff
+default: gen/$(buildprefix)/lexdiff
 
-~/bin/ldiff: gen/release/ldiff
-	install -D $< $@
+#ARGS += -v
+ARGS += --dotfile
 
 ARGS += ./test-a.txt ./test-b.txt -f ./test-patternfile
 
@@ -36,30 +46,38 @@ ARGS += ./test-a.txt ./test-b.txt -f ./test-patternfile
 #ARGS += ./examples/B.csv
 #ARGS += -f ./examples/csv-patternfile
 
-run: gen/$(buildtype)/ldiff
+run: gen/$(buildprefix)/lexdiff
 	$< $(ARGS)
 
-valrun: gen/$(buildtype)/ldiff
+valrun: gen/$(buildprefix)/lexdiff
 	valgrind $< $(ARGS)
+
+valrun-stop: gen/$(buildprefix)/lexdiff
+	valgrind --gen-suppressions=yes -- $< $(ARGS)
+
+valrun-leak: gen/$(buildprefix)/lexdiff
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -- $< $(ARGS)
+
+.PRECIOUS: %/
 
 %/:
 	mkdir -p $@
 
 gen/srclist.mk: | gen/
-	find -name '*.c' | sed 's/^/srcs += /' > $@
+	find -name '*.c' | sed 's@^./@srcs += @' > $@
 
 include gen/srclist.mk
 
-objs = $(patsubst %.c,gen/$(buildtype)/%.o,$(srcs))
-deps = $(patsubst %.c,gen/$(buildtype)/%.d,$(srcs))
+objs = $(patsubst %.c,gen/$(buildprefix)/%.o,$(srcs))
+deps = $(patsubst %.c,gen/$(buildprefix)/%.d,$(srcs))
 
-gen/$(buildtype)/ldiff: $(objs)
+gen/$(buildprefix)/lexdiff: $(objs)
 	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-gen/$(buildtype)/%.d: %.c | gen/$(buildtype)/%/
+gen/$(buildprefix)/%.d: %.c | gen/$(buildprefix)/%/
 	$(CPP) $(CPPFLAGS) $< -MM -MT $@ -MF $@ || (gedit $<; false)
 
-gen/$(buildtype)/%.o: %.c gen/$(buildtype)/%.d | gen/$(buildtype)/%/
+gen/$(buildprefix)/%.o: %.c gen/$(buildprefix)/%.d
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@ || (gedit $<; false)
 
 clean:

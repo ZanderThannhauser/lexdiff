@@ -1,3 +1,4 @@
+#include <getopt.h>
 
 #include <debug.h>
 
@@ -16,14 +17,25 @@ int process_flags(
 	int error = 0;
 	ENTER;
 	
+	bool verbose = false;
+	bool output_dotfile = false;
+	
 	char* patternfile = "patternfile";
 	char* solution_textfile = NULL;
 	char* student_textfile = NULL;
 	
+	int option_index = 0;
+	static struct option long_options[] = {
+		{"help",        no_argument,       0, 'h'},
+		{"patternfile", required_argument, 0, 'f'},
+		{"verbose",     no_argument,       0, 'v'},
+		{"dotfile",     no_argument,       0, 'd'},
+		{ 0,            0,                 0,  0 }};
+	
 	int opt;
-	while (!error && (opt = getopt(argc, argv, "hf:")) > 0)
+	while (!error && (opt = getopt_long(argc, argv, "hf:vd", long_options, &option_index)) > 0)
 	{
-		switch (opt)
+		switch (opt ?: option_index)
 		{
 			case 'f':
 				patternfile = optarg;
@@ -33,13 +45,21 @@ int process_flags(
 				error = e_show_usage;
 				break;
 			
+			case 'v':
+				verbose = true;
+				break;
+			
+			case 'd':
+				output_dotfile = true;
+				break;
+			
 			default:
 				error = e_bad_cmdln_args;
 				break;
 		}
 	}
 	
-	if (!error && (false
+	if (!error && !output_dotfile && (false
 		|| !(solution_textfile = argv[optind++])
 		|| !(student_textfile = argv[optind++])))
 	{
@@ -61,6 +81,9 @@ int process_flags(
 		dpvs(student_textfile);
 		
 		flags->patternfile = patternfile;
+		flags->verbose = verbose;
+		flags->output_dotfile = output_dotfile;
+		
 		flags->solution_textfile = solution_textfile;
 		flags->student_textfile = student_textfile;
 		

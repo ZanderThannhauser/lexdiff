@@ -1,12 +1,20 @@
 
+#include <stdlib.h>
+
+#include <stdbool.h>
+
 #include <debug.h>
+
+#include <enums/error.h>
+
+#include <defines/argv0.h>
 
 #include <memory/srealloc.h>
 
 #include <macros/min.h>
 
 #include "token.h"
-#include "tokendata.h"
+#include "token_data.h"
 #include "read_char.h"
 #include "read_token.h"
 
@@ -17,13 +25,29 @@ static const enum tokenizer_state {
 	
 	ts_comment,
 	
+	ts_plus,
 	ts_colon,
+	ts_comma,
 	ts_minus,
+	ts_percent,
+	ts_asterisk,
+	ts_vertical,
+	ts_question,
 	ts_semicolon,
+	ts_doublecolon,
+	
+	// brakets:
 	ts_open_square,
 	ts_close_square,
+	ts_open_paren,
+	ts_close_paren,
 	
+	// keywords:
 	ts_o, ts_op, ts_opt, ts_opti, ts_optio, ts_option, ts_options,
+	ts_r, ts_re, ts_rej, ts_reje, ts_rejec, ts_reject,
+	
+	// numberic token:
+	ts_number, ts_number2,
 	
 	// character states:
 	ts_before_character, ts_character_escape, ts_after_character, ts_character,
@@ -35,7 +59,7 @@ static const enum tokenizer_state {
 } lookup[number_of_tokenizer_states][128 + 1] = {
 	#define ALL 0 ... 128
 	
-	[ts_start]['\0'] = t_EOF,
+	[ts_start][0] = t_EOF,
 	
 	[ts_start][' ']  = ts_start,
 	[ts_start]['\t'] = ts_start,
@@ -47,11 +71,26 @@ static const enum tokenizer_state {
 		[ts_comment]['\n'] = ts_start,
 	
 	// single character tokens:
-	[ts_start][':'] = ts_colon,        [ts_colon       ][ALL] = t_colon,
-	[ts_start]['-'] = ts_minus,        [ts_minus       ][ALL] = t_minus,
-	[ts_start][';'] = ts_semicolon,    [ts_semicolon   ][ALL] = t_semicolon,
+	[ts_start]['+'] = ts_plus,      [ts_plus     ][ALL] = t_plus,
+	[ts_start][','] = ts_comma,     [ts_comma    ][ALL] = t_comma,
+	[ts_start]['-'] = ts_minus,     [ts_minus    ][ALL] = t_minus,
+	[ts_start]['%'] = ts_percent,   [ts_percent  ][ALL] = t_percent,
+	[ts_start]['*'] = ts_asterisk,  [ts_asterisk ][ALL] = t_asterisk,
+	[ts_start]['?'] = ts_question,  [ts_question ][ALL] = t_question,
+	[ts_start]['|'] = ts_vertical,  [ts_vertical ][ALL] = t_vertical,
+	[ts_start][';'] = ts_semicolon, [ts_semicolon][ALL] = t_semicolon,
+	
+	// brakets:
 	[ts_start]['['] = ts_open_square,  [ts_open_square ][ALL] = t_open_square,
 	[ts_start][']'] = ts_close_square, [ts_close_square][ALL] = t_close_square,
+	[ts_start]['('] = ts_open_paren,  [ts_open_paren ][ALL] = t_open_paren,
+	[ts_start][')'] = ts_close_paren, [ts_close_paren][ALL] = t_close_paren,
+	
+	// ":" and "::":
+	[ts_start][':'] = ts_colon,
+		[ts_colon][ALL] = t_colon,
+		[ts_colon][':'] = ts_doublecolon,
+			[ts_doublecolon][ALL] = t_doublecolon,
 	
 	// "options" keyword:
 	[ts_start]      ['o'] = ts_o,
@@ -63,11 +102,22 @@ static const enum tokenizer_state {
 		[ts_option ]['s'] = ts_options,
 		[ts_options][ALL] = t_options,
 	
+	// "reject" keyword:
+	[ts_start]     ['r'] = ts_r,
+		[ts_r     ]['e'] = ts_re,
+		[ts_re    ]['j'] = ts_rej,
+		[ts_rej   ]['e'] = ts_reje,
+		[ts_reje  ]['c'] = ts_rejec,
+		[ts_rejec ]['t'] = ts_reject,
+		[ts_reject][ALL] = t_reject,
+	
 	// number token:
-	// [0-9]+          [Ee][+-]?[0-9]+
-	// [0-9]*"."[0-9]+([Ee][+-]?[0-9]+)?
-	// [0-9]+"."[0-9]*([Ee][+-]?[0-9]+)?
-	// [ts_start]
+	[ts_start]['0' ... '9'] = ts_number,
+		[ts_number][ALL] = t_number,
+		[ts_number]['0' ... '9'] = ts_number,
+		[ts_number]['.'] = ts_number2,
+			[ts_number2][ALL] = t_number,
+			[ts_number2]['0' ... '9'] = ts_number2,
 	
 	// character token:
 	[ts_start]['\''] = ts_before_character,
@@ -113,7 +163,8 @@ int read_token(
 	
 	while (!error && tstate >= ts_start)
 	{
-/*		dpvc(*cc);*/
+		dpvc(*cc);
+		dpv(*cc);
 		
 		tstate = lookup[tstate][min(*cc, 128)];
 		
@@ -122,7 +173,7 @@ int read_token(
 		else if (tstate > ts_start)
 		{
 			if (n + 1 >= cap)
-				error = srealloc((void**) &buffer, sizeof(buffer) * (cap = cap * 2 ?: 1));
+				error = srealloc((void**) &buffer, sizeof(*buffer) * (cap = cap * 2 ?: 1));
 			
 			if (!error)
 				buffer[n++] = *cc;
@@ -143,32 +194,85 @@ int read_token(
 		switch (tstate)
 		{
 			// symbols:
+			case t_plus:
 			case t_colon:
 			case t_minus:
+			case t_asterisk:
 			case t_semicolon:
 			case t_open_square:
 			case t_close_square:
+			case t_open_paren:
+			case t_close_paren:
+			case t_doublecolon:
+			case t_question:
+			case t_percent:
+			case t_comma:
+			case t_vertical:
 				*ct = tstate;
 				break;
 			
 			// keywords:
 			case t_options:
+			case t_reject:
 				*ct = tstate;
 				break;
 			
+			// EOF:
+			case t_EOF:
+				*ct = t_EOF;
+				break;
+			
+			case t_number:
+			{
+				wchar_t* m;
+				double number;
+				
+				if (n + 1 >= cap)
+					error = srealloc((void**) &buffer, sizeof(buffer) * (cap = cap * 2 ?: 1));
+				
+				if (!error)
+					buffer[n] = L'\0';
+				
+				if (!error && (errno = 0, number = wcstod(buffer, &m), errno || *m))
+				{
+					TODO;
+					error = 1;
+				}
+				else
+				{
+					dpv(number);
+					
+					ctd->numeric = number;
+					*ct = t_number;
+				}
+				
+				break;
+			}
+			
 			wchar_t *read, *write, *end;
+			
+			void again()
+			{
+				if (*read != '\\')
+					*write++ = *read++;
+				else switch (read++, *read++)
+				{
+					case 't': *write++ = '\t'; break;
+					case 'r': *write++ = '\r'; break;
+					case 'n': *write++ = '\n'; break;
+					
+					default:
+						fprintf(stderr, "%s: unknown escape character: '\\%c'!\n",
+							argv0, read[-1]);
+						error = e_syntax_error;
+						break;
+				}
+			}
+			
 			case t_character:
 				read = buffer + 1, write = buffer;
 				
-				if (*read != '\\')
-					*write++ = *read++;
-				else switch (read++, *read)
-				{
-					default:
-						dpvc(*read);
-						TODO;
-						break;
-				}
+				again();
 				
 				n = write - buffer;
 				dpvsn(buffer, (int) n);
@@ -186,15 +290,7 @@ int read_token(
 					end = buffer + n - 1;
 					read < end; )
 				{
-					if (*read != '\\')
-						*write++ = *read++;
-					else switch (read++, *read)
-					{
-						default:
-							dpvc(*read);
-							TODO;
-							break;
-					}
+					again();
 				}
 				
 				n = write - buffer;
@@ -206,11 +302,20 @@ int read_token(
 				
 				break;
 			
+			
 			default:
-				dpvc(*cc);
-				dpv(tstate);
-				TODO;
+			{
+				if (n + 1 >= cap)
+					error = srealloc((void**) &buffer, sizeof(buffer) * (cap = cap * 2 ?: 1));
+				
+				if (!error)
+					buffer[n] = L'\0';
+				
+				fprintf(stderr, "%s: unrecogized token \"%ls\"!\n", argv0, buffer);
+				
+				error = e_syntax_error;
 				break;
+			}
 		}
 		#pragma GCC diagnostic pop
 	}

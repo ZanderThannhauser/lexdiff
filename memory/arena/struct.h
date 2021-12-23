@@ -1,10 +1,21 @@
 
-struct arena
+#include <stdlib.h>
+
+struct arena_header;
+
+struct memory_arena
 {
-	void *start;
+	struct {
+		struct {
+			void *start;
+			size_t size;
+		}* data;
+		size_t n, cap;
+	} mmaps;
 	
-	void *free_head, *free_tail;
-	
-	size_t cap;
+	struct {
+		struct memory_arena_header *head;
+		struct memory_arena_header *tail;
+	} free_list;
 };
 

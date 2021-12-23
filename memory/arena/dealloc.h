@@ -1,6 +1,6 @@
 
-struct arena;
+struct memory_arena;
 
 void arena_dealloc(
-	struct arena* this,
+	struct memory_arena* this,
 	void* ptr);

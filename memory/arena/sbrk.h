@@ -1,7 +1,6 @@
 
-struct arena;
+struct memory_arena;
 
 int arena_sbrk(
-	struct arena* this,
-	void** out,
+	struct memory_arena* this,
 	size_t size);
