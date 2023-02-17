@@ -1,0 +1,30 @@
+
+' ' | '\t' | '\n': {}; // ignore whitespace
+
+',' : { delete: -30, insert: -30};
+
+'[' : { delete: -30, insert: -30};
+
+']' : { delete: -30, insert: -30};
+
+'{' : { delete: -30, insert: -30};
+
+'}' : { delete: -30, insert: -30};
+
+"null": { delete: -20, insert: -20};
+
+"true": { delete: -20, insert: -20};
+
+"false": { delete: -20, insert: -20};
+
+['0'-'9']+ ('.' ['0'-'9']+)?: {
+	insert: -20,
+	match : +00,
+	update: -10,
+	delete: -20
+};
+
+// '\n': { insert: -10, delete: -10};
+
+
+

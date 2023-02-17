@@ -1,0 +1,13 @@
+
+{
+	"bools": [true, false],
+	
+	"number": 4.5,
+	
+	"array": [1, 2, 3, 4],
+	
+	"object": {
+		"foo": "bar",
+	}
+}
+

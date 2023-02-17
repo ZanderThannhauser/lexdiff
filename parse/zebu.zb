@@ -1,0 +1,88 @@
+
+%skip: ' ' | '\t' | '\n' | "//" [!'\n']* '\n';
+
+`character`: '\'' ([!('\'' | '\\')] | '\\' ['n', 't', '\"']) '\'';
+
+`string`: '\"' ([!('\"' | '\\')] | '\\' ['n', 't', '\"'])* '\"';
+
+charset_high: `character` #character | '(' charset #inner ')';
+
+charset_prefix: ('!' #emark)? charset_high #inner;
+
+charset_range: charset_prefix #left ('-' charset_prefix #right)?;
+
+charset_inter: charset_range #inner ('&' charset_inter #sub)?;
+
+charset_union: charset_inter #inner ('|' charset_union #sub)?;
+
+charset: charset_union #inner;
+
+regex_high
+	: `string` #string
+	| `character` #character
+	| '[' charset #charset ']'
+	| '(' regex #sub ')'
+	;
+
+regex_suffix: regex_high #inner ('?' #qmark | '*' #asterisk | '+' #plus)?;
+
+regex_concat: regex_suffix #inner (regex_concat #sub)?;
+
+regex_union: regex_concat #inner ('|' regex_union #sub)?;
+
+regex: regex_union #inner;
+
+expression_highest
+	: `['0'-'9']+ ('.'['0'-'9']*)?` #literal
+	| '(' expression #inner ')'
+	;
+
+expression_prefix
+	: '+' ?       expression_highest #inner
+	| '-' #negate expression_highest #inner
+	;
+
+expression_multiplicative
+	: expression_prefix #inner
+	| expression_multiplicative #left '*' #mul expression_prefix #right
+	| expression_multiplicative #left '/' #div expression_prefix #right
+	;
+
+expression_additive
+	: expression_multiplicative #inner
+	| expression_additive #left '+' #add expression_multiplicative #right
+	| expression_additive #left '-' #sub expression_multiplicative #right
+	;
+
+expression: expression_additive #inner;
+
+token_rule: regex #regex ':' '{' ((
+	  "insert"  ":" expression #insert
+	| "match"   ":" expression #match
+	| "update"  ":" expression #update
+	| "delete"  ":" expression #delete
+	) ','?)* '}' ';';
+
+root: (token_rule #rules[])+;
+
+%start: root #root;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

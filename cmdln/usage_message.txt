@@ -1,0 +1,1 @@
+usage: lexdiff [-vh] <comparison specification file> <master> <compare>
