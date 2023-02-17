@@ -17,7 +17,7 @@ CFLAGS += -O2
 CFLAGS += -flto
 
 LDFLAGS += -flto=auto
-#LDFLAGS += -static
+LDFLAGS += -static
 
 else ifeq ($(buildtype), test)
 CPPFLAGS += -D TESTING
