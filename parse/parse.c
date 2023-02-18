@@ -1,14 +1,17 @@
 
 #include <stdlib.h>
 #include <assert.h>
-
 #include <gmp.h>
-
-#include <memory/smalloc.h>
 
 #include <debug.h>
 
+#include <defines/argv0.h>
+
+#include <enums/error.h>
+
 #include <cmdln/specification_path.h>
+
+#include <memory/smalloc.h>
 
 #include <set/regex/new.h>
 #include <set/regex/free.h>
@@ -36,11 +39,9 @@ struct regex* parse_specification(
 	
 	if (!stream)
 	{
-		TODO;
-		exit(1);
+		fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, specification_path);
+		exit(e_syscall_failed);
 	}
-	
-	unsigned next_id = 1;
 	
 	struct regexset* nfas = new_regexset();
 	
@@ -56,7 +57,7 @@ struct regex* parse_specification(
 		
 		regexset_add(nfas, nfa.start);
 		
-		unsigned id = next_id++;
+		unsigned id = i + 1;
 		
 		nfa.accepts->accepts = id;
 		

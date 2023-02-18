@@ -1,8 +1,13 @@
 
+#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 
 #include <debug.h>
+
+#include <defines/argv0.h>
+
+#include <enums/error.h>
 
 #include "smalloc.h"
 
@@ -12,7 +17,8 @@ void* smalloc(size_t size)
 	
 	if (!ptr)
 	{
-		TODO;
+		fprintf(stderr, "%s: malloc(%lu): %m\n", argv0, size);
+		exit(e_out_of_memory);
 	}
 	
 	return ptr;

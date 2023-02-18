@@ -82,7 +82,7 @@ mpq_ptr parse_expression(
 					}
 					else if (expression->inner)
 					{
-						TODO;
+						retval = parse_expression(expression->inner);
 					}
 					else
 					{
