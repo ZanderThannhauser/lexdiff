@@ -1,0 +1,26 @@
+[{
+	"files": {
+		"./lexdiff": "bin/release-build/lexdiff",
+	},
+	"commands": [
+		"lexdiff ./spec-file a b"
+	],
+	"exit-code": 1,
+}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

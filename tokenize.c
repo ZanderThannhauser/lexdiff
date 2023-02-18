@@ -30,20 +30,37 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 		unsigned n, cap;
 	} buffer = {};
 	
-	unsigned line = 1;
+	unsigned line = 1, i = 0;
 	
 	int c = fgetc(stream);
 	
-	struct regex* state = tokenizer;
+	struct regex* state = tokenizer, *fallback = NULL;
 	
 	for (bool keep_going = c != EOF; keep_going; )
 	{
 		dpvc(c);
 		
+		// if there's more in the buffer, transition on it
+		// if not, read from the stream
+		// if EOF: to = NULL;
+		
+		TODO;
+		#if 0
 		struct regex* to = c == EOF ? NULL : state->transitions[c];
 		
 		if (to)
 		{
+			if (state->accepts)
+			{
+				// remember fallback
+				TODO;
+			}
+			else
+			{
+				TODO;
+			}
+			TODO;
+			#if 0
 			if (buffer.n == buffer.cap)
 			{
 				buffer.cap = buffer.cap << 1 ?: 1;
@@ -55,9 +72,14 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			if (c == '\n') line++;
 			
 			c = fgetc(stream);
+			#endif
 		}
 		else if (state->accepts)
 		{
+			// memmove buffer back
+			
+			TODO;
+			#if 0
 			dpvsn(buffer.data, buffer.n);
 			
 			struct token* token = smalloc(sizeof(*token));
@@ -69,9 +91,14 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			
 			token_list_append(tlist, token);
 			
-			state = tokenizer, buffer.n = 0;
+			state = tokenizer, buffer.n = 0, fallback = NULL;
 			
 			if (c == EOF) keep_going = false;
+			#endif
+		}
+		else if (fallback)
+		{
+			TODO;
 		}
 		else
 		{
@@ -79,6 +106,7 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 				argv0, buffer.n, buffer.data, c, line);
 			exit(1);
 		}
+		#endif
 	}
 	
 	free(buffer.data);
