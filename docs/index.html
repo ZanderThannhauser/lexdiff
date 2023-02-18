@@ -244,6 +244,17 @@ score: 75
                   misspelled (-5 points) and 'grapes' was missing (-20 points).
                   100 - 5 - 20 = 75. </p>
               
+              <h1> BUILDING </h1>
+              <p>  Building lexdiff is fairly simple, run 'make' to build and
+                   'make install' to install. Lexdiff depends on the
+                   GNU Multiple Precision Arithmetic Library (GMP) on
+                   compile time, so make sure that's installed first!
+                   On Ubuntu, this can be installed with the
+                   command 'sudo apt install libgmp-dev'.
+                   The installation prefix defaults
+                   to ${HOME}/bin, this can be changed by setting it in
+                   the call to make: 'make install PREFIX=/something/else'.</p>
+              
               <h1> NOTES </h1>
               <h2> The Tokenizer </h2>
               <p>  It is worth noting that lexdiff's tokenization is greedy,
