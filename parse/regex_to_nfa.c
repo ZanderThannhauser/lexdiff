@@ -27,8 +27,10 @@ static unsigned read_escape(
 	
 	assert(*moving < end);
 	
+	dpvc(**moving);
+	
 	if (**moving != '\\')
-		retval = *(*moving++);
+		retval = *(*moving)++;
 	else if (++*moving == end)
 		fprintf(stderr, "%s: incomplete escape sequence!\n", argv0),
 		exit(e_bad_input_file);
@@ -194,6 +196,8 @@ struct nfa regex_to_nfa(struct zebu_regex* regex)
 						
 						while (moving < end)
 						{
+							dpvc(*moving);
+							
 							unsigned codepoint = read_escape(&moving, end);
 							
 							struct regex* temp = new_regex();

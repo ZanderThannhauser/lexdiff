@@ -67,9 +67,9 @@ ARGS += --pretty-print
 
 #ARGS += ./examples/json/json.ldiff ./examples/json/before.json ./examples/json/after.json
 
-#ARGS += ./examples/fruit/fruit.ldiff ./examples/fruit/before.txt ./examples/fruit/after.txt
+ARGS += ./examples/fruit/fruit.ldiff ./examples/fruit/before.txt ./examples/fruit/after.txt
 
-ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/before.txt ./examples/sandbox/after.txt
+#ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/before.txt ./examples/sandbox/after.txt
 
 run: $(buildprefix)/lexdiff
 	$< $(ARGS)

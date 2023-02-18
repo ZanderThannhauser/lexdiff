@@ -1,8 +1,11 @@
 
 // ignore whitespace:
-' ' | '\t' | '\n' | ',': {};
+' ' | '\t' | '\n': {};
 
-// most fruit are only somewhat important
+// commas matter very little:
+',': { extra: -1, missing: -1 };
+
+// fruit are only somewhat important
 ['a'-'z'|'A'-'Z']+: {
 	extra: -20,
 	exact: 0,
