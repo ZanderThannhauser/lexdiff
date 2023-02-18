@@ -40,7 +40,7 @@ void id_to_cost_set(
 		new->id = id;
 		new->insert = insert;
 		new->update = update;
-		new->match = match;
+		new->match  = match;
 		new->delete = delete;
 		
 		avl_insert(this->tree, new);

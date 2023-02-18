@@ -1,1 +1,1 @@
-usage: lexdiff [-vh] <comparison specification file> <master> <compare>
+usage: lexdiff [-pvh] [-d out.dotout] <comparison specification file> <file-a> <file-b>

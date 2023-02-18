@@ -9,8 +9,8 @@
 
 #include "usage_message.h"
 #include "specification_path.h"
-#include "master_path.h"
-#include "compare_path.h"
+#include "before_path.h"
+#include "after_path.h"
 #include "dotout_tokenizer.h"
 #include "pretty_print.h"
 #include "verbose.h"
@@ -60,18 +60,19 @@ void cmdln_process(int argc, char* const* argv)
 		}
 	}
 	
-	if (false
-		|| !(specification_path = argv[optind++])
-		|| !(master_path = argv[optind++])
-		|| !(compare_path = argv[optind++]))
+	specification_path = argv[optind++];
+	before_path = argv[optind++];
+	after_path = argv[optind++];
+	
+	if (!(specification_path && (dotout_tokenizer || (before_path && after_path))))
 	{
 		fprintf(stderr, "zebu: missing arguments!\n");
 		fputs(usage_message, stderr), exit(e_bad_cmdline_args);
 	}
 	
 	dpvs(specification_path);
-	dpvs(master_path);
-	dpvs(compare_path);
+	dpvs(before_path);
+	dpvs(after_path);
 	dpvs(dotout_tokenizer);
 	dpvb(should_pretty_print);
 	

@@ -1,5 +1,5 @@
 bin/debug-build/./cmdln/process.o: cmdln/process.c debug.h \
  memory/smalloc.h memory/srealloc.h enums/error.h cmdln/usage_message.h \
- cmdln/specification_path.h cmdln/master_path.h cmdln/compare_path.h \
+ cmdln/specification_path.h cmdln/before_path.h cmdln/after_path.h \
  cmdln/dotout_tokenizer.h cmdln/pretty_print.h cmdln/verbose.h \
  cmdln/process.h

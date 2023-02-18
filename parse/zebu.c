@@ -1099,16 +1099,15 @@ const unsigned zebu_lexer[80][256] = {
 	[21][10] = 30,
 	[21][32] = 30,
 	[21][47] = 34,
-	[21][100] = 48,
-	[21][105] = 49,
-	[21][109] = 50,
-	[21][117] = 51,
-	[21][125] = 52,
+	[21][101] = 48,
+	[21][109] = 49,
+	[21][115] = 50,
+	[21][125] = 51,
 	[22][9] = 30,
 	[22][10] = 30,
 	[22][32] = 30,
 	[22][47] = 34,
-	[22][59] = 53,
+	[22][59] = 52,
 	[23][9] = 30,
 	[23][10] = 30,
 	[23][32] = 30,
@@ -1116,66 +1115,63 @@ const unsigned zebu_lexer[80][256] = {
 	[23][43] = 37,
 	[23][45] = 45,
 	[23][47] = 34,
-	[23][48] = 54,
-	[23][49] = 54,
-	[23][50] = 54,
-	[23][51] = 54,
-	[23][52] = 54,
-	[23][53] = 54,
-	[23][54] = 54,
-	[23][55] = 54,
-	[23][56] = 54,
-	[23][57] = 54,
+	[23][48] = 53,
+	[23][49] = 53,
+	[23][50] = 53,
+	[23][51] = 53,
+	[23][52] = 53,
+	[23][53] = 53,
+	[23][54] = 53,
+	[23][55] = 53,
+	[23][56] = 53,
+	[23][57] = 53,
 	[24][9] = 30,
 	[24][10] = 30,
 	[24][32] = 30,
 	[24][40] = 33,
 	[24][47] = 34,
-	[24][48] = 54,
-	[24][49] = 54,
-	[24][50] = 54,
-	[24][51] = 54,
-	[24][52] = 54,
-	[24][53] = 54,
-	[24][54] = 54,
-	[24][55] = 54,
-	[24][56] = 54,
-	[24][57] = 54,
+	[24][48] = 53,
+	[24][49] = 53,
+	[24][50] = 53,
+	[24][51] = 53,
+	[24][52] = 53,
+	[24][53] = 53,
+	[24][54] = 53,
+	[24][55] = 53,
+	[24][56] = 53,
+	[24][57] = 53,
 	[25][9] = 30,
 	[25][10] = 30,
 	[25][32] = 30,
 	[25][42] = 36,
 	[25][43] = 37,
-	[25][44] = 55,
+	[25][44] = 54,
 	[25][45] = 45,
-	[25][47] = 56,
-	[25][100] = 48,
-	[25][105] = 49,
-	[25][109] = 50,
-	[25][117] = 51,
-	[25][125] = 52,
+	[25][47] = 55,
+	[25][101] = 48,
+	[25][109] = 49,
+	[25][115] = 50,
+	[25][125] = 51,
 	[26][9] = 30,
 	[26][10] = 30,
 	[26][32] = 30,
-	[26][44] = 55,
+	[26][44] = 54,
 	[26][47] = 34,
-	[26][100] = 48,
-	[26][105] = 49,
-	[26][109] = 50,
-	[26][117] = 51,
-	[26][125] = 52,
+	[26][101] = 48,
+	[26][109] = 49,
+	[26][115] = 50,
+	[26][125] = 51,
 	[27][9] = 30,
 	[27][10] = 30,
 	[27][32] = 30,
 	[27][43] = 37,
-	[27][44] = 55,
+	[27][44] = 54,
 	[27][45] = 45,
 	[27][47] = 34,
-	[27][100] = 48,
-	[27][105] = 49,
-	[27][109] = 50,
-	[27][117] = 51,
-	[27][125] = 52,
+	[27][101] = 48,
+	[27][109] = 49,
+	[27][115] = 50,
+	[27][125] = 51,
 	[28][9] = 30,
 	[28][10] = 30,
 	[28][32] = 30,
@@ -1183,7 +1179,7 @@ const unsigned zebu_lexer[80][256] = {
 	[28][42] = 36,
 	[28][43] = 37,
 	[28][45] = 45,
-	[28][47] = 56,
+	[28][47] = 55,
 	[29][9] = 30,
 	[29][10] = 30,
 	[29][32] = 30,
@@ -1229,7 +1225,7 @@ const unsigned zebu_lexer[80][256] = {
 	[31][31] = 31,
 	[31][32] = 31,
 	[31][33] = 31,
-	[31][34] = 57,
+	[31][34] = 56,
 	[31][35] = 31,
 	[31][36] = 31,
 	[31][37] = 31,
@@ -1287,7 +1283,7 @@ const unsigned zebu_lexer[80][256] = {
 	[31][89] = 31,
 	[31][90] = 31,
 	[31][91] = 31,
-	[31][92] = 58,
+	[31][92] = 57,
 	[31][93] = 31,
 	[31][94] = 31,
 	[31][95] = 31,
@@ -1451,566 +1447,566 @@ const unsigned zebu_lexer[80][256] = {
 	[31][253] = 31,
 	[31][254] = 31,
 	[31][255] = 31,
-	[32][0] = 59,
-	[32][1] = 59,
-	[32][2] = 59,
-	[32][3] = 59,
-	[32][4] = 59,
-	[32][5] = 59,
-	[32][6] = 59,
-	[32][7] = 59,
-	[32][8] = 59,
-	[32][9] = 59,
-	[32][10] = 59,
-	[32][11] = 59,
-	[32][12] = 59,
-	[32][13] = 59,
-	[32][14] = 59,
-	[32][15] = 59,
-	[32][16] = 59,
-	[32][17] = 59,
-	[32][18] = 59,
-	[32][19] = 59,
-	[32][20] = 59,
-	[32][21] = 59,
-	[32][22] = 59,
-	[32][23] = 59,
-	[32][24] = 59,
-	[32][25] = 59,
-	[32][26] = 59,
-	[32][27] = 59,
-	[32][28] = 59,
-	[32][29] = 59,
-	[32][30] = 59,
-	[32][31] = 59,
-	[32][32] = 59,
-	[32][33] = 59,
-	[32][34] = 59,
-	[32][35] = 59,
-	[32][36] = 59,
-	[32][37] = 59,
-	[32][38] = 59,
-	[32][40] = 59,
-	[32][41] = 59,
-	[32][42] = 59,
-	[32][43] = 59,
-	[32][44] = 59,
-	[32][45] = 59,
-	[32][46] = 59,
-	[32][47] = 59,
-	[32][48] = 59,
-	[32][49] = 59,
-	[32][50] = 59,
-	[32][51] = 59,
-	[32][52] = 59,
-	[32][53] = 59,
-	[32][54] = 59,
-	[32][55] = 59,
-	[32][56] = 59,
-	[32][57] = 59,
-	[32][58] = 59,
-	[32][59] = 59,
-	[32][60] = 59,
-	[32][61] = 59,
-	[32][62] = 59,
-	[32][63] = 59,
-	[32][64] = 59,
-	[32][65] = 59,
-	[32][66] = 59,
-	[32][67] = 59,
-	[32][68] = 59,
-	[32][69] = 59,
-	[32][70] = 59,
-	[32][71] = 59,
-	[32][72] = 59,
-	[32][73] = 59,
-	[32][74] = 59,
-	[32][75] = 59,
-	[32][76] = 59,
-	[32][77] = 59,
-	[32][78] = 59,
-	[32][79] = 59,
-	[32][80] = 59,
-	[32][81] = 59,
-	[32][82] = 59,
-	[32][83] = 59,
-	[32][84] = 59,
-	[32][85] = 59,
-	[32][86] = 59,
-	[32][87] = 59,
-	[32][88] = 59,
-	[32][89] = 59,
-	[32][90] = 59,
-	[32][91] = 59,
-	[32][92] = 60,
-	[32][93] = 59,
-	[32][94] = 59,
-	[32][95] = 59,
-	[32][96] = 59,
-	[32][97] = 59,
-	[32][98] = 59,
-	[32][99] = 59,
-	[32][100] = 59,
-	[32][101] = 59,
-	[32][102] = 59,
-	[32][103] = 59,
-	[32][104] = 59,
-	[32][105] = 59,
-	[32][106] = 59,
-	[32][107] = 59,
-	[32][108] = 59,
-	[32][109] = 59,
-	[32][110] = 59,
-	[32][111] = 59,
-	[32][112] = 59,
-	[32][113] = 59,
-	[32][114] = 59,
-	[32][115] = 59,
-	[32][116] = 59,
-	[32][117] = 59,
-	[32][118] = 59,
-	[32][119] = 59,
-	[32][120] = 59,
-	[32][121] = 59,
-	[32][122] = 59,
-	[32][123] = 59,
-	[32][124] = 59,
-	[32][125] = 59,
-	[32][126] = 59,
-	[32][127] = 59,
-	[32][128] = 59,
-	[32][129] = 59,
-	[32][130] = 59,
-	[32][131] = 59,
-	[32][132] = 59,
-	[32][133] = 59,
-	[32][134] = 59,
-	[32][135] = 59,
-	[32][136] = 59,
-	[32][137] = 59,
-	[32][138] = 59,
-	[32][139] = 59,
-	[32][140] = 59,
-	[32][141] = 59,
-	[32][142] = 59,
-	[32][143] = 59,
-	[32][144] = 59,
-	[32][145] = 59,
-	[32][146] = 59,
-	[32][147] = 59,
-	[32][148] = 59,
-	[32][149] = 59,
-	[32][150] = 59,
-	[32][151] = 59,
-	[32][152] = 59,
-	[32][153] = 59,
-	[32][154] = 59,
-	[32][155] = 59,
-	[32][156] = 59,
-	[32][157] = 59,
-	[32][158] = 59,
-	[32][159] = 59,
-	[32][160] = 59,
-	[32][161] = 59,
-	[32][162] = 59,
-	[32][163] = 59,
-	[32][164] = 59,
-	[32][165] = 59,
-	[32][166] = 59,
-	[32][167] = 59,
-	[32][168] = 59,
-	[32][169] = 59,
-	[32][170] = 59,
-	[32][171] = 59,
-	[32][172] = 59,
-	[32][173] = 59,
-	[32][174] = 59,
-	[32][175] = 59,
-	[32][176] = 59,
-	[32][177] = 59,
-	[32][178] = 59,
-	[32][179] = 59,
-	[32][180] = 59,
-	[32][181] = 59,
-	[32][182] = 59,
-	[32][183] = 59,
-	[32][184] = 59,
-	[32][185] = 59,
-	[32][186] = 59,
-	[32][187] = 59,
-	[32][188] = 59,
-	[32][189] = 59,
-	[32][190] = 59,
-	[32][191] = 59,
-	[32][192] = 59,
-	[32][193] = 59,
-	[32][194] = 59,
-	[32][195] = 59,
-	[32][196] = 59,
-	[32][197] = 59,
-	[32][198] = 59,
-	[32][199] = 59,
-	[32][200] = 59,
-	[32][201] = 59,
-	[32][202] = 59,
-	[32][203] = 59,
-	[32][204] = 59,
-	[32][205] = 59,
-	[32][206] = 59,
-	[32][207] = 59,
-	[32][208] = 59,
-	[32][209] = 59,
-	[32][210] = 59,
-	[32][211] = 59,
-	[32][212] = 59,
-	[32][213] = 59,
-	[32][214] = 59,
-	[32][215] = 59,
-	[32][216] = 59,
-	[32][217] = 59,
-	[32][218] = 59,
-	[32][219] = 59,
-	[32][220] = 59,
-	[32][221] = 59,
-	[32][222] = 59,
-	[32][223] = 59,
-	[32][224] = 59,
-	[32][225] = 59,
-	[32][226] = 59,
-	[32][227] = 59,
-	[32][228] = 59,
-	[32][229] = 59,
-	[32][230] = 59,
-	[32][231] = 59,
-	[32][232] = 59,
-	[32][233] = 59,
-	[32][234] = 59,
-	[32][235] = 59,
-	[32][236] = 59,
-	[32][237] = 59,
-	[32][238] = 59,
-	[32][239] = 59,
-	[32][240] = 59,
-	[32][241] = 59,
-	[32][242] = 59,
-	[32][243] = 59,
-	[32][244] = 59,
-	[32][245] = 59,
-	[32][246] = 59,
-	[32][247] = 59,
-	[32][248] = 59,
-	[32][249] = 59,
-	[32][250] = 59,
-	[32][251] = 59,
-	[32][252] = 59,
-	[32][253] = 59,
-	[32][254] = 59,
-	[32][255] = 59,
-	[34][47] = 61,
-	[48][101] = 62,
-	[49][110] = 63,
-	[50][97] = 64,
-	[51][112] = 65,
-	[54][46] = 66,
-	[54][48] = 54,
-	[54][49] = 54,
-	[54][50] = 54,
-	[54][51] = 54,
-	[54][52] = 54,
-	[54][53] = 54,
-	[54][54] = 54,
-	[54][55] = 54,
-	[54][56] = 54,
-	[54][57] = 54,
-	[56][47] = 61,
-	[58][34] = 31,
-	[58][110] = 31,
-	[58][116] = 31,
-	[59][39] = 67,
-	[60][34] = 59,
-	[60][110] = 59,
-	[60][116] = 59,
-	[61][0] = 61,
-	[61][1] = 61,
-	[61][2] = 61,
-	[61][3] = 61,
-	[61][4] = 61,
-	[61][5] = 61,
-	[61][6] = 61,
-	[61][7] = 61,
-	[61][8] = 61,
-	[61][9] = 61,
-	[61][10] = 30,
-	[61][11] = 61,
-	[61][12] = 61,
-	[61][13] = 61,
-	[61][14] = 61,
-	[61][15] = 61,
-	[61][16] = 61,
-	[61][17] = 61,
-	[61][18] = 61,
-	[61][19] = 61,
-	[61][20] = 61,
-	[61][21] = 61,
-	[61][22] = 61,
-	[61][23] = 61,
-	[61][24] = 61,
-	[61][25] = 61,
-	[61][26] = 61,
-	[61][27] = 61,
-	[61][28] = 61,
-	[61][29] = 61,
-	[61][30] = 61,
-	[61][31] = 61,
-	[61][32] = 61,
-	[61][33] = 61,
-	[61][34] = 61,
-	[61][35] = 61,
-	[61][36] = 61,
-	[61][37] = 61,
-	[61][38] = 61,
-	[61][39] = 61,
-	[61][40] = 61,
-	[61][41] = 61,
-	[61][42] = 61,
-	[61][43] = 61,
-	[61][44] = 61,
-	[61][45] = 61,
-	[61][46] = 61,
-	[61][47] = 61,
-	[61][48] = 61,
-	[61][49] = 61,
-	[61][50] = 61,
-	[61][51] = 61,
-	[61][52] = 61,
-	[61][53] = 61,
-	[61][54] = 61,
-	[61][55] = 61,
-	[61][56] = 61,
-	[61][57] = 61,
-	[61][58] = 61,
-	[61][59] = 61,
-	[61][60] = 61,
-	[61][61] = 61,
-	[61][62] = 61,
-	[61][63] = 61,
-	[61][64] = 61,
-	[61][65] = 61,
-	[61][66] = 61,
-	[61][67] = 61,
-	[61][68] = 61,
-	[61][69] = 61,
-	[61][70] = 61,
-	[61][71] = 61,
-	[61][72] = 61,
-	[61][73] = 61,
-	[61][74] = 61,
-	[61][75] = 61,
-	[61][76] = 61,
-	[61][77] = 61,
-	[61][78] = 61,
-	[61][79] = 61,
-	[61][80] = 61,
-	[61][81] = 61,
-	[61][82] = 61,
-	[61][83] = 61,
-	[61][84] = 61,
-	[61][85] = 61,
-	[61][86] = 61,
-	[61][87] = 61,
-	[61][88] = 61,
-	[61][89] = 61,
-	[61][90] = 61,
-	[61][91] = 61,
-	[61][92] = 61,
-	[61][93] = 61,
-	[61][94] = 61,
-	[61][95] = 61,
-	[61][96] = 61,
-	[61][97] = 61,
-	[61][98] = 61,
-	[61][99] = 61,
-	[61][100] = 61,
-	[61][101] = 61,
-	[61][102] = 61,
-	[61][103] = 61,
-	[61][104] = 61,
-	[61][105] = 61,
-	[61][106] = 61,
-	[61][107] = 61,
-	[61][108] = 61,
-	[61][109] = 61,
-	[61][110] = 61,
-	[61][111] = 61,
-	[61][112] = 61,
-	[61][113] = 61,
-	[61][114] = 61,
-	[61][115] = 61,
-	[61][116] = 61,
-	[61][117] = 61,
-	[61][118] = 61,
-	[61][119] = 61,
-	[61][120] = 61,
-	[61][121] = 61,
-	[61][122] = 61,
-	[61][123] = 61,
-	[61][124] = 61,
-	[61][125] = 61,
-	[61][126] = 61,
-	[61][127] = 61,
-	[61][128] = 61,
-	[61][129] = 61,
-	[61][130] = 61,
-	[61][131] = 61,
-	[61][132] = 61,
-	[61][133] = 61,
-	[61][134] = 61,
-	[61][135] = 61,
-	[61][136] = 61,
-	[61][137] = 61,
-	[61][138] = 61,
-	[61][139] = 61,
-	[61][140] = 61,
-	[61][141] = 61,
-	[61][142] = 61,
-	[61][143] = 61,
-	[61][144] = 61,
-	[61][145] = 61,
-	[61][146] = 61,
-	[61][147] = 61,
-	[61][148] = 61,
-	[61][149] = 61,
-	[61][150] = 61,
-	[61][151] = 61,
-	[61][152] = 61,
-	[61][153] = 61,
-	[61][154] = 61,
-	[61][155] = 61,
-	[61][156] = 61,
-	[61][157] = 61,
-	[61][158] = 61,
-	[61][159] = 61,
-	[61][160] = 61,
-	[61][161] = 61,
-	[61][162] = 61,
-	[61][163] = 61,
-	[61][164] = 61,
-	[61][165] = 61,
-	[61][166] = 61,
-	[61][167] = 61,
-	[61][168] = 61,
-	[61][169] = 61,
-	[61][170] = 61,
-	[61][171] = 61,
-	[61][172] = 61,
-	[61][173] = 61,
-	[61][174] = 61,
-	[61][175] = 61,
-	[61][176] = 61,
-	[61][177] = 61,
-	[61][178] = 61,
-	[61][179] = 61,
-	[61][180] = 61,
-	[61][181] = 61,
-	[61][182] = 61,
-	[61][183] = 61,
-	[61][184] = 61,
-	[61][185] = 61,
-	[61][186] = 61,
-	[61][187] = 61,
-	[61][188] = 61,
-	[61][189] = 61,
-	[61][190] = 61,
-	[61][191] = 61,
-	[61][192] = 61,
-	[61][193] = 61,
-	[61][194] = 61,
-	[61][195] = 61,
-	[61][196] = 61,
-	[61][197] = 61,
-	[61][198] = 61,
-	[61][199] = 61,
-	[61][200] = 61,
-	[61][201] = 61,
-	[61][202] = 61,
-	[61][203] = 61,
-	[61][204] = 61,
-	[61][205] = 61,
-	[61][206] = 61,
-	[61][207] = 61,
-	[61][208] = 61,
-	[61][209] = 61,
-	[61][210] = 61,
-	[61][211] = 61,
-	[61][212] = 61,
-	[61][213] = 61,
-	[61][214] = 61,
-	[61][215] = 61,
-	[61][216] = 61,
-	[61][217] = 61,
-	[61][218] = 61,
-	[61][219] = 61,
-	[61][220] = 61,
-	[61][221] = 61,
-	[61][222] = 61,
-	[61][223] = 61,
-	[61][224] = 61,
-	[61][225] = 61,
-	[61][226] = 61,
-	[61][227] = 61,
-	[61][228] = 61,
-	[61][229] = 61,
-	[61][230] = 61,
-	[61][231] = 61,
-	[61][232] = 61,
-	[61][233] = 61,
-	[61][234] = 61,
-	[61][235] = 61,
-	[61][236] = 61,
-	[61][237] = 61,
-	[61][238] = 61,
-	[61][239] = 61,
-	[61][240] = 61,
-	[61][241] = 61,
-	[61][242] = 61,
-	[61][243] = 61,
-	[61][244] = 61,
-	[61][245] = 61,
-	[61][246] = 61,
-	[61][247] = 61,
-	[61][248] = 61,
-	[61][249] = 61,
-	[61][250] = 61,
-	[61][251] = 61,
-	[61][252] = 61,
-	[61][253] = 61,
-	[61][254] = 61,
-	[61][255] = 61,
-	[62][108] = 68,
-	[63][115] = 69,
-	[64][116] = 70,
-	[65][100] = 71,
-	[66][48] = 66,
-	[66][49] = 66,
-	[66][50] = 66,
-	[66][51] = 66,
-	[66][52] = 66,
-	[66][53] = 66,
-	[66][54] = 66,
-	[66][55] = 66,
-	[66][56] = 66,
-	[66][57] = 66,
-	[68][101] = 72,
-	[69][101] = 73,
-	[70][99] = 74,
+	[32][0] = 58,
+	[32][1] = 58,
+	[32][2] = 58,
+	[32][3] = 58,
+	[32][4] = 58,
+	[32][5] = 58,
+	[32][6] = 58,
+	[32][7] = 58,
+	[32][8] = 58,
+	[32][9] = 58,
+	[32][10] = 58,
+	[32][11] = 58,
+	[32][12] = 58,
+	[32][13] = 58,
+	[32][14] = 58,
+	[32][15] = 58,
+	[32][16] = 58,
+	[32][17] = 58,
+	[32][18] = 58,
+	[32][19] = 58,
+	[32][20] = 58,
+	[32][21] = 58,
+	[32][22] = 58,
+	[32][23] = 58,
+	[32][24] = 58,
+	[32][25] = 58,
+	[32][26] = 58,
+	[32][27] = 58,
+	[32][28] = 58,
+	[32][29] = 58,
+	[32][30] = 58,
+	[32][31] = 58,
+	[32][32] = 58,
+	[32][33] = 58,
+	[32][34] = 58,
+	[32][35] = 58,
+	[32][36] = 58,
+	[32][37] = 58,
+	[32][38] = 58,
+	[32][40] = 58,
+	[32][41] = 58,
+	[32][42] = 58,
+	[32][43] = 58,
+	[32][44] = 58,
+	[32][45] = 58,
+	[32][46] = 58,
+	[32][47] = 58,
+	[32][48] = 58,
+	[32][49] = 58,
+	[32][50] = 58,
+	[32][51] = 58,
+	[32][52] = 58,
+	[32][53] = 58,
+	[32][54] = 58,
+	[32][55] = 58,
+	[32][56] = 58,
+	[32][57] = 58,
+	[32][58] = 58,
+	[32][59] = 58,
+	[32][60] = 58,
+	[32][61] = 58,
+	[32][62] = 58,
+	[32][63] = 58,
+	[32][64] = 58,
+	[32][65] = 58,
+	[32][66] = 58,
+	[32][67] = 58,
+	[32][68] = 58,
+	[32][69] = 58,
+	[32][70] = 58,
+	[32][71] = 58,
+	[32][72] = 58,
+	[32][73] = 58,
+	[32][74] = 58,
+	[32][75] = 58,
+	[32][76] = 58,
+	[32][77] = 58,
+	[32][78] = 58,
+	[32][79] = 58,
+	[32][80] = 58,
+	[32][81] = 58,
+	[32][82] = 58,
+	[32][83] = 58,
+	[32][84] = 58,
+	[32][85] = 58,
+	[32][86] = 58,
+	[32][87] = 58,
+	[32][88] = 58,
+	[32][89] = 58,
+	[32][90] = 58,
+	[32][91] = 58,
+	[32][92] = 59,
+	[32][93] = 58,
+	[32][94] = 58,
+	[32][95] = 58,
+	[32][96] = 58,
+	[32][97] = 58,
+	[32][98] = 58,
+	[32][99] = 58,
+	[32][100] = 58,
+	[32][101] = 58,
+	[32][102] = 58,
+	[32][103] = 58,
+	[32][104] = 58,
+	[32][105] = 58,
+	[32][106] = 58,
+	[32][107] = 58,
+	[32][108] = 58,
+	[32][109] = 58,
+	[32][110] = 58,
+	[32][111] = 58,
+	[32][112] = 58,
+	[32][113] = 58,
+	[32][114] = 58,
+	[32][115] = 58,
+	[32][116] = 58,
+	[32][117] = 58,
+	[32][118] = 58,
+	[32][119] = 58,
+	[32][120] = 58,
+	[32][121] = 58,
+	[32][122] = 58,
+	[32][123] = 58,
+	[32][124] = 58,
+	[32][125] = 58,
+	[32][126] = 58,
+	[32][127] = 58,
+	[32][128] = 58,
+	[32][129] = 58,
+	[32][130] = 58,
+	[32][131] = 58,
+	[32][132] = 58,
+	[32][133] = 58,
+	[32][134] = 58,
+	[32][135] = 58,
+	[32][136] = 58,
+	[32][137] = 58,
+	[32][138] = 58,
+	[32][139] = 58,
+	[32][140] = 58,
+	[32][141] = 58,
+	[32][142] = 58,
+	[32][143] = 58,
+	[32][144] = 58,
+	[32][145] = 58,
+	[32][146] = 58,
+	[32][147] = 58,
+	[32][148] = 58,
+	[32][149] = 58,
+	[32][150] = 58,
+	[32][151] = 58,
+	[32][152] = 58,
+	[32][153] = 58,
+	[32][154] = 58,
+	[32][155] = 58,
+	[32][156] = 58,
+	[32][157] = 58,
+	[32][158] = 58,
+	[32][159] = 58,
+	[32][160] = 58,
+	[32][161] = 58,
+	[32][162] = 58,
+	[32][163] = 58,
+	[32][164] = 58,
+	[32][165] = 58,
+	[32][166] = 58,
+	[32][167] = 58,
+	[32][168] = 58,
+	[32][169] = 58,
+	[32][170] = 58,
+	[32][171] = 58,
+	[32][172] = 58,
+	[32][173] = 58,
+	[32][174] = 58,
+	[32][175] = 58,
+	[32][176] = 58,
+	[32][177] = 58,
+	[32][178] = 58,
+	[32][179] = 58,
+	[32][180] = 58,
+	[32][181] = 58,
+	[32][182] = 58,
+	[32][183] = 58,
+	[32][184] = 58,
+	[32][185] = 58,
+	[32][186] = 58,
+	[32][187] = 58,
+	[32][188] = 58,
+	[32][189] = 58,
+	[32][190] = 58,
+	[32][191] = 58,
+	[32][192] = 58,
+	[32][193] = 58,
+	[32][194] = 58,
+	[32][195] = 58,
+	[32][196] = 58,
+	[32][197] = 58,
+	[32][198] = 58,
+	[32][199] = 58,
+	[32][200] = 58,
+	[32][201] = 58,
+	[32][202] = 58,
+	[32][203] = 58,
+	[32][204] = 58,
+	[32][205] = 58,
+	[32][206] = 58,
+	[32][207] = 58,
+	[32][208] = 58,
+	[32][209] = 58,
+	[32][210] = 58,
+	[32][211] = 58,
+	[32][212] = 58,
+	[32][213] = 58,
+	[32][214] = 58,
+	[32][215] = 58,
+	[32][216] = 58,
+	[32][217] = 58,
+	[32][218] = 58,
+	[32][219] = 58,
+	[32][220] = 58,
+	[32][221] = 58,
+	[32][222] = 58,
+	[32][223] = 58,
+	[32][224] = 58,
+	[32][225] = 58,
+	[32][226] = 58,
+	[32][227] = 58,
+	[32][228] = 58,
+	[32][229] = 58,
+	[32][230] = 58,
+	[32][231] = 58,
+	[32][232] = 58,
+	[32][233] = 58,
+	[32][234] = 58,
+	[32][235] = 58,
+	[32][236] = 58,
+	[32][237] = 58,
+	[32][238] = 58,
+	[32][239] = 58,
+	[32][240] = 58,
+	[32][241] = 58,
+	[32][242] = 58,
+	[32][243] = 58,
+	[32][244] = 58,
+	[32][245] = 58,
+	[32][246] = 58,
+	[32][247] = 58,
+	[32][248] = 58,
+	[32][249] = 58,
+	[32][250] = 58,
+	[32][251] = 58,
+	[32][252] = 58,
+	[32][253] = 58,
+	[32][254] = 58,
+	[32][255] = 58,
+	[34][47] = 60,
+	[48][120] = 61,
+	[49][105] = 62,
+	[50][105] = 63,
+	[53][46] = 64,
+	[53][48] = 53,
+	[53][49] = 53,
+	[53][50] = 53,
+	[53][51] = 53,
+	[53][52] = 53,
+	[53][53] = 53,
+	[53][54] = 53,
+	[53][55] = 53,
+	[53][56] = 53,
+	[53][57] = 53,
+	[55][47] = 60,
+	[57][34] = 31,
+	[57][110] = 31,
+	[57][116] = 31,
+	[58][39] = 65,
+	[59][34] = 58,
+	[59][110] = 58,
+	[59][116] = 58,
+	[60][0] = 60,
+	[60][1] = 60,
+	[60][2] = 60,
+	[60][3] = 60,
+	[60][4] = 60,
+	[60][5] = 60,
+	[60][6] = 60,
+	[60][7] = 60,
+	[60][8] = 60,
+	[60][9] = 60,
+	[60][10] = 30,
+	[60][11] = 60,
+	[60][12] = 60,
+	[60][13] = 60,
+	[60][14] = 60,
+	[60][15] = 60,
+	[60][16] = 60,
+	[60][17] = 60,
+	[60][18] = 60,
+	[60][19] = 60,
+	[60][20] = 60,
+	[60][21] = 60,
+	[60][22] = 60,
+	[60][23] = 60,
+	[60][24] = 60,
+	[60][25] = 60,
+	[60][26] = 60,
+	[60][27] = 60,
+	[60][28] = 60,
+	[60][29] = 60,
+	[60][30] = 60,
+	[60][31] = 60,
+	[60][32] = 60,
+	[60][33] = 60,
+	[60][34] = 60,
+	[60][35] = 60,
+	[60][36] = 60,
+	[60][37] = 60,
+	[60][38] = 60,
+	[60][39] = 60,
+	[60][40] = 60,
+	[60][41] = 60,
+	[60][42] = 60,
+	[60][43] = 60,
+	[60][44] = 60,
+	[60][45] = 60,
+	[60][46] = 60,
+	[60][47] = 60,
+	[60][48] = 60,
+	[60][49] = 60,
+	[60][50] = 60,
+	[60][51] = 60,
+	[60][52] = 60,
+	[60][53] = 60,
+	[60][54] = 60,
+	[60][55] = 60,
+	[60][56] = 60,
+	[60][57] = 60,
+	[60][58] = 60,
+	[60][59] = 60,
+	[60][60] = 60,
+	[60][61] = 60,
+	[60][62] = 60,
+	[60][63] = 60,
+	[60][64] = 60,
+	[60][65] = 60,
+	[60][66] = 60,
+	[60][67] = 60,
+	[60][68] = 60,
+	[60][69] = 60,
+	[60][70] = 60,
+	[60][71] = 60,
+	[60][72] = 60,
+	[60][73] = 60,
+	[60][74] = 60,
+	[60][75] = 60,
+	[60][76] = 60,
+	[60][77] = 60,
+	[60][78] = 60,
+	[60][79] = 60,
+	[60][80] = 60,
+	[60][81] = 60,
+	[60][82] = 60,
+	[60][83] = 60,
+	[60][84] = 60,
+	[60][85] = 60,
+	[60][86] = 60,
+	[60][87] = 60,
+	[60][88] = 60,
+	[60][89] = 60,
+	[60][90] = 60,
+	[60][91] = 60,
+	[60][92] = 60,
+	[60][93] = 60,
+	[60][94] = 60,
+	[60][95] = 60,
+	[60][96] = 60,
+	[60][97] = 60,
+	[60][98] = 60,
+	[60][99] = 60,
+	[60][100] = 60,
+	[60][101] = 60,
+	[60][102] = 60,
+	[60][103] = 60,
+	[60][104] = 60,
+	[60][105] = 60,
+	[60][106] = 60,
+	[60][107] = 60,
+	[60][108] = 60,
+	[60][109] = 60,
+	[60][110] = 60,
+	[60][111] = 60,
+	[60][112] = 60,
+	[60][113] = 60,
+	[60][114] = 60,
+	[60][115] = 60,
+	[60][116] = 60,
+	[60][117] = 60,
+	[60][118] = 60,
+	[60][119] = 60,
+	[60][120] = 60,
+	[60][121] = 60,
+	[60][122] = 60,
+	[60][123] = 60,
+	[60][124] = 60,
+	[60][125] = 60,
+	[60][126] = 60,
+	[60][127] = 60,
+	[60][128] = 60,
+	[60][129] = 60,
+	[60][130] = 60,
+	[60][131] = 60,
+	[60][132] = 60,
+	[60][133] = 60,
+	[60][134] = 60,
+	[60][135] = 60,
+	[60][136] = 60,
+	[60][137] = 60,
+	[60][138] = 60,
+	[60][139] = 60,
+	[60][140] = 60,
+	[60][141] = 60,
+	[60][142] = 60,
+	[60][143] = 60,
+	[60][144] = 60,
+	[60][145] = 60,
+	[60][146] = 60,
+	[60][147] = 60,
+	[60][148] = 60,
+	[60][149] = 60,
+	[60][150] = 60,
+	[60][151] = 60,
+	[60][152] = 60,
+	[60][153] = 60,
+	[60][154] = 60,
+	[60][155] = 60,
+	[60][156] = 60,
+	[60][157] = 60,
+	[60][158] = 60,
+	[60][159] = 60,
+	[60][160] = 60,
+	[60][161] = 60,
+	[60][162] = 60,
+	[60][163] = 60,
+	[60][164] = 60,
+	[60][165] = 60,
+	[60][166] = 60,
+	[60][167] = 60,
+	[60][168] = 60,
+	[60][169] = 60,
+	[60][170] = 60,
+	[60][171] = 60,
+	[60][172] = 60,
+	[60][173] = 60,
+	[60][174] = 60,
+	[60][175] = 60,
+	[60][176] = 60,
+	[60][177] = 60,
+	[60][178] = 60,
+	[60][179] = 60,
+	[60][180] = 60,
+	[60][181] = 60,
+	[60][182] = 60,
+	[60][183] = 60,
+	[60][184] = 60,
+	[60][185] = 60,
+	[60][186] = 60,
+	[60][187] = 60,
+	[60][188] = 60,
+	[60][189] = 60,
+	[60][190] = 60,
+	[60][191] = 60,
+	[60][192] = 60,
+	[60][193] = 60,
+	[60][194] = 60,
+	[60][195] = 60,
+	[60][196] = 60,
+	[60][197] = 60,
+	[60][198] = 60,
+	[60][199] = 60,
+	[60][200] = 60,
+	[60][201] = 60,
+	[60][202] = 60,
+	[60][203] = 60,
+	[60][204] = 60,
+	[60][205] = 60,
+	[60][206] = 60,
+	[60][207] = 60,
+	[60][208] = 60,
+	[60][209] = 60,
+	[60][210] = 60,
+	[60][211] = 60,
+	[60][212] = 60,
+	[60][213] = 60,
+	[60][214] = 60,
+	[60][215] = 60,
+	[60][216] = 60,
+	[60][217] = 60,
+	[60][218] = 60,
+	[60][219] = 60,
+	[60][220] = 60,
+	[60][221] = 60,
+	[60][222] = 60,
+	[60][223] = 60,
+	[60][224] = 60,
+	[60][225] = 60,
+	[60][226] = 60,
+	[60][227] = 60,
+	[60][228] = 60,
+	[60][229] = 60,
+	[60][230] = 60,
+	[60][231] = 60,
+	[60][232] = 60,
+	[60][233] = 60,
+	[60][234] = 60,
+	[60][235] = 60,
+	[60][236] = 60,
+	[60][237] = 60,
+	[60][238] = 60,
+	[60][239] = 60,
+	[60][240] = 60,
+	[60][241] = 60,
+	[60][242] = 60,
+	[60][243] = 60,
+	[60][244] = 60,
+	[60][245] = 60,
+	[60][246] = 60,
+	[60][247] = 60,
+	[60][248] = 60,
+	[60][249] = 60,
+	[60][250] = 60,
+	[60][251] = 60,
+	[60][252] = 60,
+	[60][253] = 60,
+	[60][254] = 60,
+	[60][255] = 60,
+	[61][97] = 66,
+	[61][116] = 67,
+	[62][115] = 68,
+	[63][109] = 69,
+	[64][48] = 64,
+	[64][49] = 64,
+	[64][50] = 64,
+	[64][51] = 64,
+	[64][52] = 64,
+	[64][53] = 64,
+	[64][54] = 64,
+	[64][55] = 64,
+	[64][56] = 64,
+	[64][57] = 64,
+	[66][99] = 70,
+	[67][114] = 71,
+	[68][115] = 72,
+	[69][105] = 73,
+	[70][116] = 74,
 	[71][97] = 75,
-	[72][116] = 76,
-	[73][114] = 77,
-	[74][104] = 78,
-	[75][116] = 79,
-	[76][101] = 80,
-	[77][116] = 81,
-	[79][101] = 82,
+	[72][105] = 76,
+	[73][108] = 77,
+	[76][110] = 78,
+	[77][97] = 79,
+	[78][103] = 80,
+	[79][114] = 81,
 };
 
 
@@ -2193,7 +2189,7 @@ const unsigned zebu_lexer_starts[176] = {
 };
 
 
-const unsigned zebu_lexer_accepts[83] = {
+const unsigned zebu_lexer_accepts[82] = {
 	[30] = 1,
 	[33] = 3,
 	[35] = 5,
@@ -2209,18 +2205,18 @@ const unsigned zebu_lexer_accepts[83] = {
 	[45] = 14,
 	[46] = 16,
 	[47] = 17,
-	[52] = 22,
-	[53] = 23,
-	[54] = 24,
-	[55] = 26,
-	[56] = 25,
-	[57] = 4,
-	[66] = 24,
-	[67] = 2,
-	[78] = 19,
+	[51] = 22,
+	[52] = 23,
+	[53] = 24,
+	[54] = 26,
+	[55] = 25,
+	[56] = 4,
+	[64] = 24,
+	[65] = 2,
+	[74] = 20,
+	[75] = 18,
 	[80] = 21,
-	[81] = 18,
-	[82] = 20,
+	[81] = 19,
 };
 
 
@@ -4164,7 +4160,7 @@ free_zebu_token_rule(trie);
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_expression(value->match), value->match = inc_zebu_expression(subgrammar);
+free_zebu_expression(value->update), value->update = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
@@ -4197,7 +4193,7 @@ free_zebu_token_rule(trie);
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_expression(value->update), value->update = inc_zebu_expression(subgrammar);
+free_zebu_expression(value->match), value->match = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
@@ -4240,32 +4236,6 @@ if (value->endline < token->line) value->endline = token->line;
 free_zebu_token(token);
 }
 		d = value, g = 19;
-		break;
-	}
-	case 31:
-	{
-		struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-if (trie->startline < value->startline) value->startline = trie->startline;
-if (value->endline < trie->endline) value->endline = trie->endline;
-if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
-if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
-if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
-if (trie->regex) { free_zebu_regex(value->regex); value->regex = inc_zebu_regex(trie->regex); }
-if (trie->update) { free_zebu_expression(value->update); value->update = inc_zebu_expression(trie->update); }
-free_zebu_token_rule(trie);
-}
-{
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(token);
-}
-		d = value, g = 15;
 		break;
 	}
 	case 32:
@@ -4321,6 +4291,32 @@ free_zebu_token(token);
 		break;
 	}
 	case 34:
+	{
+		struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
+if (trie->startline < value->startline) value->startline = trie->startline;
+if (value->endline < trie->endline) value->endline = trie->endline;
+if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
+if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
+if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
+if (trie->regex) { free_zebu_regex(value->regex); value->regex = inc_zebu_regex(trie->regex); }
+if (trie->update) { free_zebu_expression(value->update); value->update = inc_zebu_expression(trie->update); }
+free_zebu_token_rule(trie);
+}
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(token);
+}
+		d = value, g = 15;
+		break;
+	}
+	case 31:
 	{
 		struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 		value->startline = -1;
@@ -4622,56 +4618,6 @@ free_zebu_expression_additive(subgrammar);
 		d = value, g = 21;
 		break;
 	}
-	case 58:
-	{
-		struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_expression_additive* trie = data.data[--yacc.n, --data.n];
-if (trie->startline < value->startline) value->startline = trie->startline;
-if (value->endline < trie->endline) value->endline = trie->endline;
-if (trie->add) { free_zebu_token(value->add); value->add = inc_zebu_token(trie->add); }
-if (trie->inner) { free_zebu_expression_multiplicative(value->inner); value->inner = inc_zebu_expression_multiplicative(trie->inner); }
-if (trie->left) { free_zebu_expression_additive(value->left); value->left = inc_zebu_expression_additive(trie->left); }
-if (trie->right) { free_zebu_expression_multiplicative(value->right); value->right = inc_zebu_expression_multiplicative(trie->right); }
-if (trie->sub) { free_zebu_token(value->sub); value->sub = inc_zebu_token(trie->sub); }
-free_zebu_expression_additive(trie);
-}
-{
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->add), value->add = inc_zebu_token(token);
-free_zebu_token(token);
-}
-{
-struct zebu_expression_additive* subgrammar = data.data[--yacc.n, --data.n];
-if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
-if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_expression_additive(value->left), value->left = inc_zebu_expression_additive(subgrammar);
-free_zebu_expression_additive(subgrammar);
-}
-		d = value, g = 22;
-		break;
-	}
-	case 40:
-	{
-		struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
-if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_expression_multiplicative(value->inner), value->inner = inc_zebu_expression_multiplicative(subgrammar);
-free_zebu_expression_multiplicative(subgrammar);
-}
-		d = value, g = 22;
-		break;
-	}
 	case 56:
 	{
 		struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
@@ -4706,6 +4652,72 @@ free_zebu_expression_additive(subgrammar);
 		d = value, g = 22;
 		break;
 	}
+	case 40:
+	{
+		struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
+if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
+if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
+free_zebu_expression_multiplicative(value->inner), value->inner = inc_zebu_expression_multiplicative(subgrammar);
+free_zebu_expression_multiplicative(subgrammar);
+}
+		d = value, g = 22;
+		break;
+	}
+	case 58:
+	{
+		struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_expression_additive* trie = data.data[--yacc.n, --data.n];
+if (trie->startline < value->startline) value->startline = trie->startline;
+if (value->endline < trie->endline) value->endline = trie->endline;
+if (trie->add) { free_zebu_token(value->add); value->add = inc_zebu_token(trie->add); }
+if (trie->inner) { free_zebu_expression_multiplicative(value->inner); value->inner = inc_zebu_expression_multiplicative(trie->inner); }
+if (trie->left) { free_zebu_expression_additive(value->left); value->left = inc_zebu_expression_additive(trie->left); }
+if (trie->right) { free_zebu_expression_multiplicative(value->right); value->right = inc_zebu_expression_multiplicative(trie->right); }
+if (trie->sub) { free_zebu_token(value->sub); value->sub = inc_zebu_token(trie->sub); }
+free_zebu_expression_additive(trie);
+}
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(value->add), value->add = inc_zebu_token(token);
+free_zebu_token(token);
+}
+{
+struct zebu_expression_additive* subgrammar = data.data[--yacc.n, --data.n];
+if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
+if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
+free_zebu_expression_additive(value->left), value->left = inc_zebu_expression_additive(subgrammar);
+free_zebu_expression_additive(subgrammar);
+}
+		d = value, g = 22;
+		break;
+	}
+	case 37:
+	{
+		struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(value->literal), value->literal = inc_zebu_token(token);
+free_zebu_token(token);
+}
+		d = value, g = 23;
+		break;
+	}
 	case 49:
 	{
 		struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
@@ -4732,56 +4744,6 @@ if (value->endline < token->line) value->endline = token->line;
 free_zebu_token(token);
 }
 		d = value, g = 23;
-		break;
-	}
-	case 37:
-	{
-		struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->literal), value->literal = inc_zebu_token(token);
-free_zebu_token(token);
-}
-		d = value, g = 23;
-		break;
-	}
-	case 61:
-	{
-		struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_expression_multiplicative* trie = data.data[--yacc.n, --data.n];
-if (trie->startline < value->startline) value->startline = trie->startline;
-if (value->endline < trie->endline) value->endline = trie->endline;
-if (trie->div) { free_zebu_token(value->div); value->div = inc_zebu_token(trie->div); }
-if (trie->inner) { free_zebu_expression_prefix(value->inner); value->inner = inc_zebu_expression_prefix(trie->inner); }
-if (trie->left) { free_zebu_expression_multiplicative(value->left); value->left = inc_zebu_expression_multiplicative(trie->left); }
-if (trie->mul) { free_zebu_token(value->mul); value->mul = inc_zebu_token(trie->mul); }
-if (trie->right) { free_zebu_expression_prefix(value->right); value->right = inc_zebu_expression_prefix(trie->right); }
-free_zebu_expression_multiplicative(trie);
-}
-{
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->div), value->div = inc_zebu_token(token);
-free_zebu_token(token);
-}
-{
-struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
-if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_expression_multiplicative(value->left), value->left = inc_zebu_expression_multiplicative(subgrammar);
-free_zebu_expression_multiplicative(subgrammar);
-}
-		d = value, g = 24;
 		break;
 	}
 	case 59:
@@ -4830,6 +4792,40 @@ if (subgrammar->startline < value->startline) value->startline = subgrammar->sta
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
 free_zebu_expression_prefix(value->inner), value->inner = inc_zebu_expression_prefix(subgrammar);
 free_zebu_expression_prefix(subgrammar);
+}
+		d = value, g = 24;
+		break;
+	}
+	case 61:
+	{
+		struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_expression_multiplicative* trie = data.data[--yacc.n, --data.n];
+if (trie->startline < value->startline) value->startline = trie->startline;
+if (value->endline < trie->endline) value->endline = trie->endline;
+if (trie->div) { free_zebu_token(value->div); value->div = inc_zebu_token(trie->div); }
+if (trie->inner) { free_zebu_expression_prefix(value->inner); value->inner = inc_zebu_expression_prefix(trie->inner); }
+if (trie->left) { free_zebu_expression_multiplicative(value->left); value->left = inc_zebu_expression_multiplicative(trie->left); }
+if (trie->mul) { free_zebu_token(value->mul); value->mul = inc_zebu_token(trie->mul); }
+if (trie->right) { free_zebu_expression_prefix(value->right); value->right = inc_zebu_expression_prefix(trie->right); }
+free_zebu_expression_multiplicative(trie);
+}
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(value->div), value->div = inc_zebu_token(token);
+free_zebu_token(token);
+}
+{
+struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
+if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
+if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
+free_zebu_expression_multiplicative(value->left), value->left = inc_zebu_expression_multiplicative(subgrammar);
+free_zebu_expression_multiplicative(subgrammar);
 }
 		d = value, g = 24;
 		break;
@@ -4913,22 +4909,6 @@ free_zebu_regex_union(subgrammar);
 		d = value, g = 1;
 		break;
 	}
-	case 5:
-	{
-		struct zebu_regex_concat* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_regex_suffix* subgrammar = data.data[--yacc.n, --data.n];
-if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
-if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_regex_suffix(value->inner), value->inner = inc_zebu_regex_suffix(subgrammar);
-free_zebu_regex_suffix(subgrammar);
-}
-		d = value, g = 2;
-		break;
-	}
 	case 18:
 	{
 		struct zebu_regex_concat* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
@@ -4952,36 +4932,20 @@ free_zebu_regex_suffix(subgrammar);
 		d = value, g = 2;
 		break;
 	}
-	case 2:
+	case 5:
 	{
-		struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		struct zebu_regex_concat* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 		value->startline = -1;
 		value->endline = 0;
 		value->refcount = 1;
 {
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->string), value->string = inc_zebu_token(token);
-free_zebu_token(token);
+struct zebu_regex_suffix* subgrammar = data.data[--yacc.n, --data.n];
+if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
+if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
+free_zebu_regex_suffix(value->inner), value->inner = inc_zebu_regex_suffix(subgrammar);
+free_zebu_regex_suffix(subgrammar);
 }
-		d = value, g = 3;
-		break;
-	}
-	case 1:
-	{
-		struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_token* token = data.data[--yacc.n, --data.n];
-if (token->line < value->startline) value->startline = token->line;
-if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->character), value->character = inc_zebu_token(token);
-free_zebu_token(token);
-}
-		d = value, g = 3;
+		d = value, g = 2;
 		break;
 	}
 	case 21:
@@ -5007,6 +4971,22 @@ free_zebu_regex(subgrammar);
 struct zebu_token* token = data.data[--yacc.n, --data.n];
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(token);
+}
+		d = value, g = 3;
+		break;
+	}
+	case 2:
+	{
+		struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(value->string), value->string = inc_zebu_token(token);
 free_zebu_token(token);
 }
 		d = value, g = 3;
@@ -5040,9 +5020,9 @@ free_zebu_token(token);
 		d = value, g = 3;
 		break;
 	}
-	case 16:
+	case 1:
 	{
-		struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 		value->startline = -1;
 		value->endline = 0;
 		value->refcount = 1;
@@ -5050,9 +5030,18 @@ free_zebu_token(token);
 struct zebu_token* token = data.data[--yacc.n, --data.n];
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-free_zebu_token(value->asterisk), value->asterisk = inc_zebu_token(token);
+free_zebu_token(value->character), value->character = inc_zebu_token(token);
 free_zebu_token(token);
 }
+		d = value, g = 3;
+		break;
+	}
+	case 4:
+	{
+		struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
 {
 struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
@@ -5086,22 +5075,6 @@ free_zebu_regex_high(subgrammar);
 		d = value, g = 4;
 		break;
 	}
-	case 4:
-	{
-		struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
-		value->startline = -1;
-		value->endline = 0;
-		value->refcount = 1;
-{
-struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
-if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
-if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
-free_zebu_regex_high(subgrammar);
-}
-		d = value, g = 4;
-		break;
-	}
 	case 15:
 	{
 		struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
@@ -5113,6 +5086,29 @@ struct zebu_token* token = data.data[--yacc.n, --data.n];
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
 free_zebu_token(value->qmark), value->qmark = inc_zebu_token(token);
+free_zebu_token(token);
+}
+{
+struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
+if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
+if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
+free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
+free_zebu_regex_high(subgrammar);
+}
+		d = value, g = 4;
+		break;
+	}
+	case 16:
+	{
+		struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
+		value->startline = -1;
+		value->endline = 0;
+		value->refcount = 1;
+{
+struct zebu_token* token = data.data[--yacc.n, --data.n];
+if (token->line < value->startline) value->startline = token->line;
+if (value->endline < token->line) value->endline = token->line;
+free_zebu_token(value->asterisk), value->asterisk = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
