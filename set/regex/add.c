@@ -1,9 +1,14 @@
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <errno.h>
 
 #include <debug.h>
+
+#include <defines/argv0.h>
+
+#include <enums/error.h>
 
 #include <avl/insert.h>
 
@@ -27,8 +32,8 @@ bool regexset_add(
 		new = false;
 	else
 	{
-		TODO;
-		exit(1);
+		fprintf(stderr, "%s: regexset_add: %m\n", argv0);
+		exit(e_syscall_failed);
 	}
 	
 	EXIT;

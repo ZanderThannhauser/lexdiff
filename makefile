@@ -67,9 +67,9 @@ ARGS += --pretty-print
 
 #ARGS += ./examples/json/json.ldiff ./examples/json/before.json ./examples/json/after.json
 
-ARGS += ./examples/fruit/fruit.ldiff ./examples/fruit/before.txt ./examples/fruit/after.txt
+#ARGS += ./examples/fruit/fruit.ldiff ./examples/fruit/before.txt ./examples/fruit/after.txt
 
-#ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/before.txt ./examples/sandbox/after.txt
+ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/before.txt ./examples/sandbox/after.txt
 
 run: $(buildprefix)/lexdiff
 	$< $(ARGS)
@@ -86,9 +86,11 @@ valrun-leak: $(buildprefix)/lexdiff
 tracerun: $(buildprefix)/lexdiff
 	strace $< $(ARGS)
 
+PREFIX ?= ~/bin
+
 install: $(buildprefix)/lexdiff
-	@ mkdir -vp ~/bin/
-	@ cp -vau $(buildprefix)/lexdiff ~/bin/lexdiff
+	@ mkdir -vp $(PREFIX)
+	@ cp -vau $(buildprefix)/lexdiff $(PREFIX)/lexdiff
 
 .PRECIOUS: %/
 

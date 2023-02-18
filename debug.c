@@ -73,11 +73,6 @@ void real_dpvsn(const char* e, const char* s, size_t n)
 	printf("\"\n");
 }
 
-void real_dpvwsn(const char* e, const wchar_t* s, size_t n)
-{
-	TODO;
-}
-
 
 
 

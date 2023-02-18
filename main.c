@@ -5,6 +5,10 @@
 
 #include <debug.h>
 
+#include <defines/argv0.h>
+
+#include <enums/error.h>
+
 #include <memory/smalloc.h>
 
 #include <cmdln/process.h>
@@ -49,8 +53,8 @@ int main(int argc, char* const* argv)
 		
 		if (!stream)
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, dotout_tokenizer);
+			exit(e_syscall_failed);
 		}
 		
 		regex_dotout(tokenizer, stream);
@@ -63,14 +67,14 @@ int main(int argc, char* const* argv)
 		
 		if (!(before_stream = fopen(before_path, "r")))
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, before_path);
+			exit(e_syscall_failed);
 		}
 		
 		if (!(after_stream = fopen(after_path, "r")))
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, after_path);
+			exit(e_syscall_failed);
 		}
 		
 		struct token_list* before_tokens = tokenize(before_stream, tokenizer);
