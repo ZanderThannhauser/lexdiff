@@ -9,7 +9,7 @@ dragonfruit,grapefruit
 grapes,onions
 $ cat b.txt
 apples, bananas, peaches
-dragonfruit
+dragoonfruit
 grapefruit
 grapes, onions
 ```
@@ -24,9 +24,9 @@ $ diff a.txt b.txt
 < grapes,onions
 ---
 > apples, bananas, peaches
-> dragonfruit
+> dragoonfruit
 > grapefruit
-> grapes, onions
+> , onions
 ```
 
 Hmmm... I *think* the first line says the that the `c`hange between files
