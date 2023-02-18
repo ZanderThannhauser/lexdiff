@@ -36,7 +36,7 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 	
 	struct regex* state = tokenizer;
 	
-	for (bool keep_going = true; keep_going; )
+	for (bool keep_going = c != EOF; keep_going; )
 	{
 		dpvc(c);
 		

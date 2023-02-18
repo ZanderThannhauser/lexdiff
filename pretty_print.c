@@ -12,8 +12,8 @@
 #include "pretty_print.h"
 
 void pretty_print(
-	struct token_list* mlist,
-	struct token_list* clist,
+	struct token_list* blist,
+	struct token_list* alist,
 	enum edit_kind* edits,
 	unsigned number_of_edits)
 {
@@ -21,18 +21,18 @@ void pretty_print(
 	
 	struct pos {
 		unsigned i, line;
-	} m = {0, 1}, c = {0, 1};
+	} b = {0, 1}, a = {0, 1};
 	
-	printf("\e[32m%3u\e[m/\e[31m%3u\e[0m | ", m.line, c.line);
+	printf("\e[32m%3u\e[m/\e[31m%3u\e[0m | ", b.line, a.line);
 	
 	void escape(unsigned x, const char* str) {
 		for (char h; (h = *str++); ) {
 			switch (h) {
 				case '\n':
 					printf("↲\n");
-					if (x & 1) c.line++;
-					if (x & 2) m.line++;
-					printf("\e[32m%3u\e[m/\e[31m%3u\e[0m | ", m.line, c.line);
+					if (x & 1) a.line++;
+					if (x & 2) b.line++;
+					printf("\e[32m%3u\e[m/\e[31m%3u\e[0m | ", b.line, a.line);
 					break;
 				
 				case '\t':
@@ -55,20 +55,20 @@ void pretty_print(
 		switch (edits[e - 1])
 		{
 			case ek_insert:
-				printf("\e[31m"), escape(1, clist->data[c.i]->data), printf("\e[0m"), c.i++;
+				printf("\e[32m"), escape(1, alist->data[a.i]->data), printf("\e[0m"), a.i++;
 				break;
 			
 			case ek_update:
-/*				printf("\e[33m"), escape(3, mlist->data[m.i]->data), printf("\e[0m"), m.i++, c.i++;*/
-				printf("\e[33m"), escape(3, clist->data[c.i]->data), printf("\e[0m"), m.i++, c.i++;
+/*				printf("\e[33m"), escape(3, mlist->data[m.i]->data), printf("\e[0m"), b.i++, a.i++;*/
+				printf("\e[33m"), escape(3, alist->data[a.i]->data), printf("\e[0m"), b.i++, a.i++;
 				break;
 			
 			case ek_match:
-				printf("\e[38;2;180;180;180m"), escape(3, mlist->data[m.i]->data), printf("\e[0m"), m.i++, c.i++;
+				printf("\e[38;2;180;180;180m"), escape(3, blist->data[b.i]->data), printf("\e[0m"), b.i++, a.i++;
 				break;
 			
 			case ek_delete:
-				printf("\e[32m"), escape(2, mlist->data[m.i]->data), printf("\e[0m"), m.i++;
+				printf("\e[31m"), escape(2, blist->data[b.i]->data), printf("\e[0m"), b.i++;
 				break;
 		}
 	}
