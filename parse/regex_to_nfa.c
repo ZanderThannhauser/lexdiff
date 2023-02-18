@@ -140,9 +140,7 @@ static charset_t charset_to_nfa(struct zebu_charset* charset)
 		charset_t inner = charset_inter_to_nfa(charset->inner);
 		
 		if (charset->sub)
-		{
-			TODO;
-		}
+			inner |= charset_inter_to_nfa(charset->inner);
 		
 		EXIT;
 		return inner;

@@ -1,0 +1,17 @@
+
+// ignore whitespace:
+' ' | '\t' | '\n' | ',': {};
+
+// most fruit are only somewhat important
+['a'-'z'|'A'-'Z']+: {
+	extra: -20,
+	exact: 0,
+	similar: -5,
+	missing: -20,
+};
+
+// but onions are really important
+"onions": {
+	missing: -50,
+};
+

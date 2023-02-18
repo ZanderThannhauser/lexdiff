@@ -1,18 +1,18 @@
 
 ' ': {}; // ignore whitespace
 
-'\t': {insert: -5}; // please don't put tabs in your file!
+'\t': {extra: -5}; // please don't put tabs in your file!
 
 ['0'-'9']+ ('.' ['0'-'9']+)?: {
-	insert: -20,
-	match : +1/10,
-	update: -10,
-	delete: -20
+	extra: -20,
+	exact : +1/10,
+	similar: -10,
+	missing: -20
 };
 
-',' : { delete: -30, insert: -30};
+',' : { missing: -30, extra: -30};
 
-'\n': { insert: -40, delete: -40};
+'\n': { extra: -40, missing: -40};
 
 // '\n': { insert: -10, delete: -10};
 
