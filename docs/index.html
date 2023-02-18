@@ -115,11 +115,9 @@
               <p>  The syntax of the specification file is made up of one or
                    more token declarations, each token declaration consists
                    of the regular expression for matching the token followed
-                   by a colon (:), open curly-bracket ({), and a list of
-                   token properties and a close curly-bracket (}) and
-                   semi-colon (;). Token properties can set the amount of
-                   points gained or lost by if the token is extra, exact,
-                   similar, or missing. Example shown below: </p>
+                   by a list of differences and the score loss or gain
+                   that would occur every time that kind of difference was detected.
+                   Example shown below: </p>
               
               <pre><code>[<span style="color:#5F5">'0'</span>-<span style="color:#5F5">'9'</span>]+: {
     <span style="color:#5FF">extra</span>: <span style="color:#F55">-10</span>,
@@ -129,21 +127,23 @@
 };</code></pre>
               
               <p>  The number of points gained/lost does not have to be just
-                   a literal, lexdiff supports evaluating math expressions
+                   a numeric literal, lexdiff supports evaluating math expressions
                    to determine the result. Addition, subtraction,
                    multiplication, and division operators are supported.
-                   Parenthesis can be used change the operator precedence. </p>
+                   Parenthesis can be used to change the operator precedence. </p>
               
               <p>  Unless specified, the number of points gained/lost due
-                   to a difference (extra, missing, similar) or an
+                   to a difference (extra, similar, missing) or an
                    exact match is zero.</p>
                    
               <h2> Regular Expression Syntax </h2>
               <p>  The regular expression syntax has been modified a bit from
-                   that's conventional. This alternative syntax allows for
+                   what's conventional. This alternative syntax allows for
                    better readability and makes it easy to introduce new
-                   operators without breaking old patterns, or maybe it is just
-                   because I've been looking at C code for too long!</p>
+                   operators without breaking old patterns. It could also
+                   be that I've been looking at C code for too long and
+                   have gotten to the point where I don't like any syntax
+                   that doesn't remind me of C.</p>
               <p>  Regardless: In order of operator
                    precedence: vertical-bar (|) is the or/union operator,
                    concatenation is done by juxtaposition, question mark (?),
@@ -156,12 +156,12 @@
                    in a regular-expression pattern, enclosed in
                    square brackets ([]). The operators that can be used
                    to define a character set are, in order of
-                   operator precedence: vertical bar (|) is the set-union
-                   operator, ampersand (&) is the set-intersection operator,
-                   minus (-) for the range/span operator, and exclamation
-                   mark for the prefix set-complement operator. Parenthesis can
-                   be used to change operator precedence. Characters are
-                   included by C-style characters.<p>
+                   operator precedence: vertical bar (|) as the set-union
+                   operator, ampersand (&) as the set-intersection operator,
+                   minus (-) as the range/span operator, and exclamation
+                   mark as the prefix set-complement operator. Parenthesis can
+                   be used to change operator precedence. Characters can
+                   included by C-style character literals.<p>
               
               <h3> Examples </h3>
               <dl> <dt> ['0'-'9']+ ('.' ['0'-'9']*)?</dt>
@@ -203,12 +203,15 @@
                   of fruit. Whitespace doesn't matter, and 'onions' is especially
                   important to keep. The specification file is
                   given below: </p>
-              <pre><code><span style="color:#55F">// ignore whitespace and commas:</span>
-<span style="color:#5F5">' '</span> | <span style="color:#5F5">'\t'</span> | <span style="color:#5F5">'\n'</span> | <span style="color:#5F5">','</span>: {};
+              <pre><code><span style="color:#55F">// ignore whitespace:</span>
+<span style="color:#5F5">' '</span> | <span style="color:#5F5">'\t'</span> | <span style="color:#5F5">'\n'</span>: {};
 
-<span style="color:#55F">// most fruit are only somewhat important</span>
+<span style="color:#55F">// commas matter very little:</span>
+<span style="color:#5F5">','</span>: { <span style="color:#5FF">extra</span>: <span style="color:#F55">-1</span>, <span style="color:#5FF">missing</span>: <span style="color:#F55">-1</span> };
+
+<span style="color:#55F">// fruit are only somewhat important</span>
 [<span style="color:#5F5">'a'</span>-<span style="color:#5F5">'z'</span>|<span style="color:#5F5">'A'</span>-<span style="color:#5F5">'Z'</span>]+: {
-    <span style="color:#5FF">extra'</span>: <span style="color:#F55">-20</span>,
+    <span style="color:#5FF">extra'</span>  : <span style="color:#F55">-20</span>,
     <span style="color:#5FF">similar'</span>: <span style="color:#F55">-5</span>,
     <span style="color:#5FF">missing'</span>: <span style="color:#F55">-20</span>,
 };
@@ -231,18 +234,20 @@ dragoonfruit
 grapefruit
 , onions
 
-$ lexdiff -p ./fruit.ldiff ./before.txt ./after.txt
-score: 75
-  <span style="color:#5F5">1</span>/  <span style="color:#F55">1</span> | apples<span style="color:#5F5">,</span><span style="color:#FF5">␣</span>bananas<span style="color:#5F5">,</span><span style="color:#FF5">␣</span>peaches↲
-  <span style="color:#5F5">2</span>/  <span style="color:#F55">2</span> | <span style="color:#FF5">dragoonfruit</span>↲
-  <span style="color:#5F5">3</span>/  <span style="color:#F55">3</span> | grapefruit↲
-  <span style="color:#5F5">4</span>/  <span style="color:#F55">4</span> | <span style="color:#FF5">,</span><span style="color:#F55">grapes</span><span style="color:#FF5">␣</span>onions↲
+$ lexdiff -p fruit.ldiff before.txt after.txt
+score: 74
+  <span style="color:#5F5">1</span>/  <span style="color:#F55">1</span> | <span style="color:#B4B4B4">apples,</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">bananas,</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">peaches↲</span>
+  <span style="color:#5F5">2</span>/  <span style="color:#F55">2</span> | <span style="color:#FF5">dragoonfruit</span><span style="color:#5F5">↲</span>
+  <span style="color:#5F5">3</span>/  <span style="color:#F55">3</span> | <span style="color:#F55">,</span><span style="color:#B4B4B4">grapefruit↲</span>
+  <span style="color:#5F5">4</span>/  <span style="color:#F55">4</span> | <span style="color:#F55">grapes</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">onions↲</span>
   <span style="color:#5F5">5</span>/  <span style="color:#F55">5</span> | 
 </code></pre>
                    
-              <p> The final score is 75 because 'dragonfruit' was
-                  misspelled (-5 points) and 'grapes' was missing (-20 points).
-                  100 - 5 - 20 = 75. </p>
+              <p> The final score is 74 because 'dragonfruit' is
+                  misspelled (-5 points), the comma between 'dragonfruit'
+                  and 'grapefruit' was removed (-1 point) and 'grapes' is
+                  missing (-20 points).
+                  100 - 5 - 1 - 20 = 74. </p>
               
               <h1> BUILDING </h1>
               <p>  Building lexdiff is fairly simple, run 'make' to build and
