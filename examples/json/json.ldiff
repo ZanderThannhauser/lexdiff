@@ -1,41 +1,41 @@
 
 ' ' | '\t' | '\n': {}; // ignore whitespace
 
-',' : { delete: -30, insert: -30};
+',' : { missing: -30, extra: -30};
 
-'[' : { delete: -30, insert: -30};
+'[' : { missing: -30, extra: -30};
 
-']' : { delete: -30, insert: -30};
+']' : { missing: -30, extra: -30};
 
-'{' : { delete: -30, insert: -30};
+'{' : { missing: -30, extra: -30};
 
-'}' : { delete: -30, insert: -30};
+'}' : { missing: -30, extra: -30};
 
-"null": { delete: -20, insert: -20};
+"null": { missing: -20, extra: -20};
 
-"true": { delete: -20, insert: -20};
+"true": { missing: -20, extra: -20};
 
-"false": { delete: -20, insert: -20};
+"false": { missing: -20, extra: -20};
 
 ['0'-'9']+ ('.' ['0'-'9']+)?: {
-	insert: -20,
-	match : +00,
-	update: -10,
-	delete: -20
+	extra  : -20,
+	exact  : +00,
+	similar: -10,
+	missing: -20
 };
 
 '\"' [!'\"']* '\"': {
-	insert: -20,
-	match : +00,
-	update: -10,
-	delete: -20
+	extra  : -20,
+	exact  : +00,
+	similar: -10,
+	missing: -20
 };
 
 '\"' [!'\"']* '\"' ':': {
-	insert: -5,
-	match : +0,
-	update: -5,
-	delete: -5
+	extra  : -5,
+	exact  : +0,
+	similar: -5,
+	missing: -5
 };
 
 
