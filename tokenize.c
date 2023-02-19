@@ -30,71 +30,68 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 		unsigned n, cap;
 	} buffer = {};
 	
-	unsigned line = 1, i = 0;
-	
-	int c = fgetc(stream);
+	unsigned line = 1, backup_line = 1, i = 0, accepts = 0;
 	
 	struct regex* state = tokenizer, *fallback = NULL;
 	
-	for (bool keep_going = c != EOF; keep_going; )
+	for (bool keep_going = !feof(stream); keep_going; )
 	{
-		dpvc(c);
+		int c;
 		
-		// if there's more in the buffer, transition on it
-		// if not, read from the stream
-		// if EOF: to = NULL;
+		struct regex* to;
 		
-		TODO;
-		#if 0
-		struct regex* to = c == EOF ? NULL : state->transitions[c];
-		
-		if (to)
+		if (i < buffer.n)
 		{
-			if (state->accepts)
-			{
-				// remember fallback
-				TODO;
-			}
-			else
-			{
-				TODO;
-			}
-			TODO;
-			#if 0
+			c = buffer.data[i];
+			
+			to = state->transitions[c];
+		}
+		else if ((c = fgetc(stream)) != EOF)
+		{
 			if (buffer.n == buffer.cap)
 			{
 				buffer.cap = buffer.cap << 1 ?: 1;
-				buffer.data = srealloc(buffer.data, sizeof(*buffer.data) * buffer.cap);
+				buffer.data = realloc(buffer.data, sizeof(*buffer.data) * buffer.cap);
 			}
 			
-			state = to, buffer.data[buffer.n++] = c;
+			buffer.data[buffer.n++] = c;
+			
+			to = state->transitions[c];
+		}
+		else
+		{
+			to = NULL;
+		}
+		
+		dpv(to);
+		
+		if (to)
+		{
+			if (state->accepts) fallback = state, accepts = state->accepts;
 			
 			if (c == '\n') line++;
 			
-			c = fgetc(stream);
-			#endif
+			i++, state = to;
+			
 		}
 		else if (state->accepts)
 		{
-			// memmove buffer back
-			
-			TODO;
-			#if 0
-			dpvsn(buffer.data, buffer.n);
+			dpvsn(buffer.data, i);
 			
 			struct token* token = smalloc(sizeof(*token));
 			
 			token->id = state->accepts;
 			
-			token->data = memcpy(malloc(buffer.n + 1), buffer.data, buffer.n);
-			token->data[buffer.n] = 0;
+			token->data = memcpy(malloc(i + 1), buffer.data, i);
+			token->data[i] = 0;
 			
 			token_list_append(tlist, token);
 			
-			state = tokenizer, buffer.n = 0, fallback = NULL;
+			state = tokenizer, fallback = NULL;
 			
-			if (c == EOF) keep_going = false;
-			#endif
+			memmove(buffer.data, buffer.data + i, buffer.n - i), buffer.n -= i, i = 0;
+			
+			if (!buffer.n && feof(stream)) keep_going = false;
 		}
 		else if (fallback)
 		{
@@ -102,11 +99,10 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 		}
 		else
 		{
-			fprintf(stderr, "%s: cannot tokenize '%.*s%c' on line %u!\n",
-				argv0, buffer.n, buffer.data, c, line);
+			fprintf(stderr, "%s: cannot tokenize '%.*s' on line %u!\n",
+				argv0, buffer.n, buffer.data, line);
 			exit(1);
 		}
-		#endif
 	}
 	
 	free(buffer.data);

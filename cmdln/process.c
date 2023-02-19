@@ -10,6 +10,7 @@
 #include "usage_message.h"
 #include "specification_path.h"
 #include "before_path.h"
+#include "width.h"
 #include "after_path.h"
 #include "dotout_tokenizer.h"
 #include "pretty_print.h"
@@ -22,6 +23,7 @@ void cmdln_process(int argc, char* const* argv)
 	
 	int opt, option_index;
 	const struct option long_options[] = {
+		{"width",         required_argument, 0, 'W'},
 		{"pretty-print",        no_argument, 0, 'p'},
 		{"dotout",        required_argument, 0, 'd'},
 		{"verbose",             no_argument, 0, 'v'},
@@ -30,11 +32,15 @@ void cmdln_process(int argc, char* const* argv)
 	};
 	
 	while ((opt = getopt_long(argc, argv,
-		"p" "d" "v" "h",
+		"W:" "p" "d:" "v" "h",
 		long_options, &option_index)) >= 0)
 	{
 		switch (opt)
 		{
+			case 'W':
+				width = atoi(optarg);
+				break;
+			
 			case 'p':
 				should_pretty_print = true;
 				break;
@@ -59,6 +65,9 @@ void cmdln_process(int argc, char* const* argv)
 			}
 		}
 	}
+	
+	if (width <= 0)
+		width = 60;
 	
 	specification_path = argv[optind++];
 	before_path = argv[optind++];

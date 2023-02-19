@@ -88,7 +88,7 @@ int main(int argc, char* const* argv)
 		
 		if (should_pretty_print)
 		{
-			pretty_print(before_tokens, after_tokens, edits, number_of_edits);
+			pretty_print(idtoc, before_tokens, after_tokens, edits, number_of_edits);
 		}
 		
 		free_token_list(before_tokens);
