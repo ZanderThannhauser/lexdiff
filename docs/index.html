@@ -35,6 +35,7 @@
         padding: 1em;
         border: solid;
         border-color: white;
+        white-space:pre-wrap
     }
     h1 {
         margin-left: -0.5in;
@@ -236,11 +237,14 @@ grapefruit
 
 $ lexdiff -p fruit.ldiff before.txt after.txt
 score: 74
-  <span style="color:#5F5">1</span>/  <span style="color:#F55">1</span> | <span style="color:#B4B4B4">apples,</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">bananas,</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">peaches↲</span>
-  <span style="color:#5F5">2</span>/  <span style="color:#F55">2</span> | <span style="color:#FF5">dragoonfruit</span><span style="color:#5F5">↲</span>
-  <span style="color:#5F5">3</span>/  <span style="color:#F55">3</span> | <span style="color:#F55">,</span><span style="color:#B4B4B4">grapefruit↲</span>
-  <span style="color:#5F5">4</span>/  <span style="color:#F55">4</span> | <span style="color:#F55">grapes</span><span style="color:#5F5">␣</span><span style="color:#B4B4B4">onions↲</span>
-  <span style="color:#5F5">5</span>/  <span style="color:#F55">5</span> | 
+  1/  1 | <span style="color:#646464">apples,</span><span style="color:#64FF64">␣</span><span style="color:#646464">bananas,</span><span style="color:#64FF64">␣</span><span style="color:#646464">peaches</span><span style="color:#646464">↲</span>     | extra '␣' (0)
+                                        | extra '␣' (0)
+  2/  2 | <span style="color:#FFFF64">dragoonfruit</span><span style="color:#64FF64">↲</span>                 | 'dragonfruit' instead of 'dragoonfruit' (-5)
+                                        | extra '↲' (0)
+  2/  3 | <span style="color:#FF6464">,</span><span style="color:#646464">grapefruit↲</span>                  | missing ',' (-1)
+  3/  4 | <span style="color:#FF6464">grapes</span><span style="color:#646464">,</span><span style="color:#64FF64">␣</span><span style="color:#646464">onions↲</span>               | missing 'grapes' (-20)
+                                        | extra '␣' (0)
+  4/  5 | 
 </code></pre>
                    
                     <p> The final score is 74 because 'dragonfruit' is
