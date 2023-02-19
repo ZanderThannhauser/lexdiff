@@ -59,6 +59,11 @@ default: $(buildprefix)/lexdiff
 ARGS += -v
 #ARGS += -h
 
+#ARGS += -W 30
+ARGS += -W 40
+#ARGS += -W 50
+#ARGS += -W 80
+
 ARGS += --pretty-print
 
 #ARGS += --dotout /tmp/tokenizer.dot
