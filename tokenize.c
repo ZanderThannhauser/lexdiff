@@ -1,4 +1,5 @@
 
+#include <string.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -91,10 +92,14 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			
 			memmove(buffer.data, buffer.data + i, buffer.n - i), buffer.n -= i, i = 0;
 			
+			backup_line = line;
+			
 			if (!buffer.n && feof(stream)) keep_going = false;
 		}
 		else if (fallback)
 		{
+			printf("accepts = %u\n", accepts);
+			printf("backup_line = %u\n", backup_line);
 			TODO;
 		}
 		else

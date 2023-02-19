@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <debug.h>
 
 #include "mpq_print.h"
