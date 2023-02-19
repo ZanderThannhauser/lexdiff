@@ -1,210 +1,207 @@
 
 <!-- vim: set expandtab ts=4 sw=4 tw=80:-->
 
+<!DOCTYPE html>
+
 <style>
     body {
-        margin-top: 0;
-        margin-left: 0.5in;
-        margin-right: 0.5in;
-        margin-bottom: 0.5in;
+        margin: 0 auto;
+        width: 95%;
+        max-width: 80em;
         font-family: monospace;
         font-size: 10pt;
         color: white;
         background-color: black;
-    }
-    p {
+        line-height: calc(1.0em + 0.4vw);
     }
     ul {
         list-style-type: none;
-        padding-inline-start: 0;
-    }
-    li {
+        padding: 0;
     }
     a:link {
-        color: white;
+        color: #0FF;
     }
     a:visited {
-        color: #666;
+        color: darkcyan;
     }
     a:hover {
       color: black;
-      background-color: white;
+      background-color: #0FF;
+    }
+    pre::-webkit-scrollbar {
+        display: none;
     }
     pre {
-        margin: 1em;
         padding: 1em;
-        border: solid;
-        border-color: white;
-        white-space:pre-wrap
+        border: .25em solid white;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    h1, h2, h3 {
+        margin: 0;
+        font-size: 1em;
+        background-color: black;
+        position: sticky;
     }
     h1 {
-        margin-left: -0.5in;
-        margin-block: 0;
-        font-size: 10pt;
         font-weight: bold;
-        position: sticky;
-        background-color: black;
         top: 0em;
-        left: 0;
+        text-transform: uppercase;
     }
     h2 {
-        margin-left: -0.25in;
-        margin-block: 0;
-        font-size: 10pt;
         font-weight: bold;
-        position: sticky;
-        background-color: black;
         top: 1em;
-        left: 0;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
     }
     h3 {
-        font-size: 10pt;
-        margin-block: 0;
         font-weight: normal;
         text-decoration: underline;
-        position: sticky;
-        background-color: black;
         top: 2em;
-        left: 0;
     }
     dt {
         font-weight: bold;
     }
+    dt, p, table, ul, h3 {
+        margin: 1em 5%;
+    }
+    pre, dd {
+        margin: 1em 10%;
+    }
     table, th, td {
-        border: 2px solid black;
-        border-collapse: collapse;
-        padding: 0.5em;
+        border: 0.25em solid white;
+        padding: 1em;
     }
     table {
-        margin: 1em;
+        border-collapse: collapse;
     }
 </style>
 
 <html> <head> <title> Lexdiff </title> </head>
-       <body> <div> <h1> NAME </h1>
-                    <p>  lexdiff - compare files lexically </p> </div>
-              <div> <h1> SYNOPSIS </h1>
-                    <ul> <li> lexdiff -d <u>dot-output</u> <u>specification-file</u> </li>
-                         <li> lexdiff [-h] </li>
-                         <li> lexdiff [-v] [-p] <u>specification-file</u> <u>before</u> <u>after</u> </li> </ul> </div>
-              <div> <h1> DESCRIPTION </h1>
-                    <p>  Sometimes a line-by-line comparison
-                         can be too coarse for small differences and a
-                         character-by-character comparison too pedantic to be helpful;
-                         lexdiff attempts to reach a middle-ground by essentially
-                         comparing the tokens (words) of the two files, similar to how
-                         humans read text. lexdiff provides a mechanism
-                         for the user to be able to articulate the kinds
-                         of tokens lexdiff should be prepared to encounter in the two
-                         files and the amount of importance the differences between
-                         said tokens have. After the comparison, lexdiff will print a
-                         "score" to summarize the differences found. <p>
+       <body> <section> <h1> Name </h1>
+                         <p> lexdiff - compare files lexically </p> </section>
+              <section> <h1> SYNOPSIS </h1>
+                   <ul> <li> lexdiff -d <u>dot-output</u> <u>specification-file</u> </li>
+                        <li> lexdiff [-h] </li>
+                        <li> lexdiff [-v] [-p] <u>specification-file</u> <u>before</u> <u>after</u> </li> </ul> </section>
+              <section> <h1> Description </h1>
+                         <p> Sometimes a line-by-line comparison
+                             can be too coarse for small differences and a
+                             character-by-character comparison too pedantic to be helpful;
+                             lexdiff attempts to reach a middle-ground by essentially
+                             comparing the tokens (words) of the two files, similar to how
+                             humans read text. lexdiff provides a mechanism
+                             for the user to be able to articulate the kinds
+                             of tokens lexdiff should be prepared to encounter in the two
+                             files and the amount of importance the differences between
+                             said tokens have. After the comparison, lexdiff will print a
+                             "score" to summarize the differences found. </p>
                          
-                    <p>  lexdiff looks for three kinds of differences: a token
-                         present in <u>after</u> but is not in <u>before</u> (extra),
-                         a token present in <u>before</u> but not in <u>after</u>
-                         (missing), and a token present in both files but whose
-                         characters are different (similar but not exact).
-                         Each of these differences may result in the score increasing
-                         or decreasing. The score may also be affected by tokens that
-                         perfectly match between the two files (exact). </p>
-                           
-                    <p>  lexdiff reads the specification file given on the command-line
-                         to know what tokens exist, and how the final score should
-                         be affected by differences their involved in. <p> </div>
+                         <p>  lexdiff looks for three kinds of differences: a token
+                              present in <u>after</u> but is not in <u>before</u> (extra),
+                              a token present in <u>before</u> but not in <u>after</u>
+                              (missing), and a token present in both files but whose
+                              characters are different (similar but not exact).
+                              Each of these differences may result in the score increasing
+                              or decreasing. The score may also be affected by tokens that
+                              perfectly match between the two files (exact). </p>
+                                
+                         <p>  lexdiff reads the specification file given on the command-line
+                              to know what tokens exist, and how the final score should
+                              be affected by differences their involved in. </p> </section>
                
-              <div> <h1> SPECIFICATION FILE SYNTAX </h1>
-                    <p>  The syntax of the specification file is made up of one or
-                         more token declarations, each token declaration consists
-                         of the regular expression for matching the token followed
-                         by a list of differences and the score loss or gain
-                         that would occur every time that kind of difference was detected.
-                         Example shown below: </p>
-                    <pre><code>[<span style="color:#5F5">'0'</span>-<span style="color:#5F5">'9'</span>]+: {
+              <section> <h1> Specification File Syntax </h1>
+                         <p>  The syntax of the specification file is made up of one or
+                              more token declarations, each token declaration consists
+                              of the regular expression for matching the token followed
+                              by a list of differences and the score loss or gain
+                              that would occur every time that kind of difference was detected.
+                              Example shown below: </p>
+                         <pre><code>[<span style="color:#5F5">'0'</span>-<span style="color:#5F5">'9'</span>]+: {
     <span style="color:#5FF">extra</span>: <span style="color:#F55">-10</span>,
     <span style="color:#5FF">similar</span>: <span style="color:#F55">-5</span>,
     <span style="color:#5FF">exact</span>: <span style="color:#F55">+1</span>,
     <span style="color:#5FF">missing</span>: <span style="color:#F55">-20</span>,
 };</code></pre>
+                         <p>  The number of points gained/lost does not have to be just
+                              a numeric literal, lexdiff supports evaluating math expressions
+                              to determine the result. Addition, subtraction,
+                              multiplication, and sectionision operators are supported.
+                              Parenthesis can be used to change the operator precedence. </p>
                   
-                    <p>  The number of points gained/lost does not have to be just
-                         a numeric literal, lexdiff supports evaluating math expressions
-                         to determine the result. Addition, subtraction,
-                         multiplication, and division operators are supported.
-                         Parenthesis can be used to change the operator precedence. </p>
-                  
-                    <p>  Unless specified, the number of points gained/lost due
-                         to a difference (extra, similar, missing) or an
-                         exact match is zero.</p>
+                         <p>  Unless specified, the number of points gained/lost due
+                              to a difference (extra, similar, missing) or an
+                              exact match is zero.</p>
                        
-                    <div> <h2> Regular Expression Syntax </h2>
-                          <p>  The regular expression syntax has been modified a bit from
-                               what's conventional. This alternative syntax allows for
-                               better readability and makes it easy to introduce new
-                               operators without breaking old patterns. It could also
-                               be that I've been looking at C code for too long and
-                               have gotten to the point where I don't like any syntax
-                               that doesn't remind me of C.</p>
-                          <p>  Regardless: In order of operator
-                               precedence: vertical-bar (|) is the or/union operator,
-                               concatenation is done by juxtaposition, question mark (?),
-                               asterisk (*) and plus (+) are the 0-or-1, 0-or-more, and
-                               1-or-more suffix operators respectively. Parenthesis can
-                               be used to change operator precedence.
-                               Including text in a pattern is done with C-style strings
-                               and character literals.</p>
-                          <p>  Character sets can also be used
-                               in a regular-expression pattern, enclosed in
-                               square brackets ([]). The operators that can be used
-                               to define a character set are, in order of
-                               operator precedence: vertical bar (|) as the set-union
-                               operator, ampersand (&) as the set-intersection operator,
-                               minus (-) as the range/span operator, and exclamation
-                               mark as the prefix set-complement operator. Parenthesis can
-                               be used to change operator precedence. Characters can
-                               included by C-style character literals.<p>
-                          
-                          <div> <h3> Examples </h3>
-                                <dl> <dt> ['0'-'9']+ ('.' ['0'-'9']*)?</dt>
-                                     <dd> matches any decimal number with or without digits past
-                                          the decimal point</dd>
-                                     <dt> ['a'-'z' & !('a'|'e'|'i'|'o'|'u')]</dt>
-                                     <dd> Describes a character set containing all English
-                                          consonant letters</dd></dl></div></div></div>
+                    <section> <h2> Regular Expression Syntax </h2>
+                               <p> The regular expression syntax has been modified a bit from
+                                   what's conventional. This alternative syntax allows for
+                                   better readability and makes it easy to introduce new
+                                   operators without breaking old patterns. It could also
+                                   be that I've been looking at C code for too long and
+                                   have gotten to the point where I don't like any syntax
+                                   that doesn't remind me of C.</p>
+                               <p> Regardless: In order of operator
+                                   precedence: vertical-bar (|) is the or/union operator,
+                                   concatenation is done by juxtaposition, question mark (?),
+                                   asterisk (*) and plus (+) are the 0-or-1, 0-or-more, and
+                                   1-or-more suffix operators respectively. Parenthesis can
+                                   be used to change operator precedence.
+                                   Including text in a pattern is done with C-style strings
+                                   and character literals.</p>
+                               <p> Character sets can also be used
+                                   in a regular-expression pattern, enclosed in
+                                   square brackets ([]). The operators that can be used
+                                   to define a character set are, in order of
+                                   operator precedence: vertical bar (|) as the set-union
+                                   operator, ampersand (&) as the set-intersection operator,
+                                   minus (-) as the range/span operator, and exclamation
+                                   mark as the prefix set-complement operator. Parenthesis can
+                                   be used to change operator precedence. Characters can
+                                   included by C-style character literals.</p>
+                                   
+                         <section> <h3> Examples </h3>
+                                   <dl> <dt> ['0'-'9']+ ('.' ['0'-'9']*)?</dt>
+                                        <dd> matches any decimal number with or without digits past
+                                             the decimal point</dd>
+                                        <dt> ['a'-'z' & !('a'|'e'|'i'|'o'|'u')]</dt>
+                                        <dd> Describes a character set containing all English
+                                            consonant letters</dd></dl></section></section></section>
                    
-              <div> <h1> COMMAND LINE OPTIONS </h1>
-                    <dl> <dt>-d <u>output</u></dt>
-                         <dt>--dotout <u>output</u></dt>
-                         <dd>This flag disables file comparison. Instead lexdiff
-                             will output the tokenizer state machine as a
-                             Graphviz dot-file. This is mostly useful for debugging
-                             lexdiff. </dd>
-                         <dt>-h</dt>
-                         <dt>--help</dt>
-                         <dd>This flag causes lexdiff to print a usage message
-                             and quit</dd>
-                         <dt>-p</dt>
-                         <dt>--pretty-print</dt>
-                         <dd>This flag causes lexdiff to print to the terminal
-                             the tokens read from both files, with tokens marked
-                             green if they were present in <u>file-b</u> but
-                             not <u>file-a</u> (extra), red if present
-                             in <u>file-a</u> but not <u>file-b</u> (missing),
-                             yellow if present in both files but with different
-                             characters (similar), and grey if present and same
-                             characters (exact). Line numbers are also printed
-                             for <u>file-a</u> and <u>file-b</u> respectively. This
-                             flag is disabled by default. </dd>
-                         <dt>-v</dt>
-                         <dt>--verbose</dt>
-                         <dd>Currently silently ignored.</dd> </dl> </div>
+              <section> <h1> Command Line Options </h1>
+                        <dl> <dt>-d <u>output</u></dt>
+                             <dt>--dotout <u>output</u></dt>
+                             <dd>This flag disables file comparison. Instead lexdiff
+                                 will output the tokenizer state machine as a
+                                 Graphviz dot-file. This is mostly useful for debugging
+                                lexdiff.</dd>
+                             <dt>-h</dt>
+                             <dt>--help</dt>
+                             <dd>This flag causes lexdiff to print a usage message
+                                 and quit</dd>
+                             <dt>-p</dt>
+                             <dt>--pretty-print</dt>
+                             <dd>This flag causes lexdiff to print to the terminal
+                                 the tokens read from both files, with tokens marked
+                                 green if they were present in <u>file-b</u> but
+                                 not <u>file-a</u> (extra), red if present
+                                 in <u>file-a</u> but not <u>file-b</u> (missing),
+                                 yellow if present in both files but with different
+                                 characters (similar), and grey if present and same
+                                 characters (exact). Line numbers are also printed
+                                 for <u>file-a</u> and <u>file-b</u> respectively. This
+                                 flag is disabled by default. </dd>
+                             <dt>-v</dt>
+                             <dt>--verbose</dt>
+                             <dd>Currently silently ignored.</dd> </dl> </section>
               
-              <div> <h1> EXAMPLES </h1>
-                    <p> For an example, let's say there are two files listing kinds
-                        of fruit. Whitespace doesn't matter, and 'onions' is especially
-                        important to keep. The specification file is
-                        given below: </p>
-                    <pre><code><span style="color:#55F">// ignore whitespace:</span>
+              <section> <h1> Examples </h1>
+                         <p> For an example, let's say there are two files listing kinds
+                             of fruit. Whitespace doesn't matter, and 'onions' is especially
+                             important to keep. The specification file is
+                             given below: </p>
+                        <pre><code><span style="color:#55F">// ignore whitespace:</span>
 <span style="color:#5F5">' '</span> | <span style="color:#5F5">'\t'</span> | <span style="color:#5F5">'\n'</span>: {};
 
 <span style="color:#55F">// commas matter very little:</span>
@@ -221,10 +218,8 @@
 <span style="color:#5F5">"onions"</span>: {
     <span style="color:#5FF">missing</span>: <span style="color:#F55">-50</span>,
 };</code></pre>
-              
-                    <p> Running lexdiff on these two input files would yield the output: </p>
-                  
-                    <pre><code>$ cat before.txt
+                        <p> Running lexdiff on these two input files would yield the output: </p>
+                      <pre><code>$ cat before.txt
 apples,bananas,peaches
 dragonfruit,grapefruit
 grapes,onions
@@ -251,9 +246,9 @@ score: 74
                         misspelled (-5 points), the comma between 'dragonfruit'
                         and 'grapefruit' was removed (-1 point) and 'grapes' is
                         missing (-20 points).
-                        100 - 5 - 1 - 20 = 74. </p> </div>
+                        100 - 5 - 1 - 20 = 74. </p> </section>
               
-              <div> <h1> BUILDING </h1>
+              <section> <h1> Building </h1>
                     <p>  The source code for lexdiff can be found on its
                          <a href="https://github.com/ZanderThannhauser/lexdiff">Github page</a>.
                          Building lexdiff is fairly simple, run 'make' to build and
@@ -264,27 +259,27 @@ score: 74
                          command 'sudo apt install libgmp-dev'.
                          The installation prefix defaults
                          to ${HOME}/bin, this can be changed by setting it in
-                         the call to make: 'make install PREFIX=/something/else'.</p> </div>
+                         the call to make: 'make install PREFIX=/something/else'.</p> </section>
               
-              <div> <h1> NOTES </h1>
+              <section> <h1> Notes </h1>
                     <h2> The Tokenizer </h2>
                     <p>  It is worth noting that lexdiff's tokenization is greedy,
                          meaning that it will always try to put characters into
                          the largest token it can.</p>
                     <p>  Sometimes a string could be identified as either one token
                          or another, lexdiff will resolve this ambiguity by using
-                         the token declared later in the specification file. </p> </div>
+                         the token declared later in the specification file. </p> </section>
               
-              <div> <h1> AUTHOR </h1>
-                    <p>  Written by Alexander Thannhauser. </p> </div>
+              <section> <h1> Author </h1>
+                    <p>  Written by Alexander Thannhauser. </p> </section>
                    
-              <div> <h1> REPORTING BUGS </h1>
-                    <p>  Report bugs to: <a href="mailto:zthannhauser@gmail.com">zthannhauser@gmail.com</a>. </p> </div>
+              <section> <h1> Reporting Bugs </h1>
+                    <p>  Report bugs to: <a href="mailto:zthannhauser@gmail.com">zthannhauser@gmail.com</a>. </p> </section>
                    
-              <div> <h1> SEE ALSO </h1>
+              <section> <h1> See Also </h1>
                     <ul style="display:flex;"
                        > <li> <a href="https://github.com/ZanderThannhauser/zebu">zebu(1)</a>, </li>
-                         <li> <a href="https://github.com/ZanderThannhauser/zest">zest(1)</a> </li> </ul> </div> </body> </html>
+                         <li> <a href="https://github.com/ZanderThannhauser/zest">zest(1)</a> </li> </ul> </section> </body> </html>
 
 
 
