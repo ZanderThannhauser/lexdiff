@@ -1,0 +1,20 @@
+
+// ignore whitespace:
+' ' | '\t' | '\n': {};
+
+// commas matter very little:
+',': { extra: -1, missing: -1 };
+
+// fruit are only somewhat important
+['a'-'z'|'A'-'Z']+: {
+	extra: -20,
+	exact: 0,
+	similar: -5,
+	missing: -20,
+};
+
+// but onions are really important
+"onions": {
+	missing: -50,
+};
+

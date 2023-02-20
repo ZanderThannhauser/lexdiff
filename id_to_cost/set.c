@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include <assert.h>
 #include <debug.h>
 
@@ -31,7 +32,17 @@ void id_to_cost_set(
 	
 	if (node)
 	{
-		TODO;
+		struct id_to_cost_node* old = node->item;
+		
+		mpq_clear(old->insert), free(old->insert);
+		mpq_clear(old->update), free(old->update);
+		mpq_clear(old->match ), free(old->match );
+		mpq_clear(old->delete), free(old->delete);
+	
+		old->insert = insert;
+		old->update = update;
+		old->match  = match;
+		old->delete = delete;
 	}
 	else
 	{
@@ -40,7 +51,7 @@ void id_to_cost_set(
 		new->id = id;
 		new->insert = insert;
 		new->update = update;
-		new->match = match;
+		new->match  = match;
 		new->delete = delete;
 		
 		avl_insert(this->tree, new);
@@ -48,4 +59,23 @@ void id_to_cost_set(
 	
 	EXIT;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

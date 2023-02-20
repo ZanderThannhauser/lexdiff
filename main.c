@@ -5,12 +5,16 @@
 
 #include <debug.h>
 
+#include <defines/argv0.h>
+
+#include <enums/error.h>
+
 #include <memory/smalloc.h>
 
 #include <cmdln/process.h>
 #include <cmdln/dotout_tokenizer.h>
-#include <cmdln/master_path.h>
-#include <cmdln/compare_path.h>
+#include <cmdln/before_path.h>
+#include <cmdln/after_path.h>
 #include <cmdln/pretty_print.h>
 
 #include <id_to_cost/new.h>
@@ -49,8 +53,8 @@ int main(int argc, char* const* argv)
 		
 		if (!stream)
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, dotout_tokenizer);
+			exit(e_syscall_failed);
 		}
 		
 		regex_dotout(tokenizer, stream);
@@ -59,39 +63,39 @@ int main(int argc, char* const* argv)
 	}
 	else
 	{
-		FILE *mstream, *cstream;
+		FILE *before_stream, *after_stream;
 		
-		if (!(mstream = fopen(master_path, "r")))
+		if (!(before_stream = fopen(before_path, "r")))
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, before_path);
+			exit(e_syscall_failed);
 		}
 		
-		if (!(cstream = fopen(compare_path, "r")))
+		if (!(after_stream = fopen(after_path, "r")))
 		{
-			TODO;
-			exit(1);
+			fprintf(stderr, "%s: fopen(\"%s\"): %m\n", argv0, after_path);
+			exit(e_syscall_failed);
 		}
 		
-		struct token_list* mtokens = tokenize(mstream, tokenizer);
-		struct token_list* ctokens = tokenize(cstream, tokenizer);
+		struct token_list* before_tokens = tokenize(before_stream, tokenizer);
+		struct token_list* after_tokens = tokenize(after_stream, tokenizer);
 		
-		enum edit_kind* edits = smalloc(sizeof(*edits) * (mtokens->n + ctokens->n));
+		enum edit_kind* edits = smalloc(sizeof(*edits) * (before_tokens->n + after_tokens->n));
 		
-		unsigned number_of_edits = diff(idtoc, edits, mtokens, ctokens);
+		unsigned number_of_edits = diff(idtoc, edits, before_tokens, after_tokens);
 		
 		dpv(number_of_edits);
 		
 		if (should_pretty_print)
 		{
-			pretty_print(mtokens, ctokens, edits, number_of_edits);
+			pretty_print(idtoc, before_tokens, after_tokens, edits, number_of_edits);
 		}
 		
-		free_token_list(mtokens);
-		free_token_list(ctokens);
+		free_token_list(before_tokens);
+		free_token_list(after_tokens);
 		
-		fclose(mstream);
-		fclose(cstream);
+		fclose(before_stream);
+		fclose(after_stream);
 		
 		free(edits);
 	}

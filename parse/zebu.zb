@@ -57,10 +57,10 @@ expression_additive
 expression: expression_additive #inner;
 
 token_rule: regex #regex ':' '{' ((
-	  "insert"  ":" expression #insert
-	| "match"   ":" expression #match
-	| "update"  ":" expression #update
-	| "delete"  ":" expression #delete
+	  "extra"   ":" expression #insert
+	| "similar" ":" expression #update
+	| "exact"   ":" expression #match
+	| "missing" ":" expression #delete
 	) ','?)* '}' ';';
 
 root: (token_rule #rules[])+;

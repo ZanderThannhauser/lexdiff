@@ -17,7 +17,7 @@ CFLAGS += -O2
 CFLAGS += -flto
 
 LDFLAGS += -flto=auto
-#LDFLAGS += -static
+LDFLAGS += -static
 
 else ifeq ($(buildtype), test)
 CPPFLAGS += -D TESTING
@@ -59,13 +59,18 @@ default: $(buildprefix)/lexdiff
 ARGS += -v
 #ARGS += -h
 
+#ARGS += -W 30
+ARGS += -W 40
+#ARGS += -W 50
+#ARGS += -W 80
+
 ARGS += --pretty-print
 
 #ARGS += --dotout /tmp/tokenizer.dot
 
-#ARGS += ./examples/csv/csv.ldiff ./examples/csv/master.csv ./examples/csv/compare.csv
+#ARGS += ./examples/csv/csv.ldiff ./examples/csv/before.csv ./examples/csv/after.csv
 
-#ARGS += ./examples/json/json.ldiff ./examples/json/master.json ./examples/json/compare.json
+#ARGS += ./examples/json/json.ldiff ./examples/json/before.json ./examples/json/after.json
 
 ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/master.txt ./examples/sandbox/compare.txt
 
@@ -84,9 +89,11 @@ valrun-leak: $(buildprefix)/lexdiff
 tracerun: $(buildprefix)/lexdiff
 	strace $< $(ARGS)
 
+PREFIX ?= ~/bin
+
 install: $(buildprefix)/lexdiff
-	@ mkdir -vp ~/bin/
-	@ cp -vau $(buildprefix)/lexdiff ~/bin/lexdiff
+	@ mkdir -vp $(PREFIX)
+	@ cp -vau $(buildprefix)/lexdiff $(PREFIX)/lexdiff
 
 .PRECIOUS: %/
 

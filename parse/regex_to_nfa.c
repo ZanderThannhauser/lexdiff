@@ -1,9 +1,13 @@
 
+#include <stdlib.h>
 #include <assert.h>
-
 #include <inttypes.h>
 
 #include <debug.h>
+
+#include <enums/error.h>
+
+#include <defines/argv0.h>
 
 #include <regex/struct.h>
 #include <regex/add_lambda_transition.h>
@@ -14,24 +18,29 @@
 
 typedef uint16_t charset_t __attribute__ ((vector_size (256)));
 
-static unsigned read_character_token(struct zebu_token* token)
+static unsigned read_escape(
+	unsigned char** moving,
+	unsigned char*  end)
 {
 	unsigned retval;
 	ENTER;
 	
-	if (token->data[1] != '\\')
-		retval = token->data[1];
-	else switch (token->data[2])
-	{
-		case 't': retval = '\t'; break;
-		
-		case 'n': retval = '\n'; break;
-		
-		case '\"': retval = '\"'; break;
-		
+	assert(*moving < end);
+	
+	dpvc(**moving);
+	
+	if (**moving != '\\')
+		retval = *(*moving)++;
+	else if (++*moving == end)
+		fprintf(stderr, "%s: incomplete escape sequence!\n", argv0),
+		exit(e_bad_input_file);
+	else switch (**moving) {
+		case 't' : retval = '\t', *moving++; break;
+		case 'n' : retval = '\n', *moving++; break;
+		case '\"': retval = '\"', *moving++; break;
 		default:
-			TODO;
-			break;
+			fprintf(stderr, "%s: unknown escape sequence '\\%c'!\n", argv0, **moving),
+			exit(e_bad_input_file);
 	}
 	
 	EXIT;
@@ -81,7 +90,10 @@ static charset_t charset_to_nfa(struct zebu_charset* charset)
 						
 						if (charset->character)
 						{
-							unsigned codepoint = read_character_token(charset->character);
+							unsigned char* moving = charset->character->data + 1;
+							unsigned char* end = moving + charset->character->len - 2;
+							
+							unsigned codepoint = read_escape(&moving, end);
 							
 							retval = (charset_t) {};
 							
@@ -89,7 +101,7 @@ static charset_t charset_to_nfa(struct zebu_charset* charset)
 						}
 						else if (charset->inner)
 						{
-							TODO;
+							retval = charset_to_nfa(charset->inner);
 						}
 						else
 						{
@@ -129,9 +141,7 @@ static charset_t charset_to_nfa(struct zebu_charset* charset)
 			charset_t inner = charset_range_to_nfa(charset->inner);
 			
 			if (charset->sub)
-			{
-				TODO;
-			}
+				inner &= charset_inter_to_nfa(charset->sub);
 			
 			EXIT;
 			return inner;
@@ -140,9 +150,7 @@ static charset_t charset_to_nfa(struct zebu_charset* charset)
 		charset_t inner = charset_inter_to_nfa(charset->inner);
 		
 		if (charset->sub)
-		{
-			TODO;
-		}
+			inner |= charset_union_to_nfa(charset->sub);
 		
 		EXIT;
 		return inner;
@@ -183,26 +191,14 @@ struct nfa regex_to_nfa(struct zebu_regex* regex)
 					{
 						retval.start = retval.accepts = new_regex();
 						
-						unsigned char* start = regex->string->data + 1;
+						unsigned char* moving = regex->string->data + 1;
+						unsigned char* end = moving + regex->string->len - 2;
 						
-						unsigned char* end = regex->string->data + regex->string->len - 1;
-						
-						while (start < end)
+						while (moving < end)
 						{
-							unsigned codepoint;
+							dpvc(*moving);
 							
-							if (*start != '\\')
-								codepoint = *start++;
-							else switch (*++start)
-							{
-								case 't': codepoint = '\t', start++; break;
-								
-								case 'n': codepoint = '\n', start++; break;
-								
-								default:
-									TODO;
-									break;
-							}
+							unsigned codepoint = read_escape(&moving, end);
 							
 							struct regex* temp = new_regex();
 							
@@ -213,7 +209,10 @@ struct nfa regex_to_nfa(struct zebu_regex* regex)
 					}
 					else if (regex->character)
 					{
-						unsigned codepoint = read_character_token(regex->character);
+						unsigned char* moving = regex->character->data + 1;
+						unsigned char* end = moving + regex->character->len - 2;
+						
+						unsigned codepoint = read_escape(&moving, end);
 						
 						retval.start = new_regex();
 						retval.accepts = new_regex();

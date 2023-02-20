@@ -23,6 +23,10 @@
 	#include <limits.h>
 	#include <time.h>
 	
+	#include <defines/argv0.h>
+	
+	#include <enums/error.h>
+	
 	#include <memory/smalloc.h>
 	#include <memory/srealloc.h>
 	
@@ -37,8 +41,6 @@
 	extern void real_dpvc(const char* e, char ch);
 	
 	extern void real_dpvsn(const char* e, const char* s, size_t n);
-	
-	extern void real_dpvwsn(const char* e, const wchar_t* s, size_t n);
 	
 	#define TODO \
 	{\
@@ -115,8 +117,6 @@
 		_Generic(str, \
 			char*:          real_dpvsn (#str, ( char  *) (str), x), \
 			const char*:    real_dpvsn (#str, ( char  *) (str), x), \
-			wchar_t*:       real_dpvwsn(#str, (wchar_t*) (str), x), \
-			const wchar_t*: real_dpvwsn(#str, (wchar_t*) (str), x), \
 			default:        real_dpvsn (#str, (   void*) (str), x)); \
 	}
 	
