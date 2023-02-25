@@ -1,0 +1,12 @@
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+shell("./lexdiff" "./spec-file" "a" "b" >2 "./stderr.txt") == 256;
+
+file("./stderr.txt") == ""
+	+ "./lexdiff: fopen(\"./spec-file\"): No such file or directory" + "\n";
+
+
+
+

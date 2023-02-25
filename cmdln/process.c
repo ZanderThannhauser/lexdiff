@@ -7,6 +7,8 @@
 
 #include <enums/error.h>
 
+#include <defines/argv0.h>
+
 #include "usage_message.h"
 #include "specification_path.h"
 #include "before_path.h"
@@ -75,7 +77,7 @@ void cmdln_process(int argc, char* const* argv)
 	
 	if (!(specification_path && (dotout_tokenizer || (before_path && after_path))))
 	{
-		fprintf(stderr, "zebu: missing arguments!\n");
+		fprintf(stderr, "%s: missing arguments!\n", argv0);
 		fputs(usage_message, stderr), exit(e_bad_cmdline_args);
 	}
 	

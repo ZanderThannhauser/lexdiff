@@ -1,3 +1,4 @@
 set -ev
-make -j buildtype=release on_error=do_nothing
-zest ./tests
+unset on_error
+make -j buildtype=release
+/home/zander/bin/zest ./tests

@@ -106,7 +106,7 @@
 		assert(debug_depth >= 0);\
 		printf("%*s" #b " == %s\n", debug_depth, "", (b) ? "true" : "false");
 	
-	#define dputs(str) \
+	#define ddputs(str) \
 		assert(debug_depth >= 0);\
 		printf("%*s" "%s\n", debug_depth, "", str);
 	
@@ -243,7 +243,7 @@
 	#define dpvc(x) ;
 	#define dpvo(x) ;
 	#define dpvs(x) ;
-	#define dputs(x) ;
+	#define ddputs(x) ;
 	#define dpvx(x) ;
 	#define dpvsn(_, __) ;
 	#define ddprintf(...) ;
