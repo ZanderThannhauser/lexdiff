@@ -1,4 +1,5 @@
 
+#include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
@@ -43,6 +44,8 @@ void pretty_print(
 {
 	ENTER;
 	
+	bool color = isatty(1);
+	
 	unsigned bidx   = 0, aidx  = 0;
 	unsigned bline  = 1, aline = 1;
 	unsigned btok   = 0, atok  = 0;
@@ -59,7 +62,7 @@ void pretty_print(
 			{
 				case ek_insert:
 				{
-					printf("\e[38;2;100;255;100m");
+					if (color) printf("\e[38;2;100;255;100m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -78,7 +81,7 @@ void pretty_print(
 				
 				case ek_match:
 				{
-					printf("\e[38;2;100;100;100m");
+					if (color) printf("\e[38;2;100;100;100m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -97,7 +100,7 @@ void pretty_print(
 				
 				case ek_update:
 				{
-					printf("\e[38;2;255;255;100m");
+					if (color) printf("\e[38;2;255;255;100m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -116,7 +119,7 @@ void pretty_print(
 				
 				case ek_delete:
 				{
-					printf("\e[38;2;255;100;100m");
+					if (color) printf("\e[38;2;255;100;100m");
 					
 					char* data = btoks->data[btok]->data + bidx;
 					unsigned len = strcspn(data, "\n");
@@ -137,7 +140,7 @@ void pretty_print(
 			e--;
 		}
 		
-		newline: printf("\e[0m");
+		newline: if (color) printf("\e[0m");
 		
 		bool newline = true;
 		

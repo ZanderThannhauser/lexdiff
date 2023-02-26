@@ -3,9 +3,9 @@
 "./lexdiff" (+x): file("bin/release-build/lexdiff");
 
 "./spec-file.txt": ""
-	+ "\"abc\"+: { extra: 1, missing: -1 };" + "\n"
-	+ "\"a\"   : { extra: 1, missing: -1 };" + "\n"
-	+ "\"b\"   : { extra: 1, missing: -1 };" + "\n"
+	+ "\"abc\"+: { extra: -1, similar: -1, missing: -1 };" + "\n"
+	+ "\"a\"   : { extra: -1, similar: -1, missing: -1 };" + "\n"
+	+ "\"b\"   : { extra: -1, similar: -1, missing: -1 };" + "\n"
 	;
 
 "./before.txt": "abc" + "a" + "b" + "a";
@@ -14,7 +14,7 @@
 
 shell("./lexdiff" "./spec-file.txt" "before.txt" "after.txt" >1 "./stdout.txt") == 0;
 
-file("./stdout.txt") == "score: 97\n";
+file("./stdout.txt") == "score: 96\n";
 
 
 

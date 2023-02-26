@@ -3,7 +3,7 @@
 "./lexdiff" (+x): file("bin/release-build/lexdiff");
 
 "./spec-file": ""
-	+ "\"abc\": { };" + "\n"
+	+ "\"abc\": { extra: -1, similar: -1, missing: -1 };" + "\n"
 	;
 
 "./before": "abcabc";
