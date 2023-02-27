@@ -100,7 +100,7 @@ unsigned diff(
 				cell->action = ek_insert;
 			}
 			
-			// if the tokens are of a different kind, that's too different
+			// if the tokens are of a different kind, then they aren't 'similar'
 			if (mid == cid)
 			{
 				mpq_ptr delta;
