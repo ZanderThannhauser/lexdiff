@@ -12,6 +12,7 @@ buildtype ?= release
 
 ifeq ($(buildtype), release)
 CPPFLAGS += -D RELEASE
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -O2
 CFLAGS += -flto
@@ -21,6 +22,7 @@ LDFLAGS += -static
 
 else ifeq ($(buildtype), test)
 CPPFLAGS += -D TESTING
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -g
 CFLAGS += -Wno-unused-variable
@@ -31,6 +33,7 @@ CFLAGS += -Wno-unused-label
 else ifeq ($(buildtype), debug)
 CPPFLAGS += -D DEBUGGING
 CPPFLAGS += -D ZEBU_DEBUG
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -g
 CFLAGS += -Wno-unused-variable

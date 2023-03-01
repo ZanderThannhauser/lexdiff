@@ -21,7 +21,15 @@
 
 #include <set/regex/add.h>
 
-#include <id_to_cost/set.h>
+#include <token_rule/new.h>
+#include <token_rule/set_insert.h>
+#include <token_rule/set_match.h>
+#include <token_rule/set_update.h>
+#include <token_rule/set_delete.h>
+#include <token_rule/add_within.h>
+#include <token_rule/free.h>
+
+#include <id_to_rule/add.h>
 
 #include "regex_to_nfa.h"
 #include "nfas_to_dfa.h"
@@ -31,7 +39,7 @@
 #include "parse.h"
 
 struct regex* parse_specification(
-	struct id_to_cost* idtoc)
+	struct id_to_rule* idtoc)
 {
 	ENTER;
 	
@@ -61,33 +69,53 @@ struct regex* parse_specification(
 		
 		nfa.accepts->accepts = id;
 		
-		mpq_ptr insert, update, match, delete;
+		struct token_rule* rule = new_token_rule();
 		
 		if (token_rule->insert)
-			insert = parse_expression(token_rule->insert);
-		else
-			insert = smalloc(sizeof(*insert)),
-			mpq_init(insert), mpq_set_ui(insert, 0, 1);
-		
-		if (token_rule->update)
-			update = parse_expression(token_rule->update);
-		else
-			update = smalloc(sizeof(*update)),
-			mpq_init(update), mpq_set_ui(update, 0, 1);
+		{
+			mpq_ptr insert = parse_expression(token_rule->insert);
+			token_rule_set_insert(rule, insert);
+			mpq_clear(insert), free(insert);
+		}
 		
 		if (token_rule->match)
-			match = parse_expression(token_rule->match);
-		else
-			match = smalloc(sizeof(*match)),
-			mpq_init(match), mpq_set_ui(match, 0, 1);
+		{
+			mpq_ptr match = parse_expression(token_rule->match);
+			token_rule_set_match(rule, match);
+			mpq_clear(match), free(match);
+		}
+		
+		if (token_rule->update)
+		{
+			mpq_ptr update = parse_expression(token_rule->update);
+			token_rule_set_update(rule, update);
+			mpq_clear(update), free(update);
+		}
 		
 		if (token_rule->delete)
-			delete = parse_expression(token_rule->delete);
-		else
-			delete = smalloc(sizeof(*delete)),
-			mpq_init(delete), mpq_set_ui(delete, 0, 1);
+		{
+			mpq_ptr delete = parse_expression(token_rule->delete);
+			token_rule_set_delete(rule, delete);
+			mpq_clear(delete), free(delete);
+		}
 		
-		id_to_cost_set(idtoc, id, insert, update, match, delete);
+		for (unsigned i = 0, n = token_rule->withins.n; i < n; i++)
+		{
+			struct zebu_within* within = token_rule->withins.data[i];
+			
+			mpq_ptr tolerance = parse_expression_highest(within->tolerance);
+			
+			mpq_ptr points = parse_expression(within->points);
+			
+			token_rule_add_within(rule, tolerance, !!within->percent, points);
+			
+			mpq_clear(tolerance), free(tolerance);
+			mpq_clear(points), free(points);
+		}
+		
+		id_to_rule_add(idtoc, id, rule);
+		
+		free_token_rule(rule);
 	}
 	
 	struct regex* dfa = nfas_to_dfa(nfas);

@@ -32,7 +32,7 @@
 	
 	struct regex;
 	struct regexset;
-	struct id_to_cost;
+	struct id_to_rule;
 #endif
 
 #ifdef DEBUGGING

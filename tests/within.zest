@@ -1,0 +1,57 @@
+
+
+
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file.txt": ""
+	+ "' ': { extra: -1, similar: -1, exact: 0, missing: -1};" + "\n"
+	
+	+ "['0'-'9']+ ('.' ['0'-'9']+)?: {" + "\n"
+		+ "extra: -10," + "\n"
+		+ "missing: -10," + "\n"
+		+ "exact: +11," + "\n"
+		+ "within 10%: -2," + "\n"
+		+ "within 10: -3," + "\n"
+		+ "similar: -15," + "\n"
+	+ "};"
+	;
+
+"./before.txt": "123 10 10 10 10 10 10 10 123";
+
+"./after.txt": "123 8 9 10 11 12 20 21 456";
+
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >1 "./stdout.txt") == 0;
+
+file("./stdout.txt") == ""
+	+ "score: 79" + "\n"
+	+ "  1/  1 | 123␣8␣9␣10␣11␣12␣20␣21␣456                        | exact match \'123\' (11)" + "\n"
+	+ "                                                            | within." + "\n"
+	+ "                                                            | within." + "\n"
+	+ "                                                            | exact match \'10\' (11)" + "\n"
+	+ "                                                            | within." + "\n"
+	+ "                                                            | within." + "\n"
+	+ "                                                            | within." + "\n"
+	+ "                                                            | \'21\' instead of \'10\' (-15)" + "\n"
+	+ "                                                            | \'456\' instead of \'123\' (-15)" + "\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

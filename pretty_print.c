@@ -14,9 +14,11 @@
 
 #include <cmdln/width.h>
 
-#include <id_to_cost/get.h>
+#include <id_to_rule/get.h>
 
 #include <mpq_print.h>
+
+#include <token_rule/struct.h>
 
 #include "pretty_print.h"
 
@@ -36,7 +38,7 @@ static void escape(char* moving, unsigned len)
 }
 
 void pretty_print(
-	struct id_to_cost* idtoc,
+	struct id_to_rule* idtor,
 	struct token_list* btoks,
 	struct token_list* atoks,
 	enum edit_kind* edits,
@@ -117,6 +119,25 @@ void pretty_print(
 					}
 				}
 				
+				case ek_within:
+				{
+					if (color) printf("\e[38;2;255;100;255m");
+					
+					char* data = atoks->data[atok]->data + aidx;
+					unsigned len = strcspn(data, "\n");
+					
+					if (data[len])
+					{
+						escape(data, ++len), bline++, aline++, aidx += len, col += len;
+						goto newline;
+					}
+					else
+					{
+						escape(data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
+						break;
+					}
+				}
+				
 				case ek_delete:
 				{
 					if (color) printf("\e[38;2;255;100;100m");
@@ -153,7 +174,7 @@ void pretty_print(
 					printf("%*s| extra '", width - col, "");
 					escape(atoks->data[atok2]->data, -1);
 					printf("' (");
-					mpq_print(id_to_cost_get_insert(idtoc, atoks->data[atok2]->id));
+					mpq_print(id_to_rule_get_rule(idtor, atoks->data[atok2]->id)->insert);
 					printf(")\n");
 					col = 0, newline = false, atok2++;
 					break;
@@ -161,15 +182,13 @@ void pretty_print(
 				
 				case ek_match:
 				{
-					mpq_ptr m = id_to_cost_get_match(idtoc, atoks->data[atok2]->id);
+					mpq_ptr m = id_to_rule_get_rule(idtor, atoks->data[atok2]->id)->match;
 					
 					if (mpq_sgn(m))
 					{
 						printf("%*s| exact match '", width - col, "");
 						escape(atoks->data[atok2]->data, -1);
-						printf("' (");
-						mpq_print(id_to_cost_get_match(idtoc, atoks->data[atok2]->id));
-						printf(")\n");
+						printf("' ("), mpq_print(m), printf(")\n");
 						col = 0, newline = false;
 					}
 					
@@ -180,12 +199,19 @@ void pretty_print(
 				case ek_update:
 				{
 					printf("%*s| '", width - col, "");
-					escape(btoks->data[btok2]->data, -1);
-					printf("' instead of '");
 					escape(atoks->data[atok2]->data, -1);
+					printf("' instead of '");
+					escape(btoks->data[btok2]->data, -1);
 					printf("' (");
-					mpq_print(id_to_cost_get_update(idtoc, btoks->data[btok2]->id));
+					mpq_print(id_to_rule_get_rule(idtor, btoks->data[btok2]->id)->update);
 					printf(")\n");
+					col = 0, newline = false, btok2++, atok2++;
+					break;
+				}
+				
+				case ek_within:
+				{
+					printf("%*s| within.\n", width - col, "");
 					col = 0, newline = false, btok2++, atok2++;
 					break;
 				}
@@ -195,7 +221,7 @@ void pretty_print(
 					printf("%*s| missing '", width - col, "");
 					escape(btoks->data[btok2]->data, -1);
 					printf("' (");
-					mpq_print(id_to_cost_get_insert(idtoc, btoks->data[btok2]->id));
+					mpq_print(id_to_rule_get_rule(idtor, btoks->data[btok2]->id)->insert);
 					printf(")\n");
 					col = 0, newline = false, btok2++;
 					break;

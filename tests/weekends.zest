@@ -16,7 +16,7 @@ file("./stdout.txt") == ""
 	+ "score: 97" + "\n"
 	+ "  1/  1 | saturday                                          | extra \'a\' (-1)" + "\n"
 	+ "                                                            | extra \'t\' (-1)" + "\n"
-	+ "                                                            | \'n\' instead of \'r\' (-1)" + "\n";
+	+ "                                                            | \'r\' instead of \'n\' (-1)" + "\n";
 
 
 

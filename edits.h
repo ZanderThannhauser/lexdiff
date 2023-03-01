@@ -1,12 +1,9 @@
 
+#include "kind.h"
+
 struct edits
 {
-	enum {
-		ek_insert,
-		ek_update,
-		ek_match,
-		ek_delete,
-	} kind;
+	enum edit_kind kind;
 	
 	struct edits* prev;
 };

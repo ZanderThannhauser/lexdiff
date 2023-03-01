@@ -17,8 +17,8 @@
 #include <cmdln/after_path.h>
 #include <cmdln/pretty_print.h>
 
-#include <id_to_cost/new.h>
-#include <id_to_cost/free.h>
+#include <id_to_rule/new.h>
+#include <id_to_rule/free.h>
 
 #include <parse/parse.h>
 
@@ -43,7 +43,7 @@ int main(int argc, char* const* argv)
 	
 	cmdln_process(argc, argv);
 	
-	struct id_to_cost* idtoc = new_id_to_cost();
+	struct id_to_rule* idtoc = new_id_to_rule();
 	
 	struct regex* tokenizer = parse_specification(idtoc);
 	
@@ -100,7 +100,7 @@ int main(int argc, char* const* argv)
 		free(edits);
 	}
 	
-	free_id_to_cost(idtoc);
+	free_id_to_rule(idtoc);
 	
 	free_regex(tokenizer);
 	

@@ -33,11 +33,10 @@ regex_union: regex_concat #inner ('|' regex_union #sub)?;
 regex: regex_union #inner;
 
 expression_highest
-	: `['0'-'9']+ ('.'['0'-'9']*)?` #literal
-	// | ['1'-'9'] ['0'-'9']*          ('.' ['0'-'9']*)?
-	// | "0"       ['0'-'7']+          ('.' ['0'-'7']*)?
-	// | "0x"      ['0'-'9', 'A'-'F']+ ('.' ['0'-'9', 'A'-'F']*)?
-	// | "0b"      ['0','1']+          ('.' ['0','1']*)?
+	: `     ['0'-'9']+          ('.' ['0'-'9']*)?` #decimal
+	| `"0b" ['0','1']+          ('.' ['0','1']*)?` #binary
+	| `"0o" ['0'-'7']+          ('.' ['0'-'7']*)?` #octal
+	| `"0x" ['0'-'9', 'A'-'F']+ ('.' ['0'-'9', 'A'-'F']*)?` #hexadecimal
 	| '(' expression #inner ')'
 	;
 
@@ -60,12 +59,14 @@ expression_additive
 
 expression: expression_additive #inner;
 
+within: "within" expression_highest #tolerance ('%' #percent)? ":" expression #points;
+
 token_rule: regex #regex ':' '{' ((
 	  "extra"   ":" expression #insert
 	| "similar" ":" expression #update
 	| "exact"   ":" expression #match
 	| "missing" ":" expression #delete
-	// "approximate" ":" expression #approx[] "±" expression #tolerance[] '%'?
+	| within #withins[]
 	) ','?)* '}' ';';
 
 root: (token_rule #rules[])+;
