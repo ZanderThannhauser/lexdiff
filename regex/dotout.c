@@ -125,6 +125,16 @@ void regex_dotout(
 					quack_append(todo, to);
 			}
 		}
+		
+		for (unsigned i = 0, n = regex->lambdas.n; i < n; i++)
+		{
+			struct regex* to = regex->lambdas.data[i];
+			
+			fprintf(stream, "\"%p\" -> \"%p\" [label = \"\"];" "\n", regex, to);
+			
+			if (regexset_add(queued, to))
+				quack_append(todo, to);
+		}
 	}
 	
 	fprintf(stream, "}" "\n");

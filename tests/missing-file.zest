@@ -1,0 +1,57 @@
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./before.txt": "abcabc";
+
+"./after.txt": "abcabc";
+
+shell("./lexdiff" "./spec-file.txt" "./before.txt" "./after.txt" >2 "./stdout.txt") == 256;
+
+file("./stdout.txt") == "./lexdiff: fopen(\"./spec-file.txt\"): No such file or directory\n";
+
+---
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file": ""
+	+ "\"abc\": { extra: -1, similar: -1, missing: -1 };" + "\n"
+	;
+
+"./after.txt": "abcabc";
+
+shell("./lexdiff" "./spec-file" "./before.txt" "./after.txt" >2 "./stdout.txt") == 256;
+
+file("./stdout.txt") == "./lexdiff: fopen(\"./before.txt\"): No such file or directory\n";
+
+---
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file": ""
+	+ "\"abc\": { extra: -1, similar: -1, missing: -1 };" + "\n"
+	;
+
+"./before.txt": "abcabc";
+
+shell("./lexdiff" "./spec-file" "./before.txt" "./after.txt" >2 "./stdout.txt") == 256;
+
+file("./stdout.txt") == "./lexdiff: fopen(\"./after.txt\"): No such file or directory\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

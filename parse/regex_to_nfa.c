@@ -31,13 +31,10 @@ static unsigned read_escape(
 	
 	if (**moving != '\\')
 		retval = *(*moving)++;
-	else if (++*moving == end)
-		fprintf(stderr, "%s: incomplete escape sequence!\n", argv0),
-		exit(e_bad_input_file);
-	else switch (**moving) {
-		case 't' : retval = '\t', *moving++; break;
-		case 'n' : retval = '\n', *moving++; break;
-		case '\"': retval = '\"', *moving++; break;
+	else switch (*++*moving) {
+		case 't' : retval = '\t', (*moving)++; break;
+		case 'n' : retval = '\n', (*moving)++; break;
+		case '\"': retval = '\"', (*moving)++; break;
 		default:
 			fprintf(stderr, "%s: unknown escape sequence '\\%c'!\n", argv0, **moving),
 			exit(e_bad_input_file);

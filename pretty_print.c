@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
@@ -13,10 +15,11 @@
 
 #include <cmdln/width.h>
 
-#include <id_to_cost/get.h>
-
 #include <mpq_print.h>
 
+#include <token_rule/struct.h>
+
+#include "diff_cell.h"
 #include "pretty_print.h"
 
 static void escape(char* moving, unsigned len)
@@ -35,19 +38,42 @@ static void escape(char* moving, unsigned len)
 }
 
 void pretty_print(
-	struct id_to_cost* idtoc,
+	struct diff_cell* _costs,
+	struct id_to_rule* idtor,
 	struct token_list* btoks,
-	struct token_list* atoks,
-	enum edit_kind* edits,
-	unsigned number_of_edits)
+	struct token_list* atoks)
 {
 	ENTER;
+	
+	unsigned k = 0, i, j, n = btoks->n, m = atoks->n;
+	
+	struct diff_cell (*const costs)[n+1][m+1] = (void*) _costs;
+	
+	enum edit_kind* edits = malloc(sizeof(*edits) * (n + m));
+	
+	for (i = n, j = m; i && j; )
+	{
+		switch ((edits[k++] = costs[0][i][j].action))
+		{
+			case ek_insert: j--; break;
+			
+			case ek_update: i--, j--; break;
+			
+			case ek_match: i--, j--; break;
+			
+			case ek_within: i--, j--; break;
+			
+			case ek_delete: i--; break;
+		}
+	}
+	
+	bool color = isatty(1);
 	
 	unsigned bidx   = 0, aidx  = 0;
 	unsigned bline  = 1, aline = 1;
 	unsigned btok   = 0, atok  = 0;
 	unsigned btok2  = 0, atok2 = 0;
-	signed e = number_of_edits, f = number_of_edits + 1;
+	signed e = k, f = k + 1;
 	
 	while (e > 0)
 	{
@@ -59,7 +85,7 @@ void pretty_print(
 			{
 				case ek_insert:
 				{
-					printf("\e[38;2;100;255;100m");
+					if (color) printf("\e[38;2;100;255;100m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -78,7 +104,7 @@ void pretty_print(
 				
 				case ek_match:
 				{
-					printf("\e[38;2;100;100;100m");
+					if (color) printf("\e[38;2;100;100;100m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -97,7 +123,26 @@ void pretty_print(
 				
 				case ek_update:
 				{
-					printf("\e[38;2;255;255;100m");
+					if (color) printf("\e[38;2;255;255;100m");
+					
+					char* data = atoks->data[atok]->data + aidx;
+					unsigned len = strcspn(data, "\n");
+					
+					if (data[len])
+					{
+						escape(data, ++len), bline++, aline++, aidx += len, col += len;
+						goto newline;
+					}
+					else
+					{
+						escape(data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
+						break;
+					}
+				}
+				
+				case ek_within:
+				{
+					if (color) printf("\e[38;2;255;100;255m");
 					
 					char* data = atoks->data[atok]->data + aidx;
 					unsigned len = strcspn(data, "\n");
@@ -116,7 +161,7 @@ void pretty_print(
 				
 				case ek_delete:
 				{
-					printf("\e[38;2;255;100;100m");
+					if (color) printf("\e[38;2;255;100;100m");
 					
 					char* data = btoks->data[btok]->data + bidx;
 					unsigned len = strcspn(data, "\n");
@@ -137,36 +182,51 @@ void pretty_print(
 			e--;
 		}
 		
-		newline: printf("\e[0m");
+		newline: if (color) printf("\e[0m");
 		
 		bool newline = true;
 		
 		while (f > 1 && f != e)
 		{
+			mpq_ptr delta = costs[0][btok2+1][atok2+1].delta;
+			
 			switch (edits[--f-1])
 			{
 				case ek_insert:
 				{
-					printf("%*s| extra '", width - col, "");
-					escape(atoks->data[atok2]->data, -1);
-					printf("' (");
-					mpq_print(id_to_cost_get_insert(idtoc, atoks->data[atok2]->id));
-					printf(")\n");
-					col = 0, newline = false, atok2++;
+					if (mpq_sgn(delta))
+					{
+						printf("%*s| extra '", width - col, "");
+						escape(atoks->data[atok2]->data, -1);
+						printf("' ("), mpq_print(delta), printf(")\n");
+						col = 0, newline = false;
+					}
+					atok2++;
 					break;
 				}
 				
 				case ek_match:
 				{
-					mpq_ptr m = id_to_cost_get_match(idtoc, atoks->data[atok2]->id);
-					
-					if (mpq_sgn(m))
+					if (mpq_sgn(delta))
 					{
-						printf("%*s| exact match '", width - col, "");
+						printf("%*s| exact match of '", width - col, "");
 						escape(atoks->data[atok2]->data, -1);
-						printf("' (");
-						mpq_print(id_to_cost_get_match(idtoc, atoks->data[atok2]->id));
-						printf(")\n");
+						printf("' ("), mpq_print(delta), printf(")\n");
+						col = 0, newline = false;
+					}
+					btok2++, atok2++;
+					break;
+				}
+				
+				case ek_update:
+				{
+					if (mpq_sgn(delta))
+					{
+						printf("%*s| '", width - col, "");
+						escape(atoks->data[atok2]->data, -1);
+						printf("' instead of '");
+						escape(btoks->data[btok2]->data, -1);
+						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
 					
@@ -174,27 +234,33 @@ void pretty_print(
 					break;
 				}
 				
-				case ek_update:
+				case ek_within:
 				{
-					printf("%*s| '", width - col, "");
-					escape(btoks->data[btok2]->data, -1);
-					printf("' instead of '");
-					escape(atoks->data[atok2]->data, -1);
-					printf("' (");
-					mpq_print(id_to_cost_get_update(idtoc, btoks->data[btok2]->id));
-					printf(")\n");
-					col = 0, newline = false, btok2++, atok2++;
+					if (mpq_sgn(delta))
+					{
+						printf("%*s| ", width - col, "");
+						escape(atoks->data[atok2]->data, -1);
+						printf(" numerically close enough to ");
+						escape(btoks->data[btok2]->data, -1);
+						printf(" ("), mpq_print(delta), printf(")\n");
+						col = 0, newline = false;
+					}
+					
+					btok2++, atok2++;
 					break;
 				}
 				
 				case ek_delete:
 				{
-					printf("%*s| missing '", width - col, "");
-					escape(btoks->data[btok2]->data, -1);
-					printf("' (");
-					mpq_print(id_to_cost_get_insert(idtoc, btoks->data[btok2]->id));
-					printf(")\n");
-					col = 0, newline = false, btok2++;
+					if (mpq_sgn(delta))
+					{
+						printf("%*s| missing '", width - col, "");
+						escape(btoks->data[btok2]->data, -1);
+						printf("' ("), mpq_print(delta), printf(")\n");
+						col = 0, newline = false;
+					}
+					
+					btok2++;
 					break;
 				}
 			};
@@ -203,6 +269,8 @@ void pretty_print(
 		if (newline)
 			puts("");
 	}
+	
+	free(edits);
 	
 	EXIT;
 }

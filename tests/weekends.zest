@@ -1,0 +1,39 @@
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file.txt": ""
+	+ "['a'-'z']: { extra: -1, similar: -1, missing: -1 };" + "\n"
+	;
+
+"./before.txt": "sunday";
+
+"./after.txt": "saturday";
+
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >1 "./stdout.txt") == 0;
+
+file("./stdout.txt") == ""
+	+ "  1/  1 | saturday                                          | extra 'a' (-1)" + "\n"
+	+ "                                                            | extra 't' (-1)" + "\n"
+	+ "                                                            | 'r' instead of 'n' (-1)" + "\n"
+	+ "score: +97" + "\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

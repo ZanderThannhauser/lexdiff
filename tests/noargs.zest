@@ -1,0 +1,13 @@
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+shell("./lexdiff" >2 "./stderr.txt") == 512;
+
+file("./stderr.txt") == ""
+	+ "./lexdiff: missing arguments!" + "\n"
+	+ "usage: lexdiff [-pvh] [-d out.dotout] <comparison specification file> <file-a> <file-b>" + "\n";
+
+
+
+

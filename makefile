@@ -12,6 +12,7 @@ buildtype ?= release
 
 ifeq ($(buildtype), release)
 CPPFLAGS += -D RELEASE
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -O2
 CFLAGS += -flto
@@ -21,6 +22,7 @@ LDFLAGS += -static
 
 else ifeq ($(buildtype), test)
 CPPFLAGS += -D TESTING
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -g
 CFLAGS += -Wno-unused-variable
@@ -31,6 +33,7 @@ CFLAGS += -Wno-unused-label
 else ifeq ($(buildtype), debug)
 CPPFLAGS += -D DEBUGGING
 CPPFLAGS += -D ZEBU_DEBUG
+CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -g
 CFLAGS += -Wno-unused-variable
@@ -66,13 +69,13 @@ ARGS += -W 40
 
 ARGS += --pretty-print
 
-#ARGS += --dotout /tmp/tokenizer.dot
+#ARGS += --dotout /tmp/tokenizer.dotm
 
 #ARGS += ./examples/csv/csv.ldiff ./examples/csv/before.csv ./examples/csv/after.csv
 
 #ARGS += ./examples/json/json.ldiff ./examples/json/before.json ./examples/json/after.json
 
-ARGS += ./examples/sandbox/sandbox.ldiff ./examples/sandbox/master.txt ./examples/sandbox/compare.txt
+ARGS += ./examples/sandbox/spec-file.txt ./examples/sandbox/before.txt ./examples/sandbox/after.txt
 
 run: $(buildprefix)/lexdiff
 	$< $(ARGS)

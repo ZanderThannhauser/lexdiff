@@ -1,11 +1,11 @@
 
-struct id_to_cost;
+struct diff_cell;
+struct id_to_rule;
 enum edit_kind;
 struct token_list;
 
 void pretty_print(
-	struct id_to_cost* idtoc,
-	struct token_list* before,
-	struct token_list* after,
-	enum edit_kind* edits,
-	unsigned number_of_edits);
+	struct diff_cell* table,
+	struct id_to_rule* idtor,
+	struct token_list* btoks,
+	struct token_list* atoks);

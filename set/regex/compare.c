@@ -21,8 +21,6 @@ int compare_regexsets(
 			return +1;
 		else if (ar < br)
 			return -1;
-		else
-			return +0;
 	}
 	
 	return an ? 1 : bn ? -1 : 0;

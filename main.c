@@ -17,8 +17,8 @@
 #include <cmdln/after_path.h>
 #include <cmdln/pretty_print.h>
 
-#include <id_to_cost/new.h>
-#include <id_to_cost/free.h>
+#include <id_to_rule/new.h>
+#include <id_to_rule/free.h>
 
 #include <parse/parse.h>
 
@@ -37,15 +37,19 @@
 
 #include <pretty_print.h>
 
+#include <mpq_print.h>
+
+#include <diff_cell.h>
+
 int main(int argc, char* const* argv)
 {
 	ENTER;
 	
 	cmdln_process(argc, argv);
 	
-	struct id_to_cost* idtoc = new_id_to_cost();
+	struct id_to_rule* idtor = new_id_to_rule();
 	
-	struct regex* tokenizer = parse_specification(idtoc);
+	struct regex* tokenizer = parse_specification(idtor);
 	
 	if (dotout_tokenizer)
 	{
@@ -77,30 +81,31 @@ int main(int argc, char* const* argv)
 			exit(e_syscall_failed);
 		}
 		
-		struct token_list* before_tokens = tokenize(before_stream, tokenizer);
-		struct token_list* after_tokens = tokenize(after_stream, tokenizer);
+		struct token_list* btoks = tokenize(before_stream, tokenizer);
+		struct token_list* atoks = tokenize(after_stream, tokenizer);
 		
-		enum edit_kind* edits = smalloc(sizeof(*edits) * (before_tokens->n + after_tokens->n));
-		
-		unsigned number_of_edits = diff(idtoc, edits, before_tokens, after_tokens);
-		
-		dpv(number_of_edits);
+		struct diff_cell* table = diff(idtor, btoks, atoks);
 		
 		if (should_pretty_print)
 		{
-			pretty_print(idtoc, before_tokens, after_tokens, edits, number_of_edits);
+			pretty_print(table, idtor, btoks, atoks);
 		}
 		
-		free_token_list(before_tokens);
-		free_token_list(after_tokens);
+		unsigned len = (btoks->n + 1) * (atoks->n + 1);
+		
+		fputs("score: ", stdout), mpq_print(table[len-1].total), putchar('\n');
+		
+		free_diff_table(table, len);
+		
+		free_token_list(btoks);
+		free_token_list(atoks);
 		
 		fclose(before_stream);
 		fclose(after_stream);
-		
-		free(edits);
 	}
 	
-	free_id_to_cost(idtoc);
+	
+	free_id_to_rule(idtor);
 	
 	free_regex(tokenizer);
 	
