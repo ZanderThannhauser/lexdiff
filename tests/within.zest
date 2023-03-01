@@ -20,21 +20,21 @@
 
 "./before.txt": "123 10 10 10 10 10 10 10 123";
 
-"./after.txt": "123 8 9 10 11 12 20 21 456";
+"./after.txt": "123 8 9 10.01 11 12 20 21 456";
 
 shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >1 "./stdout.txt") == 0;
 
 file("./stdout.txt") == ""
-	+ "  1/  1 | 123␣8␣9␣10␣11␣12␣20␣21␣456                        | exact match of '123' (+11)" + "\n"
-	+ "                                                            | 8 numerically close enough to 10 (-3)" + "\n"
-	+ "                                                            | 9 numerically close enough to 10 (-2)" + "\n"
-	+ "                                                            | exact match of '10' (+11)" + "\n"
-	+ "                                                            | 11 numerically close enough to 10 (-2)" + "\n"
-	+ "                                                            | 12 numerically close enough to 10 (-3)" + "\n"
-	+ "                                                            | 20 numerically close enough to 10 (-3)" + "\n"
-	+ "                                                            | '21' instead of '10' (-15)" + "\n"
-	+ "                                                            | '456' instead of '123' (-15)" + "\n"
-	+ "score: +79" + "\n";
+	+ "  1/  1 | 123␣8␣9␣10.01␣11␣12␣20␣21␣456                     | exact match of \'123\' (+11)" + "\n"
+	+ "                                                            | 8 numerically close enough to 10 (-3)\n"
+	+ "                                                            | 9 numerically close enough to 10 (-2)\n"
+	+ "                                                            | 10.01 numerically close enough to 10 (-2)\n"
+	+ "                                                            | 11 numerically close enough to 10 (-2)\n"
+	+ "                                                            | 12 numerically close enough to 10 (-3)\n"
+	+ "                                                            | 20 numerically close enough to 10 (-3)\n"
+	+ "                                                            | \'21\' instead of \'10\' (-15)\n"
+	+ "                                                            | \'456\' instead of \'123\' (-15)\n"
+	+ "score: +66\n";
 
 
 

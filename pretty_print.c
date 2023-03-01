@@ -20,22 +20,8 @@
 #include <token_rule/struct.h>
 
 #include "diff_cell.h"
+#include "print_token.h"
 #include "pretty_print.h"
-
-static void escape(char* moving, unsigned len)
-{
-	char c;
-	while (len-- && (c = *moving++))
-	{
-		switch (c)
-		{
-			case '\n': printf("↲"); break;
-			case '\t': printf("↦"); break;
-			case  ' ': printf("␣"); break;
-			default  : putchar(c); break;
-		}
-	}
-}
 
 void pretty_print(
 	struct diff_cell* _costs,
@@ -92,12 +78,12 @@ void pretty_print(
 					
 					if (data[len])
 					{
-						escape(data, ++len), aline++, aidx += len, col += len;
+						print_token(stdout, data, ++len), aline++, aidx += len, col += len;
 						goto newline;
 					}
 					else
 					{
-						escape(data, len), atok++, aidx = 0, col += len;
+						print_token(stdout, data, len), atok++, aidx = 0, col += len;
 						break;
 					}
 				}
@@ -111,12 +97,12 @@ void pretty_print(
 					
 					if (data[len])
 					{
-						escape(data, ++len), bline++, aline++, aidx += len, col += len;
+						print_token(stdout, data, ++len), bline++, aline++, aidx += len, col += len;
 						goto newline;
 					}
 					else
 					{
-						escape(data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
+						print_token(stdout, data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
 						break;
 					}
 				}
@@ -130,12 +116,12 @@ void pretty_print(
 					
 					if (data[len])
 					{
-						escape(data, ++len), bline++, aline++, aidx += len, col += len;
+						print_token(stdout, data, ++len), bline++, aline++, aidx += len, col += len;
 						goto newline;
 					}
 					else
 					{
-						escape(data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
+						print_token(stdout, data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
 						break;
 					}
 				}
@@ -149,12 +135,12 @@ void pretty_print(
 					
 					if (data[len])
 					{
-						escape(data, ++len), bline++, aline++, aidx += len, col += len;
+						print_token(stdout, data, ++len), bline++, aline++, aidx += len, col += len;
 						goto newline;
 					}
 					else
 					{
-						escape(data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
+						print_token(stdout, data, len), btok++, atok++, bidx = 0, aidx = 0, col += len;
 						break;
 					}
 				}
@@ -168,12 +154,12 @@ void pretty_print(
 					
 					if (data[len])
 					{
-						escape(data, ++len), bline++, bidx += len, col += len;
+						print_token(stdout, data, ++len), bline++, bidx += len, col += len;
 						goto newline;
 					}
 					else
 					{
-						escape(data, len), btok++, bidx = 0, col += len;
+						print_token(stdout, data, len), btok++, bidx = 0, col += len;
 						break;
 					}
 				}
@@ -197,7 +183,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| extra '", width - col, "");
-						escape(atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->data, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -210,7 +196,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| exact match of '", width - col, "");
-						escape(atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->data, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -223,9 +209,9 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| '", width - col, "");
-						escape(atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->data, -1);
 						printf("' instead of '");
-						escape(btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->data, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -239,9 +225,9 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| ", width - col, "");
-						escape(atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->data, -1);
 						printf(" numerically close enough to ");
-						escape(btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->data, -1);
 						printf(" ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -255,7 +241,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| missing '", width - col, "");
-						escape(btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->data, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
