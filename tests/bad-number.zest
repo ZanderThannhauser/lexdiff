@@ -1,0 +1,68 @@
+
+
+
+
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file.txt": ""
+	+ "['0'-'9'|'a'-'z']+: {" + "\n"
+		+ "extra: -10," + "\n"
+		+ "missing: -10," + "\n"
+		+ "exact: +11," + "\n"
+		+ "within 10: -3," + "\n"
+		+ "similar: -15," + "\n"
+	+ "};"
+	;
+
+"./before.txt": "123456";
+
+"./after.txt": "123abc";
+
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1024;
+
+file("./stderr.txt") == ""
+	+ "./lexdiff: could not convert \'123abc\' into a number! (from second file)" + "\n";
+
+---
+
+"./lexdiff" (+x): file("bin/release-build/lexdiff");
+
+"./spec-file.txt": ""
+	+ "['0'-'9'|'a'-'z']+: {" + "\n"
+		+ "extra: -10," + "\n"
+		+ "missing: -10," + "\n"
+		+ "exact: +11," + "\n"
+		+ "within 10: -3," + "\n"
+		+ "similar: -15," + "\n"
+	+ "};"
+	;
+
+"./before.txt": "123abc";
+
+"./after.txt": "123456";
+
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1024;
+
+file("./stderr.txt") == ""
+	+ "./lexdiff: could not convert \'123abc\' into a number! (from first file)" + "\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

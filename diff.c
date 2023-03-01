@@ -6,9 +6,13 @@
 
 #include <gmp.h>
 
-#include <memory/smalloc.h>
-
 #include <debug.h>
+
+#include <defines/argv0.h>
+
+#include <enums/error.h>
+
+#include <memory/smalloc.h>
 
 #include <id_to_rule/get.h>
 
@@ -21,6 +25,7 @@
 #include <mpq_print.h>
 
 #include "token.h"
+#include "print_token.h"
 #include "token_list/struct.h"
 #include "diff_cell.h"
 #include "diff.h"
@@ -37,7 +42,7 @@ static void mpq_init_set(mpq_ptr ptr, mpq_ptr src)
 	mpq_set(ptr, src);
 }
 
-static void mpq_init_set_decimal(mpq_ptr ptr, const char* str)
+static bool mpq_init_set_decimal(mpq_ptr ptr, const char* str)
 {
 	ENTER;
 	
@@ -63,22 +68,21 @@ static void mpq_init_set_decimal(mpq_ptr ptr, const char* str)
 	{
 		str++;
 		
-		TODO;
-		
 		while (*str && index("0123456789", *str))
 		{
-			TODO;
+			mpq_div(inc, inc, ten);
+			
+			for (char c = *str; c > '0'; c--)
+				mpq_add(ptr, ptr, inc);
+			
+			str++;
 		}
-	}
-	
-	if (*str)
-	{
-		TODO;
 	}
 	
 	mpq_clear(ten), mpq_clear(inc);
 	
 	EXIT;
+	return !!*str;
 }
 
 struct diff_cell* diff(
@@ -193,8 +197,21 @@ struct diff_cell* diff(
 				{
 					mpq_t mq, cq;
 					
-					mpq_init_set_decimal(mq, before->data[i]->data);
-					mpq_init_set_decimal(cq, after->data[i]->data);
+					if (mpq_init_set_decimal(mq, before->data[i]->data))
+					{
+						fprintf(stderr, "%s: could not convert '", argv0);
+						print_token(stderr, before->data[i]->data, -1);
+						fprintf(stderr, "' into a number! (from first file)\n");
+						exit(e_bad_spec_file);
+					}
+					
+					if (mpq_init_set_decimal(cq, after->data[i]->data))
+					{
+						fprintf(stderr, "%s: could not convert '", argv0);
+						print_token(stderr, after->data[i]->data, -1);
+						fprintf(stderr, "' into a number! (from second file)\n");
+						exit(e_bad_spec_file);
+					}
 					
 					mpq_t sub, tmp, hundred;
 					mpq_init(sub), mpq_sub(sub, mq, cq), mpq_abs(sub, sub);

@@ -55,6 +55,7 @@ srcs += ./parse/regex_to_nfa.c
 srcs += ./parse/simplify_dfa.c
 srcs += ./parse/zebu.c
 srcs += ./pretty_print.c
+srcs += ./print_token.c
 srcs += ./quack/append.c
 srcs += ./quack/foreach.c
 srcs += ./quack/free.c

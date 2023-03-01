@@ -37,7 +37,7 @@ static unsigned read_escape(
 		case '\"': retval = '\"', (*moving)++; break;
 		default:
 			fprintf(stderr, "%s: unknown escape sequence '\\%c'!\n", argv0, **moving),
-			exit(e_bad_input_file);
+			exit(e_bad_spec_file);
 	}
 	
 	EXIT;
