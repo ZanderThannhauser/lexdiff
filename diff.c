@@ -22,6 +22,7 @@
 
 #include "token.h"
 #include "token_list/struct.h"
+#include "diff_cell.h"
 #include "diff.h"
 
 static void mpq_init_set_ui(mpq_ptr ptr, unsigned a, unsigned b)
@@ -80,51 +81,54 @@ static void mpq_init_set_decimal(mpq_ptr ptr, const char* str)
 	EXIT;
 }
 
-unsigned diff(
+struct diff_cell* diff(
 	struct id_to_rule* idtor,
-	enum edit_kind* edits,
 	struct token_list* before,
 	struct token_list* after)
 {
 	ENTER;
 	
-	struct cell {
-		enum edit_kind action;
-		mpq_t score;
-	} (*costs)[before->n+1][after->n+1] = smalloc(sizeof(*costs));
+	struct diff_cell (*costs)[before->n+1][after->n+1] = smalloc(sizeof(*costs));
 	
-	mpq_init_set_ui(costs[0][0][0].score, 100, 1);
+	mpq_init_set_ui(costs[0][0][0].total, 100, 1);
+	mpq_init_set_ui(costs[0][0][0].delta, 0, 1);
 	
 	unsigned i, j, n, m;
 	
-	mpq_t q;
-	mpq_init_set_ui(q, 0, 1);
+	mpq_t total, delta;
+	mpq_init(total), mpq_init(delta);
+	mpq_set_ui(total, 100, 1);
 	
 	for (i = 0, n = before->n; i < n; i++)
 	{
-		struct cell* cell = &costs[0][i+1][0];
+		struct diff_cell* cell = &costs[0][i+1][0];
 		
-		mpq_add(q, q, id_to_rule_get_rule(idtor, before->data[i]->id)->delete);
+		mpq_ptr delete = id_to_rule_get_rule(idtor, before->data[i]->id)->delete;
+		
+		mpq_add(total, total, delete);
 		
 		cell->action = ek_delete;
-		mpq_init_set(cell->score, q);
+		mpq_init_set(cell->total, total);
+		mpq_init_set(cell->delta, delete);
 	}
 	
-	mpq_set_ui(q, 0, 1);
+	mpq_set_ui(total, 100, 1);
 	
 	for (j = 0, m = after->n; j < m; j++)
 	{
-		struct cell* cell = &costs[0][0][j+1];
+		struct diff_cell* cell = &costs[0][0][j+1];
 		
-		mpq_add(q, q, id_to_rule_get_rule(idtor, after->data[j]->id)->insert);
+		mpq_ptr insert = id_to_rule_get_rule(idtor, after->data[j]->id)->insert;
+		
+		mpq_add(total, total, insert);
 		
 		cell->action = ek_insert;
-		mpq_init_set(cell->score, q);
+		mpq_init_set(cell->total, total);
+		mpq_init_set(cell->delta, insert);
 	}
 	
-	mpq_t a, b;
-	mpq_init(a), mpq_init(b);
-	
+	mpq_t alt_total, alt_delta;
+	mpq_init(alt_total), mpq_init(alt_delta);
 	enum edit_kind action;
 	
 	for (i = 0; i < n; i++)
@@ -133,21 +137,24 @@ unsigned diff(
 		{
 			unsigned mid = before->data[i]->id, cid = after->data[j]->id;
 			
-			struct cell* cell = &costs[0][i+1][j+1];
+			struct diff_cell* cell = &costs[0][i+1][j+1];
 			
 			// consider delete:
 			{
-				mpq_add(a, costs[0][i][j+1].score, id_to_rule_get_rule(idtor, mid)->delete);
+				mpq_set(delta, id_to_rule_get_rule(idtor, mid)->delete);
+				mpq_add(total, delta, costs[0][i][j+1].total);
 				action = ek_delete;
 			}
 			
 			// consider insert:
 			{
-				mpq_add(b, costs[0][i+1][j].score, id_to_rule_get_rule(idtor, cid)->insert);
+				mpq_set(alt_delta, id_to_rule_get_rule(idtor, cid)->insert);
+				mpq_add(alt_total, alt_delta, costs[0][i+1][j].total);
 			
-				if (mpq_cmp(a, b) <= 0)
+				if (mpq_cmp(alt_total, total) >= 0)
 				{
-					mpq_set(a, b);
+					mpq_set(total, alt_total);
+					mpq_set(delta, alt_delta);
 					action = ek_insert;
 				}
 			}
@@ -159,21 +166,23 @@ unsigned diff(
 				
 				if (strcmp(before->data[i]->data, after->data[j]->data))
 				{
-					mpq_add(b, rule->update, costs[0][i][j].score);
+					mpq_add(alt_total, rule->update, costs[0][i][j].total);
 					
-					if (mpq_cmp(a, b) <= 0)
+					if (mpq_cmp(alt_total, total) >= 0)
 					{
-						mpq_set(a, b);
+						mpq_set(delta, rule->update);
+						mpq_set(total, alt_total);
 						action = ek_update;
 					}
 				}
 				else
 				{
-					mpq_add(b, rule->match, costs[0][i][j].score);
+					mpq_add(alt_total, rule->match, costs[0][i][j].total);
 					
-					if (mpq_cmp(a, b) <= 0)
+					if (mpq_cmp(alt_total, total) >= 0)
 					{
-						mpq_set(a, b);
+						mpq_set(delta, rule->match);
+						mpq_set(total, alt_total);
 						action = ek_match;
 					}
 				}
@@ -208,12 +217,14 @@ unsigned diff(
 						
 						if (mpq_cmp(tmp, ele->tolerance) <= 0)
 						{
-							mpq_add(b, ele->points, costs[0][i][j].score);
+							mpq_add(alt_total, ele->points, costs[0][i][j].total);
 							
-							if (mpq_cmp(a, b) < 0)
+							if (mpq_cmp(alt_total, total) > 0)
 							{
-								mpq_set(a, b);
+								mpq_set(delta, ele->points);
+								mpq_set(total, alt_total);
 								action = ek_within;
+								cell->within_index = k;
 							}
 						}
 					}
@@ -223,7 +234,8 @@ unsigned diff(
 				}
 			}
 			
-			mpq_init(cell->score), mpq_set(cell->score, a);
+			mpq_init(cell->total), mpq_set(cell->total, total);
+			mpq_init(cell->delta), mpq_set(cell->delta, delta);
 			cell->action = action;
 		}
 	}
@@ -233,7 +245,9 @@ unsigned diff(
 	{
 		for (j = 0; j <= m; j++)
 		{
-			gmp_printf("%6Qi", costs[0][i][j].score);
+			gmp_printf("%4Qi (%3+Qi)",
+				costs[0][i][j].total,
+				costs[0][i][j].delta);
 			
 			if (j + 1 <= m)
 				printf(", ");
@@ -243,38 +257,42 @@ unsigned diff(
 	}
 	#endif
 	
-	fputs("score: ", stdout), mpq_print(costs[0][n][m].score), putchar('\n');
+	mpq_clear(alt_total), mpq_clear(alt_delta);
 	
-	unsigned k = 0;
-	
-	for (i = n, j = m; i && j; )
-	{
-		switch ((edits[k++] = costs[0][i][j].action))
-		{
-			case ek_insert: j--; break;
-			
-			case ek_update: i--, j--; break;
-			
-			case ek_match: i--, j--; break;
-			
-			case ek_within: i--, j--; break;
-			
-			case ek_delete: i--; break;
-		}
-	}
-	
-	for (i = 0; i <= n; i++)
-		for (j = 0; j <= m; j++)
-			mpq_clear(costs[0][i][j].score);
-	
-	free(costs);
-	
-	mpq_clear(a), mpq_clear(b);
-	mpq_clear(q);
+	mpq_clear(total), mpq_clear(delta);
 	
 	EXIT;
-	return k;
+	return (void*) costs;
 }
+
+void free_diff_table(
+	struct diff_cell* table,
+	unsigned len)
+{
+	for (unsigned i = 0; i < len; i++)
+	{
+		mpq_clear(table[i].total);
+		mpq_clear(table[i].delta);
+	}
+	
+	free(table);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

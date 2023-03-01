@@ -1,10 +1,12 @@
 
 enum edit_kind;
-struct edits;
 struct token_list;
 
-unsigned diff(
+struct diff_cell* diff(
 	struct id_to_rule* idtoc,
-	enum edit_kind* edits,
 	struct token_list* master,
 	struct token_list* compare);
+	
+void free_diff_table(
+	struct diff_cell* table,
+	unsigned len);

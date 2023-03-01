@@ -15,9 +15,8 @@ void mpq_print(mpq_ptr mpq)
 		putchar('0');
 	else
 	{
-		if (sgn < 0)
-			putchar('-');
-			
+		putchar(sgn < 0 ? '-' : '+');
+		
 		mpq_t abs;
 		
 		mpq_init(abs);
