@@ -89,54 +89,74 @@
               <section> <h1> Description </h1>
                          <p> Sometimes a line-by-line comparison
                              can be too coarse for small differences and a
-                             character-by-character comparison too pedantic to be helpful;
-                             lexdiff attempts to reach a middle-ground by essentially
-                             comparing the tokens (words) of the two files, similar to how
+                             character-by-character comparison too pedantic to
+                             be helpful; lexdiff attempts to reach a
+                             middle ground by essentially comparing the
+                             tokens (words) of the two files, similar to how
                              humans read text. lexdiff provides a mechanism
-                             for the user to be able to articulate the kinds
-                             of tokens lexdiff should be prepared to encounter in the two
-                             files and the amount of importance the differences between
-                             said tokens have. After the comparison, lexdiff will print a
+                             for the user to articulate the kinds of tokens
+                             lexdiff may encounter in the two files and the
+                             importance the differences between said tokens
+                             have. After the comparison, lexdiff will print a
                              "score" to summarize the differences found. </p>
-                         
-                         <p>  lexdiff looks for three kinds of differences: a token
-                              present in <u>after</u> but is not in <u>before</u> (extra),
-                              a token present in <u>before</u> but not in <u>after</u>
-                              (missing), and a token present in both files but whose
-                              characters are different (similar but not exact).
-                              Each of these differences may result in the score increasing
-                              or decreasing. The score may also be affected by tokens that
-                              perfectly match between the two files (exact). </p>
-                                
-                         <p>  lexdiff reads the specification file given on the command-line
-                              to know what tokens exist, and how the final score should
-                              be affected by differences their involved in. </p> </section>
+                         <p> lexdiff scans for five kinds of differences:
+                             extra tokens (tokens present in <u>after</u> but
+                             not in <u>before</u>), missing
+                             tokens (tokens present in <u>before</u> but not
+                             in <u>after</u>), similar tokens (tokens matching
+                             the same regular-expression pattern, but do not
+                             consist of the same characters), exact
+                             matches (tokens consisting of the same
+                             characters), and tokens with numerical
+                             equality (tokens that when converted to a number
+                             have the same
+                             value (&plusmn some tolerance)).
+                             The way the score is affected (points lost or
+                             gained) by each difference depends on
+                             which token is missing, or extra, or exact, etc.
+                             For instance, missing keywords in a language may
+                             have a greater importance--and therefore a
+                             greater affect on the score--than, let's say, extra comments. </p>
+                         <p> lexdiff reads the specification file given on the command-line
+                             to know what tokens exist, and how the final score should
+                             be affected by differences their involved in. </p> </section>
                
               <section> <h1> Specification File Syntax </h1>
-                         <p>  The syntax of the specification file is made up of one or
-                              more token declarations, each token declaration consists
-                              of the regular expression for matching the token followed
-                              by a list of differences and the score loss or gain
-                              that would occur every time that kind of difference was detected.
-                              Example shown below: </p>
+                         <p> The syntax of the specification file is made up of one or
+                             more token declarations, each token declaration consists
+                             of the regular expression for matching the token followed
+                             by a list of differences and the score loss or gain
+                             that would occur every time that kind of difference was detected.
+                             Example shown below: </p>
                          <pre><code>[<span style="color:#5F5">'0'</span>-<span style="color:#5F5">'9'</span>]+: {
     <span style="color:#5FF">extra</span>: <span style="color:#F55">-10</span>,
     <span style="color:#5FF">similar</span>: <span style="color:#F55">-5</span>,
-    <span style="color:#5FF">exact</span>: <span style="color:#F55">+1</span>,
+    <span style="color:#5FF">exact</span>: <span style="color:#F55">1</span> + <span style="color:#F55">1</span>,
     <span style="color:#5FF">missing</span>: <span style="color:#F55">-20</span>,
     <span style="color:#5FF">within</span> <span style="color:#F55">1</span>%: <span style="color:#F55">-1</span>,
     <span style="color:#5FF">within</span> <span style="color:#F55">3</span>: <span style="color:#F55">-2</span>,
 };</code></pre>
-                         <p>  The number of points gained/lost does not have to be just
-                              a numeric literal, lexdiff supports evaluating math expressions
-                              to determine the result. Addition, subtraction,
-                              multiplication, and sectionision operators are supported.
-                              Parenthesis can be used to change the operator precedence. </p>
-                  
-                         <p>  Unless specified, the number of points gained/lost due
-                              to a difference (extra, similar, missing) or an
-                              exact match is zero.</p>
-                       
+                         <p> The number of points gained/lost does not have to
+                             be just a numeric literal, lexdiff supports
+                             evaluating math expressions to determine the
+                             result. Addition, subtraction, multiplication, and
+                             division operators are supported. Parenthesis can
+                             be used to change the operator precedence. </p>
+                         
+                         <p> If multiple 'extra', 'similar', 'exact', or 'missing'
+                             fields are given, only the last is respected.
+                             The 'within' field tells lexdiff how many
+                             points that should be gained or lost if two
+                             tokens of this kind where numerically
+                             equal within a specified tolerance. This tolerance
+                             can be given as either a percentage (as seen in
+                             the first use) or an absolute
+                             difference (as see in the second use). The
+                             'within' field can be used multiple times. </p>
+                         
+                         <p> Unless specified, the number of points gained/lost due
+                             to a difference (extra, similar, missing) or an
+                             exact match is zero.</p>
                     <section> <h2> Regular Expression Syntax </h2>
                                <p> The regular expression syntax has been modified a bit from
                                    what's conventional. This alternative syntax allows for
