@@ -26,6 +26,12 @@ static bool mpq_set_decimal(mpq_ptr ptr, const char* str)
 	
 	dpvs(str);
 	
+	bool is_negative = false;
+	if (*str == '-')
+		is_negative = true;
+	else if (*str == '+')
+		str++;
+	
 	while (*str && index("0123456789", *str))
 	{
 		mpq_mul(ptr, ptr, ten);
@@ -50,6 +56,9 @@ static bool mpq_set_decimal(mpq_ptr ptr, const char* str)
 			str++;
 		}
 	}
+	
+	if (is_negative)
+		mpq_neg(ptr, ptr);
 	
 	mpq_clear(ten), mpq_clear(inc);
 	
