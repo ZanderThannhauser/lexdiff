@@ -6,11 +6,14 @@
 #include "struct.h"
 #include "new.h"
 
-struct token_rule* new_token_rule()
+struct token_rule* new_token_rule(
+	unsigned rank)
 {
 	ENTER;
 	
 	struct token_rule* this = smalloc(sizeof(*this));
+	
+	this->rank = rank;
 	
 	mpq_init(this->insert), mpq_set_ui(this->insert, 0, 1);
 	mpq_init(this->match),  mpq_set_ui(this->match,  0, 1);

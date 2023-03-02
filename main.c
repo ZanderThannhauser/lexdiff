@@ -17,15 +17,15 @@
 #include <cmdln/after_path.h>
 #include <cmdln/pretty_print.h>
 
-#include <id_to_rule/new.h>
-#include <id_to_rule/free.h>
+/*#include <id_to_rule/new.h>*/
+/*#include <id_to_rule/free.h>*/
 
 #include <parse/parse.h>
 
 #include <regex/dotout.h>
 #include <regex/free.h>
 
-#include <token.h>
+/*#include <token.h>*/
 #include <tokenize.h>
 
 #include <edit_kind.h>
@@ -47,9 +47,7 @@ int main(int argc, char* const* argv)
 	
 	cmdln_process(argc, argv);
 	
-	struct id_to_rule* idtor = new_id_to_rule();
-	
-	struct regex* tokenizer = parse_specification(idtor);
+	struct regex* tokenizer = parse_specification();
 	
 	if (dotout_tokenizer)
 	{
@@ -84,11 +82,11 @@ int main(int argc, char* const* argv)
 		struct token_list* btoks = tokenize(before_stream, tokenizer);
 		struct token_list* atoks = tokenize(after_stream, tokenizer);
 		
-		struct diff_cell* table = diff(idtor, btoks, atoks);
+		struct diff_cell* table = diff(btoks, atoks);
 		
 		if (should_pretty_print)
 		{
-			pretty_print(table, idtor, btoks, atoks);
+			pretty_print(table, btoks, atoks);
 		}
 		
 		unsigned len = (btoks->n + 1) * (atoks->n + 1);
@@ -103,9 +101,6 @@ int main(int argc, char* const* argv)
 		fclose(before_stream);
 		fclose(after_stream);
 	}
-	
-	
-	free_id_to_rule(idtor);
 	
 	free_regex(tokenizer);
 	

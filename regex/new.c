@@ -20,7 +20,7 @@ struct regex* new_regex()
 	this->lambdas.cap = 0;
 	this->lambdas.n = 0;
 	
-	this->accepts = 0;
+	this->accepts = NULL;
 	
 	EXIT;
 	return this;

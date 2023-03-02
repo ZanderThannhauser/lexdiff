@@ -8,7 +8,6 @@ struct regex
 		unsigned n, cap;
 	} lambdas;
 	
-	// 0 means nonaccepting, 1 means whitespace, otherwise: token id.
-	unsigned accepts;
+	struct token_rule* accepts; // NULL if not accepting
 };
 

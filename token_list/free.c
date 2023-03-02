@@ -1,9 +1,10 @@
 
+#include <assert.h>
 #include <stdlib.h>
 
 #include <debug.h>
 
-#include <token.h>
+#include <token/free.h>
 
 #include "struct.h"
 #include "free.h"
@@ -15,10 +16,7 @@ void free_token_list(
 	
 	for (unsigned i = 0, n = this->n; i < n; i++)
 	{
-		struct token* token = this->data[i];
-		
-		free(token->data);
-		free(token);
+		free_token(this->data[i]);
 	}
 	
 	free(this->data);

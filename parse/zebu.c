@@ -1,17 +1,5 @@
 #include "zebu.h"
 
-#ifndef ZEBU_LINE_NUMBERS
-#define ZEBU_LINE_NUMBERS (0)
-#endif
-
-#ifndef ZEBU_COLUMN_NUMBERS
-#define ZEBU_COLUMN_NUMBERS (0)
-#endif
-
-#ifndef ZEBU_TREE_DEPTH
-#define ZEBU_TREE_DEPTH (0)
-#endif
-
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
@@ -4376,19 +4364,12 @@ case 7:
 {
 struct zebu_$start* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_root* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_root(value->root), value->root = inc_zebu_root(subgrammar);
 free_zebu_root(subgrammar);
 }
@@ -4399,19 +4380,12 @@ case 64:
 {
 struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_multiplicative(value->right), value->right = inc_zebu_expression_multiplicative(subgrammar);
 free_zebu_expression_multiplicative(subgrammar);
 }
@@ -4422,19 +4396,12 @@ case 67:
 {
 struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_prefix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_prefix(value->right), value->right = inc_zebu_expression_prefix(subgrammar);
 free_zebu_expression_prefix(subgrammar);
 }
@@ -4445,19 +4412,12 @@ case 48:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4479,13 +4439,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4495,19 +4450,12 @@ case 49:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4529,13 +4477,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4545,19 +4488,12 @@ case 50:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4579,13 +4515,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4595,19 +4526,12 @@ case 51:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4629,13 +4553,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4645,19 +4564,12 @@ case 52:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4679,10 +4591,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_within* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->withins.n == value->withins.cap)
 {
 value->withins.cap = value->withins.cap << 1 ?: 1;
@@ -4699,19 +4609,12 @@ case 46:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4733,13 +4636,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4749,19 +4647,12 @@ case 47:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4783,13 +4674,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 23;
@@ -4799,19 +4685,12 @@ case 58:
 {
 struct zebu_within* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->points), value->points = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
@@ -4822,19 +4701,12 @@ case 54:
 {
 struct zebu_expression_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_highest* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_highest(value->inner), value->inner = inc_zebu_expression_highest(subgrammar);
 free_zebu_expression_highest(subgrammar);
 }
@@ -4845,19 +4717,12 @@ case 20:
 {
 struct zebu_root* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->rules.n == value->rules.cap)
 {
 value->rules.cap = value->rules.cap << 1 ?: 1;
@@ -4874,19 +4739,12 @@ case 25:
 {
 struct zebu_root* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_root* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->rules.n)
 {
 while (value->rules.n + trie->rules.n > value->rules.cap)
@@ -4903,10 +4761,8 @@ free_zebu_root(trie);
 }
 {
 struct zebu_token_rule* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->rules.n == value->rules.cap)
 {
 value->rules.cap = value->rules.cap << 1 ?: 1;
@@ -4923,19 +4779,12 @@ case 59:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -4957,22 +4806,15 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->insert), value->insert = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 18;
@@ -4982,19 +4824,12 @@ case 60:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5016,22 +4851,15 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->update), value->update = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 19;
@@ -5041,19 +4869,12 @@ case 61:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5075,22 +4896,15 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->match), value->match = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 20;
@@ -5100,19 +4914,12 @@ case 62:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5134,22 +4941,15 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->delete), value->delete = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 21;
@@ -5159,19 +4959,12 @@ case 36:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5193,13 +4986,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 15;
@@ -5209,19 +4997,12 @@ case 37:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5243,13 +5024,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 15;
@@ -5259,19 +5035,12 @@ case 38:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5293,13 +5062,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 15;
@@ -5309,19 +5073,12 @@ case 40:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5343,13 +5100,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 15;
@@ -5359,19 +5111,12 @@ case 35:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5393,13 +5138,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 15;
@@ -5409,19 +5149,12 @@ case 41:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -5443,10 +5176,8 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_within* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->withins.n == value->withins.cap)
 {
 value->withins.cap = value->withins.cap << 1 ?: 1;
@@ -5463,22 +5194,12 @@ case 39:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 22;
@@ -5488,19 +5209,12 @@ case 14:
 {
 struct zebu_charset* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_union* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_union(value->inner), value->inner = inc_zebu_charset_union(subgrammar);
 free_zebu_charset_union(subgrammar);
 }
@@ -5511,42 +5225,25 @@ case 26:
 {
 struct zebu_charset_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_charset* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset(value->inner), value->inner = inc_zebu_charset(subgrammar);
 free_zebu_charset(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 9;
@@ -5556,22 +5253,12 @@ case 9:
 {
 struct zebu_charset_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->character), value->character = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -5582,19 +5269,12 @@ case 13:
 {
 struct zebu_charset_inter* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_range* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_range(value->inner), value->inner = inc_zebu_charset_range(subgrammar);
 free_zebu_charset_range(subgrammar);
 }
@@ -5605,39 +5285,25 @@ case 29:
 {
 struct zebu_charset_inter* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_inter* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_inter(value->sub), value->sub = inc_zebu_charset_inter(subgrammar);
 free_zebu_charset_inter(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_charset_range* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_range(value->inner), value->inner = inc_zebu_charset_range(subgrammar);
 free_zebu_charset_range(subgrammar);
 }
@@ -5648,19 +5314,12 @@ case 10:
 {
 struct zebu_charset_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_high(value->inner), value->inner = inc_zebu_charset_high(subgrammar);
 free_zebu_charset_high(subgrammar);
 }
@@ -5671,31 +5330,19 @@ case 22:
 {
 struct zebu_charset_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_high(value->inner), value->inner = inc_zebu_charset_high(subgrammar);
 free_zebu_charset_high(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->emark), value->emark = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -5706,19 +5353,12 @@ case 12:
 {
 struct zebu_charset_range* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_prefix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_prefix(value->left), value->left = inc_zebu_charset_prefix(subgrammar);
 free_zebu_charset_prefix(subgrammar);
 }
@@ -5729,39 +5369,25 @@ case 28:
 {
 struct zebu_charset_range* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_prefix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_prefix(value->right), value->right = inc_zebu_charset_prefix(subgrammar);
 free_zebu_charset_prefix(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_charset_prefix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_prefix(value->left), value->left = inc_zebu_charset_prefix(subgrammar);
 free_zebu_charset_prefix(subgrammar);
 }
@@ -5772,19 +5398,12 @@ case 11:
 {
 struct zebu_charset_union* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_inter* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_inter(value->inner), value->inner = inc_zebu_charset_inter(subgrammar);
 free_zebu_charset_inter(subgrammar);
 }
@@ -5795,39 +5414,25 @@ case 27:
 {
 struct zebu_charset_union* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_charset_union* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_union(value->sub), value->sub = inc_zebu_charset_union(subgrammar);
 free_zebu_charset_union(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_charset_inter* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset_inter(value->inner), value->inner = inc_zebu_charset_inter(subgrammar);
 free_zebu_charset_inter(subgrammar);
 }
@@ -5838,19 +5443,12 @@ case 42:
 {
 struct zebu_expression* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_additive* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_additive(value->inner), value->inner = inc_zebu_expression_additive(subgrammar);
 free_zebu_expression_additive(subgrammar);
 }
@@ -5861,19 +5459,12 @@ case 65:
 {
 struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_additive* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->add) { free_zebu_token(value->add); value->add = inc_zebu_token(trie->add); }
 if (trie->inner) { free_zebu_expression_multiplicative(value->inner); value->inner = inc_zebu_expression_multiplicative(trie->inner); }
 if (trie->left) { free_zebu_expression_additive(value->left); value->left = inc_zebu_expression_additive(trie->left); }
@@ -5883,22 +5474,15 @@ free_zebu_expression_additive(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->add), value->add = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_expression_additive* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_additive(value->left), value->left = inc_zebu_expression_additive(subgrammar);
 free_zebu_expression_additive(subgrammar);
 }
@@ -5909,19 +5493,12 @@ case 44:
 {
 struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_multiplicative(value->inner), value->inner = inc_zebu_expression_multiplicative(subgrammar);
 free_zebu_expression_multiplicative(subgrammar);
 }
@@ -5932,19 +5509,12 @@ case 63:
 {
 struct zebu_expression_additive* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_additive* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->add) { free_zebu_token(value->add); value->add = inc_zebu_token(trie->add); }
 if (trie->inner) { free_zebu_expression_multiplicative(value->inner); value->inner = inc_zebu_expression_multiplicative(trie->inner); }
 if (trie->left) { free_zebu_expression_additive(value->left); value->left = inc_zebu_expression_additive(trie->left); }
@@ -5954,22 +5524,15 @@ free_zebu_expression_additive(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->sub), value->sub = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_expression_additive* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_additive(value->left), value->left = inc_zebu_expression_additive(subgrammar);
 free_zebu_expression_additive(subgrammar);
 }
@@ -5980,22 +5543,12 @@ case 34:
 {
 struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->hexadecimal), value->hexadecimal = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6006,22 +5559,12 @@ case 33:
 {
 struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->octal), value->octal = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6032,42 +5575,25 @@ case 56:
 {
 struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_expression* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression(value->inner), value->inner = inc_zebu_expression(subgrammar);
 free_zebu_expression(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 17;
@@ -6077,22 +5603,12 @@ case 32:
 {
 struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->binary), value->binary = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6103,22 +5619,12 @@ case 31:
 {
 struct zebu_expression_highest* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->decimal), value->decimal = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6129,19 +5635,12 @@ case 68:
 {
 struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_multiplicative* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->div) { free_zebu_token(value->div); value->div = inc_zebu_token(trie->div); }
 if (trie->inner) { free_zebu_expression_prefix(value->inner); value->inner = inc_zebu_expression_prefix(trie->inner); }
 if (trie->left) { free_zebu_expression_multiplicative(value->left); value->left = inc_zebu_expression_multiplicative(trie->left); }
@@ -6151,22 +5650,15 @@ free_zebu_expression_multiplicative(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->div), value->div = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_multiplicative(value->left), value->left = inc_zebu_expression_multiplicative(subgrammar);
 free_zebu_expression_multiplicative(subgrammar);
 }
@@ -6177,19 +5669,12 @@ case 66:
 {
 struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_multiplicative* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->div) { free_zebu_token(value->div); value->div = inc_zebu_token(trie->div); }
 if (trie->inner) { free_zebu_expression_prefix(value->inner); value->inner = inc_zebu_expression_prefix(trie->inner); }
 if (trie->left) { free_zebu_expression_multiplicative(value->left); value->left = inc_zebu_expression_multiplicative(trie->left); }
@@ -6199,22 +5684,15 @@ free_zebu_expression_multiplicative(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->mul), value->mul = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_expression_multiplicative* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_multiplicative(value->left), value->left = inc_zebu_expression_multiplicative(subgrammar);
 free_zebu_expression_multiplicative(subgrammar);
 }
@@ -6225,19 +5703,12 @@ case 45:
 {
 struct zebu_expression_multiplicative* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_prefix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_prefix(value->inner), value->inner = inc_zebu_expression_prefix(subgrammar);
 free_zebu_expression_prefix(subgrammar);
 }
@@ -6248,32 +5719,20 @@ case 53:
 {
 struct zebu_expression_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_prefix* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->inner) { free_zebu_expression_highest(value->inner); value->inner = inc_zebu_expression_highest(trie->inner); }
 if (trie->negate) { free_zebu_token(value->negate); value->negate = inc_zebu_token(trie->negate); }
 free_zebu_expression_prefix(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->negate), value->negate = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6284,32 +5743,20 @@ case 55:
 {
 struct zebu_expression_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_prefix* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->inner) { free_zebu_expression_highest(value->inner); value->inner = inc_zebu_expression_highest(trie->inner); }
 if (trie->negate) { free_zebu_token(value->negate); value->negate = inc_zebu_token(trie->negate); }
 free_zebu_expression_prefix(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 27;
@@ -6319,19 +5766,12 @@ case 43:
 {
 struct zebu_expression_prefix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_expression_highest* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_highest(value->inner), value->inner = inc_zebu_expression_highest(subgrammar);
 free_zebu_expression_highest(subgrammar);
 }
@@ -6342,19 +5782,12 @@ case 6:
 {
 struct zebu_regex* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_union* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_union(value->inner), value->inner = inc_zebu_regex_union(subgrammar);
 free_zebu_regex_union(subgrammar);
 }
@@ -6365,19 +5798,12 @@ case 5:
 {
 struct zebu_regex_concat* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_suffix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_suffix(value->inner), value->inner = inc_zebu_regex_suffix(subgrammar);
 free_zebu_regex_suffix(subgrammar);
 }
@@ -6388,28 +5814,19 @@ case 18:
 {
 struct zebu_regex_concat* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_concat* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_concat(value->sub), value->sub = inc_zebu_regex_concat(subgrammar);
 free_zebu_regex_concat(subgrammar);
 }
 {
 struct zebu_regex_suffix* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_suffix(value->inner), value->inner = inc_zebu_regex_suffix(subgrammar);
 free_zebu_regex_suffix(subgrammar);
 }
@@ -6420,22 +5837,12 @@ case 2:
 {
 struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->string), value->string = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6446,42 +5853,25 @@ case 23:
 {
 struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_charset* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_charset(value->charset), value->charset = inc_zebu_charset(subgrammar);
 free_zebu_charset(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 3;
@@ -6491,42 +5881,25 @@ case 21:
 {
 struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_regex* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex(value->sub), value->sub = inc_zebu_regex(subgrammar);
 free_zebu_regex(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 3;
@@ -6536,22 +5909,12 @@ case 1:
 {
 struct zebu_regex_high* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->character), value->character = inc_zebu_token(token);
 free_zebu_token(token);
 }
@@ -6562,31 +5925,19 @@ case 16:
 {
 struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->asterisk), value->asterisk = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
 free_zebu_regex_high(subgrammar);
 }
@@ -6597,31 +5948,19 @@ case 17:
 {
 struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->plus), value->plus = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
 free_zebu_regex_high(subgrammar);
 }
@@ -6632,19 +5971,12 @@ case 4:
 {
 struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
 free_zebu_regex_high(subgrammar);
 }
@@ -6655,31 +5987,19 @@ case 15:
 {
 struct zebu_regex_suffix* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->qmark), value->qmark = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_regex_high* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_high(value->inner), value->inner = inc_zebu_regex_high(subgrammar);
 free_zebu_regex_high(subgrammar);
 }
@@ -6690,19 +6010,12 @@ case 3:
 {
 struct zebu_regex_union* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_concat* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_concat(value->inner), value->inner = inc_zebu_regex_concat(subgrammar);
 free_zebu_regex_concat(subgrammar);
 }
@@ -6713,39 +6026,25 @@ case 24:
 {
 struct zebu_regex_union* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_regex_union* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_union(value->sub), value->sub = inc_zebu_regex_union(subgrammar);
 free_zebu_regex_union(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_regex_concat* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex_concat(value->inner), value->inner = inc_zebu_regex_concat(subgrammar);
 free_zebu_regex_concat(subgrammar);
 }
@@ -6756,19 +6055,12 @@ case 8:
 {
 struct zebu_root* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->rules.n == value->rules.cap)
 {
 value->rules.cap = value->rules.cap << 1 ?: 1;
@@ -6785,19 +6077,12 @@ case 19:
 {
 struct zebu_root* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_root* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->rules.n)
 {
 while (value->rules.n + trie->rules.n > value->rules.cap)
@@ -6814,10 +6099,8 @@ free_zebu_root(trie);
 }
 {
 struct zebu_token_rule* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 if (value->rules.n == value->rules.cap)
 {
 value->rules.cap = value->rules.cap << 1 ?: 1;
@@ -6834,19 +6117,12 @@ case 30:
 {
 struct zebu_token_rule* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_token_rule* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->delete) { free_zebu_expression(value->delete); value->delete = inc_zebu_expression(trie->delete); }
 if (trie->insert) { free_zebu_expression(value->insert); value->insert = inc_zebu_expression(trie->insert); }
 if (trie->match) { free_zebu_expression(value->match); value->match = inc_zebu_expression(trie->match); }
@@ -6868,32 +6144,20 @@ free_zebu_token_rule(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_regex* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_regex(value->regex), value->regex = inc_zebu_regex(subgrammar);
 free_zebu_regex(subgrammar);
 }
@@ -6904,19 +6168,12 @@ case 69:
 {
 struct zebu_within* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_within* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->percent) { free_zebu_token(value->percent); value->percent = inc_zebu_token(trie->percent); }
 if (trie->points) { free_zebu_expression(value->points); value->points = inc_zebu_expression(trie->points); }
 if (trie->tolerance) { free_zebu_expression_highest(value->tolerance); value->tolerance = inc_zebu_expression_highest(trie->tolerance); }
@@ -6924,45 +6181,28 @@ free_zebu_within(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(value->percent), value->percent = inc_zebu_token(token);
 free_zebu_token(token);
 }
 {
 struct zebu_expression_highest* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_highest(value->tolerance), value->tolerance = inc_zebu_expression_highest(subgrammar);
 free_zebu_expression_highest(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 16;
@@ -6972,19 +6212,12 @@ case 57:
 {
 struct zebu_within* value = memset(malloc(sizeof(*value)), 0, sizeof(*value));
 value->refcount = 1;
-#if ZEBU_LINE_NUMBERS
 value->startline = -1;
 value->endline = 0;
-#endif
-#if ZEBU_TREE_DEPTH
-value->tree_depth = 0;
-#endif
 {
 struct zebu_within* trie = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (trie->startline < value->startline) value->startline = trie->startline;
 if (value->endline < trie->endline) value->endline = trie->endline;
-#endif
 if (trie->percent) { free_zebu_token(value->percent); value->percent = inc_zebu_token(trie->percent); }
 if (trie->points) { free_zebu_expression(value->points); value->points = inc_zebu_expression(trie->points); }
 if (trie->tolerance) { free_zebu_expression_highest(value->tolerance); value->tolerance = inc_zebu_expression_highest(trie->tolerance); }
@@ -6992,33 +6225,21 @@ free_zebu_within(trie);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 {
 struct zebu_expression_highest* subgrammar = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (subgrammar->startline < value->startline) value->startline = subgrammar->startline;
 if (value->endline < subgrammar->endline) value->endline = subgrammar->endline;
-#endif
 free_zebu_expression_highest(value->tolerance), value->tolerance = inc_zebu_expression_highest(subgrammar);
 free_zebu_expression_highest(subgrammar);
 }
 {
 struct zebu_token* token = data.data[--yacc.n, --data.n];
-#if ZEBU_LINE_NUMBERS
 if (token->line < value->startline) value->startline = token->line;
 if (value->endline < token->line) value->endline = token->line;
-#endif
-#if ZEBU_TREE_DEPTH
-token->tree_depth = &value->tree_depth;
-#endif
 free_zebu_token(token);
 }
 d = value, g = 16;

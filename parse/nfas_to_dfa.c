@@ -18,6 +18,9 @@
 #include <set/regex/foreach.h>
 #include <set/regex/is_nonempty.h>
 
+#include <token_rule/struct.h>
+#include <token_rule/inc.h>
+
 #include <quack/new.h>
 #include <quack/append.h>
 #include <quack/is_nonempty.h>
@@ -121,19 +124,17 @@ struct regex* nfas_to_dfa(
 		struct regex* const state = mapping->combined_state;
 		
 		{
-			unsigned accepts = 0;
+			struct token_rule* accepts = NULL;
 			
 			regexset_foreach(stateset, ({
 				void runme(struct regex* regex) {
-					if (regex->accepts > accepts)
+					if (regex->accepts && (!accepts || regex->accepts->rank < accepts->rank))
 						accepts = regex->accepts;
 				}
 				runme;
 			}));
 			
-			state->accepts = accepts;
-			
-			dpv(state->accepts);
+			state->accepts = inc_token_rule(accepts);
 		}
 		
 		for (unsigned i = 0, n = 256; i < n; i++)

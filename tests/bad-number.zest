@@ -19,10 +19,10 @@
 
 "./after.txt": "123abc";
 
-shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1024;
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1280;
 
 file("./stderr.txt") == ""
-	+ "./lexdiff: could not convert \'123abc\' into a number! (from second file)" + "\n";
+	+ "./lexdiff: cannot convert \'123abc\' to a number on line 1!" + "\n";
 
 ---
 
@@ -42,10 +42,10 @@ file("./stderr.txt") == ""
 
 "./after.txt": "123456";
 
-shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1024;
+shell("./lexdiff" "-p" "./spec-file.txt" "before.txt" "after.txt" >2 "./stderr.txt") == 1280;
 
 file("./stderr.txt") == ""
-	+ "./lexdiff: could not convert \'123abc\' into a number! (from first file)" + "\n";
+	+ "./lexdiff: cannot convert \'123abc\' to a number on line 1!" + "\n";
 
 
 

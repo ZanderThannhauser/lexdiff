@@ -22,6 +22,7 @@
 	#include <stdarg.h>
 	#include <limits.h>
 	#include <time.h>
+	#include <gmp.h>
 	
 	#include <defines/argv0.h>
 	

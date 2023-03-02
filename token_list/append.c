@@ -3,6 +3,8 @@
 
 #include <memory/srealloc.h>
 
+#include <token/inc.h>
+
 #include "struct.h"
 #include "append.h"
 
@@ -18,7 +20,7 @@ void token_list_append(
 		this->data = srealloc(this->data, sizeof(*this->data) * this->cap);
 	}
 
-	this->data[this->n++] = token;
+	this->data[this->n++] = inc_token(token);
 	
 	EXIT;
 }

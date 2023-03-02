@@ -9,18 +9,28 @@
 
 #include <defines/argv0.h>
 
-#include <memory/smalloc.h>
-#include <memory/srealloc.h>
+/*#include <memory/smalloc.h>*/
+/*#include <memory/srealloc.h>*/
 
 #include <regex/struct.h>
 
 #include <token_list/new.h>
 #include <token_list/append.h>
 
-#include "token.h"
+#include <token/new.h>
+#include <token/parse_as_number.h>
+#include <token/free.h>
+
+#include <token_rule/struct.h>
+
+/*#include <id_to_rule/get.h>*/
+
+/*#include "token.h"*/
 #include "tokenize.h"
 
-struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
+struct token_list* tokenize(
+	FILE* stream,
+	struct regex* tokenizer)
 {
 	ENTER;
 	
@@ -106,12 +116,13 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			
 			ddprintf("token: \"%.*s\"\n", i, buffer.data);
 			
-			struct token* token = smalloc(sizeof(*token));
+			struct token* token = new_token(
+				/* rule: */ state->accepts,
+				/* chars: */ buffer.data,
+				/* len: */ i);
 			
-			token->id = state->accepts;
-			
-			token->data = memcpy(malloc(i + 1), buffer.data, i);
-			token->data[i] = 0;
+			if (state->accepts->withins.n)
+				token_parse_as_number(token, line);
 			
 			token_list_append(tlist, token);
 			
@@ -123,6 +134,8 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			dpv(i);
 			
 			if (!buffer.n && feof(stream)) keep_going = false;
+			
+			free_token(token);
 		}
 		else if (fallback)
 		{
@@ -132,12 +145,13 @@ struct token_list* tokenize(FILE* stream, struct regex* tokenizer)
 			
 			ddprintf("(fallback) token: \"%.*s\"\n", i, buffer.data);
 			
-			struct token* token = smalloc(sizeof(*token));
+			struct token* token = new_token(
+				/* rule: */ fallback->accepts,
+				/* chars: */ buffer.data,
+				/* len: */ i);
 			
-			token->id = fallback->accepts;
-			
-			token->data = memcpy(malloc(i + 1), buffer.data, i);
-			token->data[i] = 0;
+			if (fallback->accepts->withins.n)
+				token_parse_as_number(token, line);
 			
 			token_list_append(tlist, token);
 			

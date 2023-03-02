@@ -6,4 +6,5 @@ bin/debug-build/./parse/simplify_dfa.o: parse/simplify_dfa.c debug.h \
  heap/is_nonempty.h heap/pop.h heap/push.h heap/free.h regex/struct.h \
  regex/new.h set/regex/new.h set/regex/add.h set/regex/clone.h \
  set/regex/foreach.h set/regex/get_head.h set/regex/contains.h \
- set/regex/discard.h set/regex/free.h parse/simplify_dfa.h
+ set/regex/discard.h set/regex/free.h token_rule/inc.h \
+ parse/simplify_dfa.h

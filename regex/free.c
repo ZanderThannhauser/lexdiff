@@ -13,6 +13,8 @@
 #include <set/regex/add.h>
 #include <set/regex/free.h>
 
+#include <token_rule/free.h>
+
 #include "struct.h"
 #include "free.h"
 
@@ -50,6 +52,8 @@ void free_regex(
 		}
 		
 		free(regex->lambdas.data);
+		
+		free_token_rule(regex->accepts);
 		
 		free(regex);
 	}
