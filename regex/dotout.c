@@ -13,6 +13,8 @@
 #include <set/regex/add.h>
 #include <set/regex/free.h>
 
+#include <token_rule/struct.h>
+
 #include <regex/struct.h>
 
 #include "dotout.h"
@@ -46,7 +48,7 @@ void regex_dotout(
 					"shape = doublecircle" "\n"
 					"label = \"%u\"" "\n"
 				"];" "\n"
-			"", regex, regex->accepts);
+			"", regex, regex->accepts->rank);
 		}
 		else
 		{

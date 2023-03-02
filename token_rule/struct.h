@@ -4,6 +4,8 @@
 
 struct token_rule
 {
+	unsigned rank;
+	
 	mpq_t insert;
 	mpq_t update;
 	mpq_t match;

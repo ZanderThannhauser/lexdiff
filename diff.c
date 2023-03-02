@@ -8,85 +8,34 @@
 
 #include <debug.h>
 
-#include <defines/argv0.h>
+/*#include <defines/argv0.h>*/
 
-#include <enums/error.h>
+/*#include <enums/error.h>*/
 
 #include <memory/smalloc.h>
 
-#include <id_to_rule/get.h>
+/*#include <id_to_rule/get.h>*/
 
-#include <cmdln/verbose.h>
+/*#include <cmdln/verbose.h>*/
 
 #include <token_rule/struct.h>
 
-#include <edit_kind.h>
+/*#include <edit_kind.h>*/
 
-#include <mpq_print.h>
+/*#include <mpq_print.h>*/
 
-#include "token.h"
+#include <mpq/init_set.h>
+#include <mpq/init_set_ui.h>
+
+#include <token/struct.h>
+
+#include <token_list/struct.h>
+
 #include "print_token.h"
-#include "token_list/struct.h"
 #include "diff_cell.h"
 #include "diff.h"
 
-static void mpq_init_set_ui(mpq_ptr ptr, unsigned a, unsigned b)
-{
-	mpq_init(ptr);
-	mpq_set_ui(ptr, a, b);
-}
-
-static void mpq_init_set(mpq_ptr ptr, mpq_ptr src)
-{
-	mpq_init(ptr);
-	mpq_set(ptr, src);
-}
-
-static bool mpq_init_set_decimal(mpq_ptr ptr, const char* str)
-{
-	ENTER;
-	
-	mpq_init(ptr);
-	
-	mpq_t ten, inc;
-	mpq_init_set_ui(ten, 10, 1);
-	mpq_init_set_ui(inc, 1, 1);
-	
-	dpvs(str);
-	
-	while (*str && index("0123456789", *str))
-	{
-		mpq_mul(ptr, ptr, ten);
-		
-		for (char c = *str; c > '0'; c--)
-			mpq_add(ptr, ptr, inc);
-		
-		str++;
-	}
-	
-	if (*str == '.')
-	{
-		str++;
-		
-		while (*str && index("0123456789", *str))
-		{
-			mpq_div(inc, inc, ten);
-			
-			for (char c = *str; c > '0'; c--)
-				mpq_add(ptr, ptr, inc);
-			
-			str++;
-		}
-	}
-	
-	mpq_clear(ten), mpq_clear(inc);
-	
-	EXIT;
-	return !!*str;
-}
-
 struct diff_cell* diff(
-	struct id_to_rule* idtor,
 	struct token_list* before,
 	struct token_list* after)
 {
@@ -107,7 +56,7 @@ struct diff_cell* diff(
 	{
 		struct diff_cell* cell = &costs[0][i+1][0];
 		
-		mpq_ptr delete = id_to_rule_get_rule(idtor, before->data[i]->id)->delete;
+		mpq_ptr delete = before->data[i]->rule->delete;
 		
 		mpq_add(total, total, delete);
 		
@@ -122,7 +71,7 @@ struct diff_cell* diff(
 	{
 		struct diff_cell* cell = &costs[0][0][j+1];
 		
-		mpq_ptr insert = id_to_rule_get_rule(idtor, after->data[j]->id)->insert;
+		mpq_ptr insert = after->data[j]->rule->insert;
 		
 		mpq_add(total, total, insert);
 		
@@ -131,28 +80,33 @@ struct diff_cell* diff(
 		mpq_init_set(cell->delta, insert);
 	}
 	
-	mpq_t alt_total, alt_delta;
+	mpq_t alt_total, alt_delta, hundred, sub, tmp;
 	mpq_init(alt_total), mpq_init(alt_delta);
+	mpq_init_set_ui(hundred, 100, 1);
+	mpq_init(sub), mpq_init(tmp);
 	enum edit_kind action;
 	
 	for (i = 0; i < n; i++)
 	{
 		for (j = 0; j < m; j++)
 		{
-			unsigned mid = before->data[i]->id, cid = after->data[j]->id;
+			struct token* btok = before->data[i];
+			struct token* atok = after->data[j];
+			struct token_rule* brule = btok->rule;
+			struct token_rule* arule = atok->rule;
 			
 			struct diff_cell* cell = &costs[0][i+1][j+1];
 			
 			// consider delete:
 			{
-				mpq_set(delta, id_to_rule_get_rule(idtor, mid)->delete);
+				mpq_set(delta, brule->delete);
 				mpq_add(total, delta, costs[0][i][j+1].total);
 				action = ek_delete;
 			}
 			
 			// consider insert:
 			{
-				mpq_set(alt_delta, id_to_rule_get_rule(idtor, cid)->insert);
+				mpq_set(alt_delta, arule->insert);
 				mpq_add(alt_total, alt_delta, costs[0][i+1][j].total);
 			
 				if (mpq_cmp(alt_total, total) >= 0)
@@ -164,67 +118,44 @@ struct diff_cell* diff(
 			}
 			
 			// if the tokens are of a different kind, then they aren't 'similar'
-			if (mid == cid)
+			if (brule == arule)
 			{
-				struct token_rule* rule = id_to_rule_get_rule(idtor, cid);
-				
-				if (strcmp(before->data[i]->data, after->data[j]->data))
+				if (strcmp(btok->chars, atok->chars))
 				{
-					mpq_add(alt_total, rule->update, costs[0][i][j].total);
+					mpq_add(alt_total, brule->update, costs[0][i][j].total);
 					
 					if (mpq_cmp(alt_total, total) >= 0)
 					{
-						mpq_set(delta, rule->update);
+						mpq_set(delta, brule->update);
 						mpq_set(total, alt_total);
 						action = ek_update;
 					}
 				}
 				else
 				{
-					mpq_add(alt_total, rule->match, costs[0][i][j].total);
+					mpq_add(alt_total, brule->match, costs[0][i][j].total);
 					
 					if (mpq_cmp(alt_total, total) >= 0)
 					{
-						mpq_set(delta, rule->match);
+						mpq_set(delta, brule->match);
 						mpq_set(total, alt_total);
 						action = ek_match;
 					}
 				}
 				
-				unsigned k = 0, n = rule->withins.n;
+				unsigned k = 0, n = brule->withins.n;
 				
 				if (n)
 				{
-					mpq_t mq, cq;
-					
-					if (mpq_init_set_decimal(mq, before->data[i]->data))
-					{
-						fprintf(stderr, "%s: could not convert '", argv0);
-						print_token(stderr, before->data[i]->data, -1);
-						fprintf(stderr, "' into a number! (from first file)\n");
-						exit(e_bad_spec_file);
-					}
-					
-					if (mpq_init_set_decimal(cq, after->data[i]->data))
-					{
-						fprintf(stderr, "%s: could not convert '", argv0);
-						print_token(stderr, after->data[i]->data, -1);
-						fprintf(stderr, "' into a number! (from second file)\n");
-						exit(e_bad_spec_file);
-					}
-					
-					mpq_t sub, tmp, hundred;
-					mpq_init(sub), mpq_sub(sub, mq, cq), mpq_abs(sub, sub);
-					mpq_init_set_ui(hundred, 100, 1);
-					mpq_init(tmp);
+					mpq_sub(sub, btok->value, atok->value), mpq_abs(sub, sub);
 					
 					for (; k < n; k++)
 					{
-						struct within* ele = &rule->withins.data[k];
+						struct within* ele = &brule->withins.data[k];
 						
 						if (ele->is_percentage)
 						{
-							mpq_div(tmp, sub, mq);
+							mpq_div(tmp, sub, btok->value);
 							mpq_mul(tmp, tmp, hundred);
 						}
 						else
@@ -245,9 +176,6 @@ struct diff_cell* diff(
 							}
 						}
 					}
-					
-					mpq_clear(sub), mpq_clear(tmp), mpq_clear(hundred);
-					mpq_clear(mq), mpq_clear(cq);
 				}
 			}
 			
@@ -277,6 +205,9 @@ struct diff_cell* diff(
 	mpq_clear(alt_total), mpq_clear(alt_delta);
 	
 	mpq_clear(total), mpq_clear(delta);
+	
+	mpq_clear(hundred);
+	mpq_clear(sub), mpq_clear(tmp);
 	
 	EXIT;
 	return (void*) costs;

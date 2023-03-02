@@ -1,4 +1,7 @@
 
+#ifndef ENUM_EDIT_KIND
+#define ENUM_EDIT_KIND
+
 enum edit_kind
 {
 	ek_insert,
@@ -7,3 +10,5 @@ enum edit_kind
 	ek_within,
 	ek_delete,
 };
+
+#endif

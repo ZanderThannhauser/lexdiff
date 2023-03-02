@@ -9,38 +9,21 @@ struct zebu_token
 {
 unsigned char* data;
 unsigned len, refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned line;
-#endif
-#if ZEBU_COLUMN_NUMBERS
 unsigned startcol, endcol;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned* tree_depth;
-#endif
 };
 struct zebu_$start
 {
 struct zebu_root* root;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset
 {
 struct zebu_charset_union* inner;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset_high
@@ -48,12 +31,7 @@ struct zebu_charset_high
 struct zebu_token* character;
 struct zebu_charset* inner;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset_inter
@@ -61,12 +39,7 @@ struct zebu_charset_inter
 struct zebu_charset_range* inner;
 struct zebu_charset_inter* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset_prefix
@@ -74,12 +47,7 @@ struct zebu_charset_prefix
 struct zebu_token* emark;
 struct zebu_charset_high* inner;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset_range
@@ -87,12 +55,7 @@ struct zebu_charset_range
 struct zebu_charset_prefix* left;
 struct zebu_charset_prefix* right;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_charset_union
@@ -100,24 +63,14 @@ struct zebu_charset_union
 struct zebu_charset_inter* inner;
 struct zebu_charset_union* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_expression
 {
 struct zebu_expression_additive* inner;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_expression_additive
@@ -128,12 +81,7 @@ struct zebu_expression_additive* left;
 struct zebu_expression_multiplicative* right;
 struct zebu_token* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_expression_highest
@@ -144,12 +92,7 @@ struct zebu_token* hexadecimal;
 struct zebu_expression* inner;
 struct zebu_token* octal;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_expression_multiplicative
@@ -160,12 +103,7 @@ struct zebu_expression_multiplicative* left;
 struct zebu_token* mul;
 struct zebu_expression_prefix* right;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_expression_prefix
@@ -173,24 +111,14 @@ struct zebu_expression_prefix
 struct zebu_expression_highest* inner;
 struct zebu_token* negate;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_regex
 {
 struct zebu_regex_union* inner;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_regex_concat
@@ -198,12 +126,7 @@ struct zebu_regex_concat
 struct zebu_regex_suffix* inner;
 struct zebu_regex_concat* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_regex_high
@@ -213,12 +136,7 @@ struct zebu_charset* charset;
 struct zebu_token* string;
 struct zebu_regex* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_regex_suffix
@@ -228,12 +146,7 @@ struct zebu_regex_high* inner;
 struct zebu_token* plus;
 struct zebu_token* qmark;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_regex_union
@@ -241,12 +154,7 @@ struct zebu_regex_union
 struct zebu_regex_concat* inner;
 struct zebu_regex_union* sub;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_root
@@ -256,12 +164,7 @@ struct zebu_token_rule** data;
 unsigned n, cap;
 } rules;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_token_rule
@@ -276,12 +179,7 @@ struct zebu_within** data;
 unsigned n, cap;
 } withins;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 struct zebu_within
@@ -290,12 +188,7 @@ struct zebu_token* percent;
 struct zebu_expression* points;
 struct zebu_expression_highest* tolerance;
 unsigned refcount;
-#if ZEBU_LINE_NUMBERS
 unsigned startline, endline;
-#endif
-#if ZEBU_TREE_DEPTH
-unsigned tree_depth;
-#endif
 };
 
 

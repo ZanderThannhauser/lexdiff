@@ -37,6 +37,8 @@
 #include <set/regex/discard.h>
 #include <set/regex/free.h>
 
+#include <token_rule/inc.h>
+
 #include "simplify_dfa.h"
 
 struct pair
@@ -387,7 +389,7 @@ static struct regex* clone(
 		struct regex* const old = mapping->old;
 		struct regex* const new = mapping->new;
 		
-		new->accepts = old->accepts;
+		new->accepts = inc_token_rule(old->accepts);
 		
 		// for each transition:
 		for (unsigned i = 0, n = 256; i < n; i++)

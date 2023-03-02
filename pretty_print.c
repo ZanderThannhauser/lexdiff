@@ -7,13 +7,13 @@
 
 #include <debug.h>
 
-#include <token.h>
-
 #include <edit_kind.h>
 
 #include <token_list/struct.h>
 
 #include <cmdln/width.h>
+
+#include <token/struct.h>
 
 #include <mpq_print.h>
 
@@ -25,7 +25,6 @@
 
 void pretty_print(
 	struct diff_cell* _costs,
-	struct id_to_rule* idtor,
 	struct token_list* btoks,
 	struct token_list* atoks)
 {
@@ -37,21 +36,49 @@ void pretty_print(
 	
 	enum edit_kind* edits = malloc(sizeof(*edits) * (n + m));
 	
+	ddputs("backtracking:");
 	for (i = n, j = m; i && j; )
 	{
 		switch ((edits[k++] = costs[0][i][j].action))
 		{
-			case ek_insert: j--; break;
+			case ek_insert:
+			{
+				ddputs("case ek_insert:");
+				j--;
+				break;
+			}
 			
-			case ek_update: i--, j--; break;
+			case ek_update:
+			{
+				ddputs("case ek_update:");
+				i--, j--;
+				break;
+			}
 			
-			case ek_match: i--, j--; break;
+			case ek_match:
+			{
+				ddputs("case ek_match:");
+				i--, j--;
+				break;
+			}
 			
-			case ek_within: i--, j--; break;
+			case ek_within:
+			{
+				ddputs("case ek_within:");
+				i--, j--;
+				break;
+			}
 			
-			case ek_delete: i--; break;
+			case ek_delete:
+			{
+				ddputs("case ek_delete:");
+				i--;
+				break;
+			}
 		}
 	}
+	
+	ddputs("pretty printing:");
 	
 	bool color = isatty(1);
 	
@@ -71,9 +98,11 @@ void pretty_print(
 			{
 				case ek_insert:
 				{
+					ddputs("case ek_insert:");
+					
 					if (color) printf("\e[38;2;100;255;100m");
 					
-					char* data = atoks->data[atok]->data + aidx;
+					char* data = atoks->data[atok]->chars + aidx;
 					unsigned len = strcspn(data, "\n");
 					
 					if (data[len])
@@ -90,9 +119,11 @@ void pretty_print(
 				
 				case ek_match:
 				{
+					ddputs("case ek_match:");
+					
 					if (color) printf("\e[38;2;100;100;100m");
 					
-					char* data = atoks->data[atok]->data + aidx;
+					char* data = atoks->data[atok]->chars + aidx;
 					unsigned len = strcspn(data, "\n");
 					
 					if (data[len])
@@ -109,9 +140,11 @@ void pretty_print(
 				
 				case ek_update:
 				{
+					ddputs("case ek_update:");
+					
 					if (color) printf("\e[38;2;255;255;100m");
 					
-					char* data = atoks->data[atok]->data + aidx;
+					char* data = atoks->data[atok]->chars + aidx;
 					unsigned len = strcspn(data, "\n");
 					
 					if (data[len])
@@ -128,9 +161,11 @@ void pretty_print(
 				
 				case ek_within:
 				{
+					ddputs("case ek_within:");
+					
 					if (color) printf("\e[38;2;255;100;255m");
 					
-					char* data = atoks->data[atok]->data + aidx;
+					char* data = atoks->data[atok]->chars + aidx;
 					unsigned len = strcspn(data, "\n");
 					
 					if (data[len])
@@ -147,9 +182,11 @@ void pretty_print(
 				
 				case ek_delete:
 				{
+					ddputs("case ek_delete:");
+					
 					if (color) printf("\e[38;2;255;100;100m");
 					
-					char* data = btoks->data[btok]->data + bidx;
+					char* data = btoks->data[btok]->chars + bidx;
 					unsigned len = strcspn(data, "\n");
 					
 					if (data[len])
@@ -183,7 +220,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| extra '", width - col, "");
-						print_token(stdout, atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->chars, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -196,7 +233,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| exact match of '", width - col, "");
-						print_token(stdout, atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->chars, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -209,9 +246,9 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| '", width - col, "");
-						print_token(stdout, atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->chars, -1);
 						printf("' instead of '");
-						print_token(stdout, btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->chars, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -225,9 +262,9 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| ", width - col, "");
-						print_token(stdout, atoks->data[atok2]->data, -1);
+						print_token(stdout, atoks->data[atok2]->chars, -1);
 						printf(" numerically close enough to ");
-						print_token(stdout, btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->chars, -1);
 						printf(" ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -241,7 +278,7 @@ void pretty_print(
 					if (mpq_sgn(delta))
 					{
 						printf("%*s| missing '", width - col, "");
-						print_token(stdout, btoks->data[btok2]->data, -1);
+						print_token(stdout, btoks->data[btok2]->chars, -1);
 						printf("' ("), mpq_print(delta), printf(")\n");
 						col = 0, newline = false;
 					}
@@ -249,7 +286,7 @@ void pretty_print(
 					btok2++;
 					break;
 				}
-			};
+			}
 		}
 		
 		if (newline)

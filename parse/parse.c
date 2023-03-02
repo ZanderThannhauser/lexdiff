@@ -1,7 +1,6 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include <gmp.h>
 
 #include <debug.h>
 
@@ -11,25 +10,21 @@
 
 #include <cmdln/specification_path.h>
 
-#include <memory/smalloc.h>
+/*#include <memory/smalloc.h>*/
 
 #include <set/regex/new.h>
 #include <set/regex/free.h>
+#include <set/regex/add.h>
 
 #include <regex/struct.h>
 #include <regex/free.h>
 
-#include <set/regex/add.h>
-
+#include <token_rule/struct.h>
 #include <token_rule/new.h>
-#include <token_rule/set_insert.h>
-#include <token_rule/set_match.h>
-#include <token_rule/set_update.h>
-#include <token_rule/set_delete.h>
 #include <token_rule/add_within.h>
-#include <token_rule/free.h>
+/*#include <token_rule/free.h>*/
 
-#include <id_to_rule/add.h>
+/*#include <id_to_rule/add.h>*/
 
 #include "regex_to_nfa.h"
 #include "nfas_to_dfa.h"
@@ -38,8 +33,7 @@
 #include "zebu.h"
 #include "parse.h"
 
-struct regex* parse_specification(
-	struct id_to_rule* idtoc)
+struct regex* parse_specification()
 {
 	ENTER;
 	
@@ -63,39 +57,35 @@ struct regex* parse_specification(
 		
 		struct nfa nfa = regex_to_nfa(token_rule->regex);
 		
-		regexset_add(nfas, nfa.start);
+		struct token_rule* rule = new_token_rule(i);
 		
-		unsigned id = i + 1;
-		
-		nfa.accepts->accepts = id;
-		
-		struct token_rule* rule = new_token_rule();
+		regexset_add(nfas, nfa.start), nfa.accepts->accepts = rule;
 		
 		if (token_rule->insert)
 		{
 			mpq_ptr insert = parse_expression(token_rule->insert);
-			token_rule_set_insert(rule, insert);
+			mpq_set(rule->insert, insert);
 			mpq_clear(insert), free(insert);
 		}
 		
 		if (token_rule->match)
 		{
 			mpq_ptr match = parse_expression(token_rule->match);
-			token_rule_set_match(rule, match);
+			mpq_set(rule->match, match);
 			mpq_clear(match), free(match);
 		}
 		
 		if (token_rule->update)
 		{
 			mpq_ptr update = parse_expression(token_rule->update);
-			token_rule_set_update(rule, update);
+			mpq_set(rule->update, update);
 			mpq_clear(update), free(update);
 		}
 		
 		if (token_rule->delete)
 		{
 			mpq_ptr delete = parse_expression(token_rule->delete);
-			token_rule_set_delete(rule, delete);
+			mpq_set(rule->delete, delete);
 			mpq_clear(delete), free(delete);
 		}
 		
@@ -112,10 +102,6 @@ struct regex* parse_specification(
 			mpq_clear(tolerance), free(tolerance);
 			mpq_clear(points), free(points);
 		}
-		
-		id_to_rule_add(idtoc, id, rule);
-		
-		free_token_rule(rule);
 	}
 	
 	struct regex* dfa = nfas_to_dfa(nfas);

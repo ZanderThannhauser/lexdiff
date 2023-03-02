@@ -12,7 +12,6 @@ buildtype ?= release
 
 ifeq ($(buildtype), release)
 CPPFLAGS += -D RELEASE
-CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -O2
 CFLAGS += -flto
@@ -22,7 +21,6 @@ LDFLAGS += -static
 
 else ifeq ($(buildtype), test)
 CPPFLAGS += -D TESTING
-CPPFLAGS += -D ZEBU_LINE_NUMBERS
 
 CFLAGS += -g
 CFLAGS += -Wno-unused-variable
@@ -69,7 +67,7 @@ ARGS += -W 40
 
 ARGS += --pretty-print
 
-#ARGS += --dotout /tmp/tokenizer.dotm
+#ARGS += --dotout /tmp/tokenizer.dot
 
 #ARGS += ./examples/csv/csv.ldiff ./examples/csv/before.csv ./examples/csv/after.csv
 
